@@ -1,0 +1,133 @@
+@import "../../../../assets/css/core/variables/shadow";
+
+.user-profile{
+    .userinformation {
+        display: flex;
+        align-items: center;
+        .user-image {
+            width: 150px;
+            max-width: 100%;
+            height: 150px;
+            img {
+                border-radius: 50%;
+                width: auto;
+                height: 100%;
+            }
+        }
+        .user-content {
+            text-align: left;
+            h3 {
+                font-weight: 500;
+            }
+            .info {
+                display: flex;
+                align-items: center;
+                margin-bottom: 0.7rem;
+                padding-left: 25px;
+                position: relative;
+                i {
+                    width: 20px;
+                    text-align: center;
+                    margin-left: -25px;
+                }
+            }
+        }
+    }
+    .allready_redeem {
+        .task-progress-main {
+            background: #0E1535;
+            padding: 0.5rem;
+            border-radius: 10px;
+            font-size: 1rem !important;
+            margin-bottom: 1rem;
+            box-shadow: $bmd-shadow-focus;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            .task-progress-image {
+                height: 80px;
+                width: 80px;
+                margin-right: 0.8rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+            .task-progress-content {
+                display: flex;
+                align-content: space-between;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 100%;
+                h4 {
+                    color: #ffffff;
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                    letter-spacing: 0.5px;
+                    margin: 0.2rem 0 0.6rem;
+                }
+                .task-info {
+                    align-items: center;
+                    img {
+                        width: 18px;
+                        height: auto;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:575px){
+    .userinformation{
+        display: block;
+        .user-image{
+            margin: 0 0 15px;
+        }
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .user-profile{
+        .allready_redeem {
+            .row {
+                > div {
+                    margin: 0 0 1rem;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 767px) {
+    .section-head {
+        font-size: 1.8rem;
+    }
+    .user-profile{
+        .userinformation {
+            flex-direction: column;
+            .user-image {
+                margin: 0 0 15px !important;
+            }
+            .user-content {
+                text-align: center;
+                width: 100%;
+                .text-start {
+                    text-align: center;
+                }
+            }
+        }
+        .allready_redeem {
+            .row {
+                > div {
+                    margin: 0 0 1rem;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}

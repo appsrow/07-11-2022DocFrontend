@@ -1,0 +1,346 @@
+@import "../../../../assets/css/core/mixins";
+@import "../../../../assets/css/core/variables/colors";
+form .form-group.file_upload .file-input .form-control {
+  z-index: 0;
+}
+.text-change{
+  text-align: center;
+}
+.videoCenter{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.create_campaign {
+  padding: 2rem;
+  position: relative;
+  //z-index: 1;
+  .target_select {
+    text-align: center;
+    h6 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 1.4rem;
+      color: $teal-a200;
+      img {
+        display: inline-block;
+        width: 25px;
+        margin-right: 0.3rem;
+      }
+    }
+  }
+  .profile_img {
+    @include profile_img;
+  }
+}
+.fileInput{
+  display: none;
+}
+.cac_info {
+  .dropdown-menu{
+    transform: translate(5px, 40px) !important;
+    top: 0 !important;
+  }
+}
+input[type='file'],input[type=file]::file-selector-button, input[type=file]::-webkit-file-upload-button, input[type=file]::-ms-browse {
+  width:400px;
+  height:25px;
+  opacity:0
+    }
+
+
+.img-upload{
+  border-radius: 50%;
+}
+.segmentation_main {
+  background: #3a477f;
+  border-radius: 10px;
+  padding: 1.5rem 1rem;
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 2rem;
+  h5 {
+    margin-bottom: 1.5rem;
+    line-height: normal;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #74faaa;
+  }
+  .form-group {
+    margin: 0;
+    label.lbl-input {
+      background-color: #3a477f;
+    }
+    .d-flex {
+      span {
+        display: flex;
+        align-items: baseline;
+        padding: 0.7rem 0.4rem 0;
+      }
+    }
+  }
+  ::ng-deep {
+    angular2-multiselect {
+      position: relative;
+      .cuppa-dropdown {
+        .selected-list {
+          .c-btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            font-size: 15px;
+            letter-spacing: 1px;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 7px 10PX;
+            border-radius: 5px;
+            color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #676e8c;
+            height: calc(1.5em + .75rem + 9px);
+            > span {
+              font-size: 0.8em;
+            }
+            .c-list {
+              display: flex;
+              align-items: center;
+              white-space: pre;
+              overflow-x: hidden;
+              width: calc(100% - 3rem);
+              max-width: 500px;
+              .c-token {
+                color: #070b28;
+                margin-right: 4px;
+                margin-top: 0;
+                padding: 1px 18px 2px 6px;
+                background: #74faaa;
+                font-size: 0.8rem;
+                font-weight: 500;
+                font-family: 'Poppins';
+                border-radius: 20px;
+                .c-remove{
+                  right: 6px;
+                  svg {
+                    fill: #000;
+                    width: 8px;
+                    height: 8px;
+                  }
+                }
+              }
+            }
+            .c-remove.clear-all {
+              svg {
+                fill: #fff;
+              }
+            }
+            .c-angle-down,.c-angle-up {
+              top: 40%;
+                svg {
+                  fill: #fff;
+                }
+            }
+          }
+        }
+        .dropdown-list {
+          bottom: 50px !important;
+          left: 0px !important;
+          top: auto !important;
+          position: absolute !important;
+          .list-area {
+            .select-all {
+              label {
+                color: #252f5a;
+                &::before {
+                  background-color: #eeeff2;
+                  border: 1px solid #bdc3d0;
+                }
+              }
+            }
+            ul {
+              li {
+                padding: 3px 10px;
+                label {
+                  color: #252f5a;
+                  &::after {
+                    color: #000;
+                  }
+                  &::before {
+                    background-color: #eeeff2;
+                    border: 1px solid #bdc3d0;
+                  }
+                }
+              }
+            }
+            div {
+              &:last-child {
+                max-height: 170px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+::ng-deep {
+  angular2-multiselect {
+    position: relative;
+    .cuppa-dropdown {
+      .selected-list {
+        .c-btn {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          font-size: 15px;
+          letter-spacing: 1px;
+          font-weight: 400;
+          line-height: 1.5;
+          padding: 7px 10PX;
+          border-radius: 5px;
+          color: rgba(255, 255, 255, 0.8);
+          border: 2px solid #676e8c;
+          height: calc(1.5em + .75rem + 9px);
+          > span {
+            font-size: 0.8em;
+          }
+          .c-list {
+            display: flex;
+            align-items: center;
+            white-space: pre;
+            overflow-x: hidden;
+            width: calc(100% - 3rem);
+            max-width: 500px;
+            .c-token {
+              color: #070b28;
+              margin-right: 4px;
+              margin-top: 0;
+              padding: 1px 18px 2px 6px;
+              background: #74faaa;
+              font-size: 0.8rem;
+              font-weight: 500;
+              font-family: 'Poppins';
+              border-radius: 20px;
+              .c-remove{
+                right: 6px;
+                svg {
+                  fill: #000;
+                  width: 8px;
+                  height: 8px;
+                }
+              }
+            }
+          }
+          .c-remove.clear-all {
+            svg {
+              fill: #fff;
+            }
+          }
+          .c-angle-down,.c-angle-up {
+            top: 40%;
+              svg {
+                fill: #fff;
+              }
+          }
+        }
+      }
+      .dropdown-list {
+        bottom: 50px !important;
+        left: 0px !important;
+        top: auto !important;
+        position: absolute !important;
+        .list-area {
+          .select-all {
+            label {
+              color: #252f5a;
+              &::before {
+                background-color: #eeeff2;
+                border: 1px solid #bdc3d0;
+              }
+            }
+          }
+          ul {
+            li {
+              padding: 3px 10px;
+              label {
+                color: #252f5a;
+                &::after {
+                  color: #000;
+                }
+                &::before {
+                  background-color: #eeeff2;
+                  border: 1px solid #bdc3d0;
+                }
+              }
+            }
+          }
+          div {
+            &:last-child {
+              max-height: 170px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 991px) {
+  .segmentation_main {
+    .col-sm-12 {
+        .form-group {
+            margin-bottom: 1.6rem;
+        }
+        &:last-child {
+            .form-group {
+                margin-bottom: 0;
+            }
+        }
+    }
+  }
+}
+@media only screen and (max-width: 767px) {
+  .text-change{
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .col-md-12 {
+    .btn.btn-green {
+      min-width: auto;
+      padding: 0.5rem 1.7rem;
+    }
+  }
+  .segmentation_main {
+    h5 {
+      font-size: 1rem;
+    }
+    .form-group {
+      margin-bottom: 1.6rem;
+    }
+    .col-sm-12 {
+      &:last-child  .form-group {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+@media (max-width: 767px) {
+  .segmentation_main {
+  ::ng-deep {
+    angular2-multiselect {
+      position: relative;
+      .cuppa-dropdown {
+        .dropdown-list {
+          .list-area {
+            div {
+              &:last-child {
+                max-height: 72px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    }
+  }
+}
+.form-select:disabled {
+  background-color: #434b71;
+}

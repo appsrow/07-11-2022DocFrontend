@@ -1,0 +1,623 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mb-lg-4">
+      <div class="row my-4 align-items-center header_withbtn">
+        <div class="mb-0 col-5 col-sm-6 col-md-7 col-lg-6">
+          <h1 class="section-head"> {{ 'user.tasks' | translate }}</h1>
+        </div>
+        <div class="col-7 col-sm-6 col-md-5 col-lg-6 text-end ">
+          <div class="can-toggle w-auto mb-0" *ngIf="completedTaskButton">
+            <input id="campaign_status" type="checkbox">
+            <label for="campaign_status">
+              <input id="pendingCompleted" type="checkbox" (change)="togglePendingCompleted(pendingCompleted)"
+                [checked]="showPendingTasks" #pendingCompleted>
+              <label for="pendingCompleted">
+                <div class="can-toggle__switch" [attr.data-checked]="'shared.completedTasks' | translate "
+                  [attr.data-unchecked]="'shared.pendingTasks' | translate "></div>
+              </label>
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- <div id="player"></div> -->
+      <div class="tasks_tabs">
+        <ul class="nav nav-pills nav-task mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation" (click)="selectedType = 'all'">
+            <button class="nav-link " [ngClass]="{'active': selectedType == 'all'}" data-bs-toggle="pill"
+              data-bs-target="#all" type="button" role="tab" aria-selected="true"><img src="/assets/images/icon_all.png"
+                alt="All"> {{ 'user.all' | translate }}</button>
+          </li>
+          <li class="nav-item" role="presentation" (click)="selectedType = 'lead'">
+            <button class="nav-link" [ngClass]="{'active': selectedType == 'lead'}" data-bs-toggle="pill"
+              data-bs-target="#lead" type="button" role="tab" aria-selected="false"><img src="/assets/images/lead.png"
+                alt="Lead">
+              {{ 'user.lead' | translate }}</button>
+          </li>
+          <li class="nav-item" role="presentation" (click)="selectedType = 'download'">
+            <button class="nav-link" [ngClass]="{'active': selectedType == 'download'}" data-bs-toggle="pill"
+              data-bs-target="#download" type="button" role="tab" aria-selected="false"><img
+                src="/assets/images/icon_download.png" alt="Download">
+              {{ 'user.download' | translate }}</button>
+          </li>
+          <li class="nav-item" role="presentation" (click)="selectedType = 'follow'">
+            <button class="nav-link" [ngClass]="{'active': selectedType == 'follow'}" data-bs-toggle="pill"
+              data-bs-target="#follow" type="button" role="tab" aria-selected="false"><img
+                src="/assets/images/icon_follow.png" alt="Follow">
+              {{ 'user.follow' | translate }}</button>
+          </li>
+          <li class="nav-item" role="presentation" (click)="selectedType = 'video'">
+            <button class="nav-link" [ngClass]="{'active': selectedType == 'video'}" data-bs-toggle="pill"
+              data-bs-target="#video" type="button" role="tab" aria-selected="false"><img
+                src="/assets/images/icon_video.png" alt="Video">
+              {{ 'user.video' | translate }}</button>
+          </li>
+          <li class="nav-item" role="presentation" (click)="selectedType = 'visit'">
+            <button class="nav-link" [ngClass]="{'active': selectedType == 'visit'}" data-bs-toggle="pill"
+              data-bs-target="#visit" type="button" role="tab" aria-selected="false"><img
+                src="/assets/images/icon_visit.png" alt="Visit">
+              {{ 'user.visit' | translate }}</button>
+          </li>
+          <li class="nav-item" role="presentation" (click)="selectedType = 'forms'">
+            <button class="nav-link" [ngClass]="{'active': selectedType == 'forms'}" data-bs-toggle="pill"
+              data-bs-target="#forms" type="button" role="tab" aria-selected="false">
+              <img src="/assets/images/icon_form.png" alt="Form">
+              Forms</button>
+          </li>
+        </ul>
+        <div *ngIf="noTask" class="heading-white text-center no_task_text">
+          <h3 class="heading-green">{{ 'user.congratulations' | translate }}</h3>
+          {{ 'user.noTaskToPerform' | translate }}
+        </div>
+        <div *ngIf="noTaskComplted" class="mb-2 mt-2 f-16 heading-white text-center">
+          {{ 'user.noTaskComplete' | translate }}
+        </div>
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade" [ngClass]="{'show active': selectedType == 'all'}" id="all" role="tabpanel"
+            aria-labelledby="pills-home-tab">
+            <div class="row" *ngIf="allTasks.length > 0 ">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4"
+                *ngFor="let task of allTasks | slice:0:showAllTasks">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="w-100">
+                    <div class="task-type" title="{{ 'user.lead' | translate }}"
+                      *ngIf="task.campaign_type === 'lead_target'">
+                      <img src="/assets/images/lead.png" class="image-type" alt="task type">
+                      {{ 'user.lead' | translate }}
+                    </div>
+                    <div class="task-type" title="{{ 'user.download' | translate }}"
+                      *ngIf="task.campaign_type === 'apps_download'">
+                      <img src="/assets/images/icon_download.png" class="image-type" alt="task type">
+                      {{ 'user.download' | translate }}
+                    </div>
+                    <div class="task-type" title="{{ 'user.follow' | translate }}"
+                      *ngIf="task.campaign_type === 'follow'">
+                      <img src="/assets/images/icon_follow.png" class="image-type" alt="task type">
+                      {{ 'user.follow' | translate }}
+                    </div>
+                    <div class="task-type" title="{{ 'user.video' | translate }}"
+                      *ngIf="task.campaign_type === 'video_plays'">
+                      <img src="/assets/images/icon_video.png" class="image-type" alt="task type">
+                      {{ 'user.video' | translate }}
+                    </div>
+                    <div class="task-type" title="{{ 'user.visit' | translate }}"
+                      *ngIf="task.campaign_type === 'click_websites'">
+                      <img src="/assets/images/icon_visit.png" class="image-type" alt="task type">
+                      {{ 'user.visit' | translate }}
+                    </div>
+                    <h5>{{ task.campaign_name }}</h5>
+                    <div>
+                      <button type="button"
+                        *ngIf="task.campaign_type != 'follow' && task.campaign_type != 'apps_download'"
+                        (click)="triggerModal(modalData, task, modalDataConfirmMobile)"
+                        [attr.title]="'user.clickEarnCoins' | translate " class="btn-outline btn-task">
+                        {{task.coins | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                          alt="coin"></button>
+                      <button type="button" *ngIf="task.campaign_type === 'apps_download'"
+                        (click)="triggerModal(modalDataAppDownload, task)"
+                        [attr.title]="'user.clickEarnCoins' | translate " class="btn-outline btn-task">
+                        {{task.coins | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                          alt="coin"></button>
+                      <button type="button" *ngIf="task.campaign_type === 'follow'"
+                        (click)="triggerModalFollow(modalDataFollow, task)" class="btn-outline btn-task">
+                        {{task.coins | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                          alt="coin"></button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 text-center">
+                <button *ngIf="showLoadMoreButtonAllTasks" (click)="loadMoreTask('allTasks')"
+                  class="btn btn-green btn-task">{{ 'user.viewAll' | translate }}</button>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" [ngClass]="{'show active': selectedType == 'lead'}" id="lead" role="tabpanel"
+            aria-labelledby="pills-profile-tab">
+            <div class="row" *ngIf="leadTasks.length > 0 ">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4"
+                *ngFor="let task of leadTasks| slice:0:showLeadTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="task-type">
+                    <img src="/assets/images/lead.png" class="image-type" alt="task type">
+                    {{ 'user.lead' | translate }}
+                  </div>
+                  <h5>{{ task.campaign_name }}</h5>
+                  <button type="button" (click)="triggerModal(modalData, task, modalDataConfirmMobile)"
+                    [attr.title]="'user.clickEarnCoins' | translate " class="btn-outline btn-task">
+                    {{task.coins | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                      alt="coin"></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 text-center">
+              <button *ngIf="showLoadMoreButtonLeadTasks" (click)="loadMoreTask('leadTasks')"
+                class="btn btn-green btn-task">{{ 'user.viewAll' | translate }}</button>
+            </div>
+          </div>
+          <div class="tab-pane fade" [ngClass]="{'show active': selectedType == 'download'}" id="download"
+            role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="row" *ngIf="downloadTasks.length > 0 ">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4"
+                *ngFor="let task of downloadTasks | slice:0:showDownloadTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="task-type">
+                    <img src="/assets/images/icon_download.png" class="image-type" alt="task type">
+                    {{ 'user.download' | translate }}
+                  </div>
+                  <h5>{{ task.campaign_name }}</h5>
+                  <button (click)="triggerModal(modalDataAppDownload, task)" type="button"
+                    [attr.title]="'user.clickEarnCoins' | translate " class="btn-outline btn-task">
+                    {{task.coins | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                      alt="coin"></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 text-center">
+              <button *ngIf="showLoadMoreButtonDownloadTasks" (click)="loadMoreTask('downloadTasks')"
+                class="btn btn-green btn-task">{{ 'user.viewAll' | translate }}</button>
+            </div>
+          </div>
+          <div class="tab-pane fade" [ngClass]="{'show active': selectedType == 'follow'}" id="follow" role="tabpanel"
+            aria-labelledby="pills-contact-tab">
+            <div class="row" *ngIf="followTasks.length > 0">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4"
+                *ngFor="let task of followTasks | slice:0:showFollowTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="task-type">
+                    <img src="/assets/images/icon_follow.png" class="image-type" alt="task type">
+                    {{ 'user.follow' | translate }}
+                  </div>
+                  <h5>{{ task.campaign_name }}</h5>
+                  <button type="button" (click)="triggerModalFollow(modalDataFollow, task)" class="btn-outline btn-task"
+                    [attr.title]="'user.clickEarnCoins' | translate "> {{task.coins | number : '1.2-2'}} <img
+                      src="/assets/images/coin.png" class="coin-image" alt="coin"></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 text-center">
+              <button *ngIf="showLoadMoreButtonFollowTasks" (click)="loadMoreTask('followTasks')"
+                class="btn btn-green btn-task">{{ 'user.viewAll' | translate }}</button>
+            </div>
+          </div>
+          <div class="tab-pane fade" [ngClass]="{'show active': selectedType == 'video'}" id="video" role="tabpanel"
+            aria-labelledby="pills-profile-tab">
+            <div class="row" *ngIf="videoTasks.length > 0">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4"
+                *ngFor="let task of videoTasks | slice:0:showVideoTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="task-type">
+                    <img src="/assets/images/icon_video.png" class="image-type" alt="task type">
+                    {{ 'user.video' | translate }}
+                  </div>
+                  <h5>{{ task.campaign_name }}</h5>
+                  <button type="button" class="btn-outline btn-task" [attr.title]="'user.clickEarnCoins' | translate "
+                    (click)="triggerModal(modalData, task)">
+                    {{task.coins | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                      alt="coin"></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 text-center">
+              <button *ngIf="showLoadMoreButtonVideoTasks" (click)="loadMoreTask('videoTasks')"
+                class="btn btn-green btn-task">{{ 'user.viewAll' | translate }}</button>
+            </div>
+          </div>
+          <div class="tab-pane fade" [ngClass]="{'show active': selectedType == 'visit'}" id="visit" role="tabpanel"
+            aria-labelledby="pills-contact-tab">
+            <div class="row" *ngIf="visitTasks.length > 0">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4"
+                *ngFor="let task of visitTasks | slice:0:showVisitTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="task-type">
+                    <img src="/assets/images/icon_visit.png" class="image-type" alt="task type">
+                    {{ 'user.visit' | translate }}
+                  </div>
+                  <h5>{{ task.campaign_name }}</h5>
+                  <button type="button" (click)="triggerModal(modalData, task)"
+                    [attr.title]="'user.clickEarnCoins' | translate " class="btn-outline btn-task">
+                    {{task.coins | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                      alt="coin"></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 text-center">
+              <button *ngIf="showLoadMoreButtonVisitTasks" (click)="loadMoreTask('visitTasks')"
+                class="btn btn-green btn-task">{{ 'user.viewAll' | translate }}</button>
+            </div>
+          </div>
+          <div class="tab-pane fade" [ngClass]="{'show active': selectedType == 'forms'}" id="forms" role="tabpanel"
+            aria-labelledby="pills-contact-tab">
+            <div class="row" *ngIf="formTasks.length > 0">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4"
+                *ngFor="let task of formTasks | slice:0:showVisitTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="task-type">
+                    <img src="/assets/images/icon_visit.png" class="image-type" alt="task type">
+                    {{ 'user.visit' | translate }}
+                  </div>
+                  <h5>{{ task.campaign_name }}</h5>
+                  <button type="button" (click)="triggerModal(modalData, task)"
+                    [attr.title]="'user.clickEarnCoins' | translate " class="btn-outline btn-task">
+                    {{task.coins | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                      alt="coin"></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 text-center">
+              <button *ngIf="showLoadMoreButtonVisitTasks" (click)="loadMoreTask('visitTasks')"
+                class="btn btn-green btn-task">{{ 'user.viewAll' | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 my-lg-4 border-left">
+      <div class="mb-4 header_withbtn">
+        <h1 class="section-head mb-0"> {{ 'userRewards.progressToRewards' | translate }} </h1>
+      </div>
+      <div class="background-primary w-100 br-10 p-3 reward_list">
+        <div class="task-progress-main d-flex" *ngFor="let reward of rewards"
+          [ngClass]="{'cursor': reward.percentage == 100}"
+          [attr.title]="reward.percentage == 100 ? ('user.clickRedeemCoins'| translate) : '' "
+          [routerLink]="reward.percentage == 100 ? '../userRewards/'+'twitch' : []">
+          <div class="task-progress-image">
+            <img [src]="reward.photo ? reward.photo : '/assets/images/reward_default.png' " alt="task image">
+          </div>
+          <div class="task-progress-content">
+            <h4 class="heading">{{ reward.name | titlecase }}</h4>
+            <div class="progress mt-3" style="height:16px">
+              <div class="progress-bar" role="progressbar" [style.width]="reward.percentage+'%'" aria-valuemin="0"
+                aria-valuemax="100">{{reward.percentage | number : '1.0-0'}} %</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #modalData let-modal let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <button type="button" class="close without_head" aria-label="Close" (click)="modal.dismiss('Cross click')"
+      (click)="close()">
+      <span aria-hidden="true">×</span>
+    </button>
+    <div class="row">
+      <div class="col-md-12 f-20 text-center">
+        <h5 class="heading-green without_title">{{modalContent.campaign_name}}</h5>
+      </div>
+      <div class="text-center img-task-div p-3">
+        <img [src]="modalContent.campaign_image" class="img-fluid icon-campaign">
+      </div>
+      <div class="col-md-12 text-center">
+        <p>{{modalContent.product_information}}</p>
+      </div>
+      <div class="col-md-12 mb-2 text-center" *ngIf="!isTaskCompleted && modalContent.campaign_type === 'lead_target'">
+        <p class="m-0 user_tearms"><b>Note: </b>{{ 'user.accessInfo' | translate }}</p>
+        <div class="form-check my-3 w-auto d-inline-block">
+          <input class="form-check-input" type="checkbox" id="flexCheckDefault" value="" [(ngModel)]="agree">
+          <label class="form-check-label pt-1" for="flexCheckDefault">
+            <a routerLink="../termsConditions" target="_blank">{{ 'user.agree' | translate }} <u>{{ 'user.acceptTerms' |
+                translate }}</u></a>
+          </label>
+        </div>
+
+      </div>
+      <div class="d-flex justify-content-center task_btn" *ngIf="!isTaskCompleted">
+        <button type="submit" class="btn btn-green" *ngIf="modalContent.campaign_type === 'lead_target'"
+          [disabled]=" !agree" (click)="completeTask()">
+          <img src="/assets/images/lead.png" class="image-type" alt="task type"> {{ 'user.allow' | translate }}
+        </button>
+        <button type="submit" class="btn btn-green" *ngIf="modalContent.campaign_type === 'apps_download'"
+          (click)="completeTask()">
+          <img src="/assets/images/icon_download.png" class="image-type" alt="task type">
+          {{ 'user.download' | translate }}
+        </button>
+        <button type="submit" class="btn btn-green" *ngIf="modalContent.campaign_type === 'follow'"
+          (click)="completeTask()">
+          <img src="/assets/images/icon_follow.png" class="image-type" alt="task type"> {{ 'user.follow' | translate }}
+        </button>
+        <button type="submit" class="btn btn-green" *ngIf="modalContent.campaign_type === 'video_plays'"
+          (click)="triggerVideoModal(modalDataVideo, modalContent)">
+          <img src="/assets/images/icon_video.png" class="image-type" alt="task type">
+          {{ 'user.watchVideo' | translate }}
+        </button>
+        <button type="submit" class="btn btn-green" *ngIf="modalContent.campaign_type === 'click_websites'"
+          (click)="completeTask()">
+          <img src="/assets/images/icon_visit.png" class="image-type" alt="task type"> {{ 'user.visit' | translate }}
+        </button>
+        <button type="submit" class="btn btn-green" *ngIf="modalContent.campaign_type === 'questions_form'"
+          (click)="openQuestionsForm(modalContent.id)">
+          <img src="/assets/images/question-form.png" class="image-type" alt="task type"> Form
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #modalDataAppDownload let-modal let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <button type="button" class="close without_head" aria-label="Close" (click)="modal.dismiss('Cross click')"
+      (click)="close()">
+      <span aria-hidden="true">×</span>
+    </button>
+    <div class="row">
+      <div class="col-md-12 f-20 text-center">
+        <h5 class="heading-green without_title">{{modalContent.campaign_name}}</h5>
+      </div>
+      <div class="text-center img-task-div p-3">
+        <img [src]="modalContent.campaign_image" class="img-fluid icon-campaign">
+      </div>
+      <div class="col-md-12 text-center">
+        <p>{{modalContent.product_information}}</p>
+      </div>
+      <div class="d-flex justify-content-center task_btn" *ngIf="!isTaskCompleted">
+        <button type="submit" class="btn btn-green" *ngIf="modalContent.campaign_type === 'apps_download'"
+          (click)="goToAppDownloadLink()">
+          <img src="/assets/images/icon_download.png" class="image-type" alt="task type">
+          {{ 'user.download' | translate }}
+        </button>
+        <button (click)="completeTask()" class="btn btn-green btn-task validate_btn ms-3">
+          <svg id="check-mark-square-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+            class="icon line" width="48" height="48">
+            <path id="primary" d="M21,11v9a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H16" stroke="currentColor"
+              style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path>
+            <polyline id="primary-2" data-name="primary" points="21 5 12 14 8 10" stroke="currentColor"
+              style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></polyline>
+          </svg> {{ 'user.Validate' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #modalDataFollow let-modal let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <button type="button" class="close without_head" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+    <div class="row">
+      <div class="col-md-12 f-20 text-center">
+        <h5 class="heading-green without_title">{{modalContent.campaign_name}}</h5>
+      </div>
+      <div class="text-center img-task-div p-3">
+        <img [src]="modalContent.campaign_image" class="img-fluid icon-campaign">
+      </div>
+      <div class="col-md-12 text-center"
+        *ngIf="modalContent.selected_social_media_name === 'facebook' || modalContent.selected_social_media_name === 'twitter'">
+        <p>{{ 'user.clickFollowText' | translate }}</p>
+      </div>
+      <div class="col-md-12 text-center" *ngIf="modalContent.selected_social_media_name === 'youtube'">
+        <p>{{ 'user.clickSubscribeText' | translate }}</p>
+      </div>
+      <div class="text-center text-break col-md-12 mb-3">{{modalContent.selected_social_media_url}}</div>
+      <div class="d-flex justify-content-center"
+        *ngIf="!isTaskCompleted && modalContent.selected_social_media_name === 'facebook'">
+        <iframe id="fb-follow-page" [src]="FBUrl" (load)="iframeLoad($event.target)" width="100" height="35"
+          style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+      </div>
+      <div class="d-flex justify-content-center"
+        *ngIf="!isTaskCompleted && modalContent.selected_social_media_name === 'youtube'">
+        <button type="submit" class="btn btn-green" (click)="youtubeInitialization(modalContent)">{{
+          'userRewards.subscribe' | translate }}</button>
+      </div>
+      <div class="d-flex justify-content-center"
+        *ngIf="!isTaskCompleted && modalContent.selected_social_media_name === 'twitter'">
+        <button type="submit" class="btn btn-green" (click)="twitterAuth()">{{ 'user.follow' | translate }}</button>
+      </div>
+      <div class="d-flex justify-content-center task_btn"
+        *ngIf="!isTaskCompleted && modalContent.selected_social_media_name === 'instagram'">
+        <button type="submit" class="btn btn-green" (click)="authInsta()">{{ 'user.follow' | translate }}</button>
+        <button (click)="validateInstaFollow()" class="btn btn-green btn-task validate_btn ms-3">
+          <svg id="check-mark-square-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+            class="icon line" width="48" height="48">
+            <path id="primary" d="M21,11v9a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H16" stroke="currentColor"
+              style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path>
+            <polyline id="primary-2" data-name="primary" points="21 5 12 14 8 10" stroke="currentColor"
+              style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></polyline>
+          </svg> {{ 'user.Validate' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #modalDataVideo let-modal let-c="close" let-d="dismiss" id="videotask_modal">
+  <div class="modal-header">
+    <div class="video_head">
+      <h5 class="heading-green without_title video_title">{{modalContent.campaign_name}}</h5>
+      <div class="with_coins">
+        <h5 class="heading-green without_title"><img src="../../../assets/images/coin.png" alt="Coins">
+          {{modalContent.coins}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body p-0">
+    <div class="row">
+      <div class="col-md-12 text-start ">
+        <div class="video" [ngClass]="{'hide': !modalContent.uploaded_video_url}">
+          <h1>video</h1>
+          <video autoplay id="watch-task-video" controls>
+            <source [src]="modalContent.uploaded_video_url" type="video/mp4" />
+            {{ 'brand.browserNotSupported' | translate }}
+          </video>
+        </div>
+        <div class="video_properties" id="player"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #modalDataConfirmMobile let-modal let-c="close" let-d="dismiss">
+  <div class="modal-body p-0">
+    <button type="button" class="close without_head" aria-label="Close" (click)="modal.dismiss('Cross click')"
+      (click)="close()" style="top: -0.5rem;">
+      <span aria-hidden="true">×</span>
+    </button>
+    <form [formGroup]="userPhoneVerificationForm">
+      <div class="row">
+        <div class="col-md-12 f-20 text-center mb-3">
+          <h5 class="heading-green without_title mb-0">{{ 'shared.weNeedYourPhone' | translate }}</h5>
+        </div>
+        <div class="col-md-12 text-center">
+          <p class="mb-4 pb-2">{{ 'shared.OopsSecurityText' | translate }}</p>
+          <div class="row">
+            <div class="col-4 col-sm-3 col-md-3 pe-0">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.countryCode' | translate }}</label>
+                <angular2-multiselect *ngIf="countriesDialingCodes" [data]="countriesDialingCodes"
+                  [settings]="countriesDialingCodesSettings" formControlName="selectedCountryDialingCode">
+                </angular2-multiselect>
+                <div
+                  *ngIf="userPhoneVerificationForm.controls['selectedCountryDialingCode'].errors && (userPhoneVerificationForm.controls['selectedCountryDialingCode'].dirty || userPhoneVerificationForm.controls['selectedCountryDialingCode'].touched) || submittedPhone">
+                  <div *ngIf="userPhoneVerificationForm.controls['selectedCountryDialingCode'].errors?.required"
+                    class="text-danger"> {{ 'shared.countryCodeRequired' | translate }} </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-8 col-sm-9 col-md-9">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.phoneNumber' | translate }}</label>
+                <input type="text" maxlength="15" formControlName="phone" class="form-control"
+                  (keypress)="utilityService.phoneNumberValidation($event)"
+                  placeholder="{{ 'shared.phoneNumber' | translate }}">
+                <div
+                  *ngIf="userPhoneVerificationForm.controls['phone'].errors && (userPhoneVerificationForm.controls['phone'].dirty || userPhoneVerificationForm.controls['phone'].touched) || submittedPhone">
+                  <div *ngIf="userPhoneVerificationForm.controls['phone'].errors?.required"
+                    class="text-danger text-start">{{ 'shared.phoneNumberRequired' | translate }}</div>
+                  <div *ngIf="userPhoneVerificationForm.controls['phone'].errors?.minlength"
+                    class="text-danger text-start">{{ 'shared.phoneMinLength' | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center task_btn" *ngIf="!isTaskCompleted">
+          <button class="btn btn-green btn-task ms-3" (click)="sendVerificationCode(content)">{{ 'shared.confirm' |
+            translate }}</button>
+          <button class="btn btn-green btn-task ms-3" (click)="cancel()">{{ 'shared.cancel' | translate }}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #content let-modal>
+  <div class="modal-header head_with_name">
+    <h5 class="modal-title" id="modal-basic-title">{{ 'shared.phoneNoVerification' | translate }}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pt-0">
+    <!-- <form [formGroup]="userPhoneCodeVerificationForm"> -->
+    <div class="row">
+      <div class="col-md-12 px-0">
+        <div class="m-3">
+          <p class="my-4 heading-white text">{{ 'shared.forSecurityText' | translate }} </p>
+          <h5>{{ 'shared.yourPhone' | translate }}: {{ phoneNumber }}</h5>
+        </div>
+        <div class="form-group m-0 verification_input">
+          <label class="lbl-popup-input mb-2">{{ 'shared.pleaseEnterYourVerificationCode' | translate }}<span
+              class="text-danger error-msg">*</span></label>
+          <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+          <div [ngClass]="{'hide': !showOtpRequiredText }">
+            <div class="text-danger">{{ 'shared.verificationCodeRequired' | translate }}</div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center flex-column mt-3">
+          <button type="button" class="btn btn-green" [ngClass]="{'disabled': !isVerifyButtonEnable }"
+            (click)="verifyCode(modalData)">{{ 'shared.verify' | translate }}</button><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<div class="model-completed modal fade" [ngClass]="{'show': showModel == true}" id="task_modal" tabindex="-1"
+  aria-labelledby="task_modalLabel" aria-hidden="true">
+  <div class="modal-backdrop fade" [ngClass]="{'show': showModel == true}"></div>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="btn-close close without_head" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeModelAfterCompletedTask()"><span aria-hidden="true">×</span></button>
+        <div class="text-center video_completion_modal p-3">
+          <img src="/assets/images/payment_sucess.png" alt="email" class="img-email max-img" />
+        </div>
+        <div class="text-center mb-4">
+          <h1 class="section-head my-3">{{ 'shared.congratulations' | translate }}!</h1>
+          <h6 class="heading-secoundry mb-4">{{ 'shared.coinsAdded' | translate }}</h6>
+        </div>
+        <div class="col-md-12 text-center">
+          <button type="button" class="btn btn-green" data-bs-dismiss="modal"
+            (click)="closeModelAfterCompletedTask()">{{ 'shared.close' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <ng-template #modalDataForm let-modal let-c="close" let-d="dismiss" id="videotask_modal">
+  <div class="modal-header">
+    <div class="video_head">
+      <h5 class="heading-green without_title video_title">{{modalContent.campaign_name}}</h5>
+      <div class="with_coins">
+        <h5 class="heading-green without_title"><img src="../../../assets/images/coin.png" alt="Coins">
+          {{modalContent.coins}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body p-0">
+    <div class="row">
+      <div class="col-md-12 text-start ">
+        <label>Q1: Hello How are you?</label><br>
+        <label>Opttion1: Fine</label>&nbsp;&nbsp;
+        <label>Opttion2: Not fine</label>&nbsp;&nbsp;
+        <label>Opttion3: Good</label>&nbsp;&nbsp;
+        <label>Opttion4: Awesome</label>&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+</ng-template> -->

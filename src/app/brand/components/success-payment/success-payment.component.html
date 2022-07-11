@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="text-center pt-5 pb-3">
+        <img src="/assets/images/payment_sucess.png" alt="email" class="img-email max-img" />
+    </div>
+    <div class="text-center mb-4">
+        <h1 class="section-head my-3">{{ 'brand.congratulations' | translate }}</h1>
+        <h4 class="section-subhead mb-4">{{ 'brand.successfulCampaign' | translate }}</h4>
+        <p class="heading-secoundry">
+            {{ 'brand.checkInbox' | translate }}
+        </p>
+    </div>
+    <div class="col-md-12 py-3 bootom_btn" style="display: inline-flex; justify-content: center;">
+        <div class="row-md-6 text-center" style="margin: 0 10px;">
+            <button (click)="goToHome()" class="btn-outline"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{
+                'shared.back' | translate }}</button>
+        </div>
+        <div class="row-md-6 text-center" style="margin: 0 10px;">
+            <button (click)="goToMyCampaigns()" class="btn btn-green">{{ 'shared.myCampaigns' | translate }}</button>
+        </div>
+    </div>
+</div>

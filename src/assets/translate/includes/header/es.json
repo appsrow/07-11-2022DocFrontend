@@ -1,0 +1,22 @@
+{
+    "header": {
+        "menu": {
+            "label0": "Home",
+            "label1": "Tareas",
+            "label2": "Recompensas",
+            "label3": "Cómo funciona",
+            "label4": "Iniciar sesión",
+            "label5": "Desconectar",
+            "label6": "Nueva campaña",
+            "label7": "Mis campañas",
+            "label8": "Leads",
+            "label9": "Suscripciones de transmisores"
+        }
+    },
+    "footer": {
+        "allRightReseved": "Reservados todos los derechos",
+        "terms": "Términos y condiciones",
+        "privacy": "Política de privacidad",
+        "returnPolicy": "Política de devoluciones"
+    }
+}

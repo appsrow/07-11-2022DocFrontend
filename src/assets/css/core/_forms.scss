@@ -1,0 +1,323 @@
+form {
+  .form-group {
+    position: relative;
+    margin-bottom: 1.6rem;
+    label.lbl-input {
+      top: -10px;
+      left: 0.7rem;
+      position: absolute;
+      background-color: #252F5A;
+      letter-spacing: 0.5px;
+      padding: 0px 5px 0px 5px;
+      font-size: 0.85em;
+      color: rgba(255, 255, 255, 0.8);
+      z-index: 1;
+      margin: 0;
+    }
+    label.lbl-popup-input {
+      background-color: #333e6f;
+      top: -10px;
+      left: 6px;
+      position: absolute;
+      padding: 0px 5px 0px 5px;
+      font-size: 0.9em;
+      color: $f-color2;
+      z-index: 1;
+    }
+    input.form-control,  ng2-flatpickr input {
+      display: inline-block;
+      width: 100%;
+      font-size: 15px;
+      letter-spacing: 1px;
+      font-weight: 400;
+      line-height: 1.5;
+      padding: 7px 10PX;
+      border-radius: 5px;
+      color: $f-color2;
+      border: 2px solid #676e8c;
+      height:calc(1.5em + .75rem + 9px);
+      &:focus {
+        outline: none;
+        color: $f-color2;
+        border-color: #5e7ba0;
+        box-shadow: 0 0 0 0.2rem rgb(12 104 202 / 8%);
+      }
+      &:-webkit-autofill,&:-webkit-autofill:hover,&:-webkit-autofill:focus,
+      &:-webkit-autofill,&:-webkit-autofill:hover,&:-webkit-autofill:focus,
+      &:-webkit-autofill,&:-webkit-autofill:hover,&:-webkit-autofill:focus {
+        border: 2px solid hsl(0deg 0% 100% / 30%);
+        -webkit-text-fill-color:$teal-a200;
+        -webkit-box-shadow: 0 0 0px 1000px $indigo-800 inset;
+        -webkit-transition: background-color 5000s ease-in-out 0s;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    }
+    textarea.form-control {
+      display: inline-block;
+      width: 100%;
+      font-size: 15px;
+      letter-spacing: 1px;
+      font-weight: 400;
+      line-height: 1.5;
+      padding: 7px 10PX;
+      border-radius: 5px;
+      color: $f-color2;
+      height: auto !important;
+      border: 2px solid #676e8c;
+      &:focus {
+        outline: none;
+        color: $f-color2;
+        border-color: #5e7ba0;
+        box-shadow: 0 0 0 0.2rem rgb(12 104 202 / 8%);
+      }
+    }
+    .valid-error {
+      position: absolute;
+      left: 10px;
+      bottom: -1rem;
+      font-size: 12px;
+      line-height: normal;
+      color: #F9314B;
+      display: none;
+    }
+    &.date-picker {
+      ngx-datepicker {
+        .datepicker-container {
+          input{
+            position: relative;
+            background: url(../../images/icon_calendar.png) no-repeat right 10px center / auto 55%;
+          }
+        }  
+      }
+      ng2-flatpickr {
+        input{
+          position: relative;
+          background: url(../../images/icon_calendar.png) no-repeat right 10px center / auto 55%;
+        }
+      }
+    }
+    .social_media_icon {
+      position: absolute;
+      right: 10px;
+      top: 22px;
+      font-size: 1.3rem;
+      transform: translateY(-50%);
+      color: #9ca3c0;
+    }
+    &.file_upload {
+      label.lbl-input {
+        z-index: 2;
+      }
+      .file-input {
+        .form-control {
+          z-index: 1;
+          position: relative;
+          &:focus {
+            outline: none;
+            color: $f-color2;
+            border-color: #5e7ba0;
+            box-shadow: 0 0 0 0.2rem rgb(12 104 202 / 8%);
+          }
+        }
+        .form-control[type=file]::-webkit-file-upload-button {
+          width:5px;
+          height:25px;
+          opacity:0
+        }
+        span {
+          background: #666D8B;
+          position: absolute;
+          right: 0px;
+          top: 2px;
+          border-radius: 0 3px 3px 0;
+          font-size: 0.9rem;
+          height: calc(1.5em + .75rem + 9px);
+          width: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 0;
+          img {
+            margin-right: 5px;
+            width: 20px;
+          }
+        }
+      }
+    }
+    .form-control:disabled, .form-control[readonly] {
+      background-color: #686f8d1a;
+      &:hover, &:focus, &:active {
+        border: 2px solid #676e8c;
+        box-shadow: none;
+      }
+    }
+    .btn-verify {
+      position: absolute;
+      right: 0.7rem;
+      top: 0;
+      padding: 0.75rem 1rem !important;
+      min-width: auto !important;
+      font-size: 0.9rem !important;
+      border-radius: 0 5px 5px 0 !important;
+      z-index: 1;
+      &.verified {
+        background: #676e8c;
+        border-color: #676e8c;
+        color: #fff;
+        &:hover, &:focus {
+          cursor: default;
+          background: #676e8c !important;
+          border-color: #676e8c !important;
+          color: #fff !important; 
+        }
+      }
+      &:hover, &:focus {
+        background: #434b71 !important;
+        border-color: #434b71;
+        color: #74FAAA !important;
+      }
+    }
+  }
+  .form-check {
+    display: flex;
+    align-items: center;
+    .form-check-input {
+      &:focus,&:hover,&:active {
+        box-shadow: none;
+      }
+    }
+    label {
+      color: hsl(0deg 0% 100% / 80%);
+      letter-spacing: 0.5px;
+      padding: 0 0 0 5px !important;
+      line-height: normal;
+      font-size: 1rem;
+    }
+  }
+  .error-msg {
+    font-size: 0.8rem;
+    padding-top: 0;
+  }
+  span.start_icon {
+    position: absolute;
+    left: 8px;
+    top: 10px;
+    color: #74faaa;
+  }
+  .cac_info {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    height: calc(1.5em + .75rem + 8px);
+    a.d-block {
+      background: #666D8B;
+      border-radius: 0 4px 4px 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem .8rem;
+      &::after {
+        content: none;
+      }
+      &:hover,&:focus {
+        background: $teal-a200;
+        box-shadow: none;
+      }
+      i {
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: normal;
+      }
+    }
+    .dropdown-menu {
+      min-width: 300px;
+      right: -10% !important;
+      top: 110%;
+      left: auto !important;;
+      background: $indigo-dark;
+      color: #fff;
+      padding: .7rem;
+      box-shadow: $bmd-shadow-focus;
+      &::before {
+        border-left: 10px solid transparent;
+        border-right: 9px solid transparent;
+        border-bottom: 12px solid #070b28;
+        content: "";
+        width: 20px !important;
+        height: 0px;
+        position: absolute;
+        top: -11px;
+        right: 5%;
+      }
+      .cac_inner {
+        h6 {
+          color: $teal-a200;
+          font-weight: 700;
+          letter-spacing: 0.7px;
+        }
+        span {
+          color: $white;
+          font-size: 0.8rem;
+        }
+      }
+    }
+    a:hover  ~ .dropdown-menu {
+      display: inline-block;
+      top: 100% !important;
+      transform: scale(1) !important;
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+  }
+  .form-check {
+    .form-check-input {
+      margin-top: 0em;
+    }
+  }
+  .custom-control {
+    display: inline-flex;
+    align-items: center;
+    .custom-control-input:checked ~.custom-control-label::before {
+      border-color: #FF8700;
+      background-color: #FF8700;
+    }
+    .custom-control-label {
+      margin: 0 0 0 5px;
+      &::before {
+        top: 0.05rem;
+        box-shadow: none;
+        border: #054f66 solid 1px;
+      }
+      &::after {
+        top: 0.05rem;
+        box-shadow: none;
+      }
+    }
+  } 
+}
+
+select.form-control {
+  position: relative;
+  background: url(../../images/down-arrow.png) no-repeat right 10px center / 15px;
+}
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px 12px;
+  padding: 7px 10PX;
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.8);
+  border: 2px solid #676e8c;
+  height: calc(1.5em + .75rem + 9px);
+  &:focus {
+    outline: none;
+    color: $f-color2;
+    border-color: #5e7ba0;
+    box-shadow: 0 0 0 0.2rem rgb(12 104 202 / 8%);
+  }
+}
+.form-select option{
+  color: #000;
+}

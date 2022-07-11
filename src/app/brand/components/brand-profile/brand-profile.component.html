@@ -1,0 +1,42 @@
+<div class="container" *ngIf="isProfileDataLoaded">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <h1 class="section-head my-4"> {{ 'brandProfile.brandProfile' | translate }}</h1>
+            <div class="background-primary mb-2 br-10 w-100 brand_profile">
+                <div class="brand_profile_item">
+                    <div class="text-center profile_img">
+                        <div class="profile_main">
+                            <div class="profile-img">
+                                <span>
+                                    <img class="img-upload" [src]="profilePicture ? profilePicture : '/assets/images/brand-1.png'">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="brand_prof_info">
+                        <h3>{{ companyInfo.company_name }}</h3>
+                        <p><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ userInfo.email }}</p>
+                        <p><i class="fa fa-phone" aria-hidden="true"></i> {{ companyInfo.phone }}</p>
+                        <button routerLink="../editProfile" class="btn btn-green">{{ 'brandProfile.editProfile' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <h1 class="section-head my-4">{{ 'brandProfile.myWallet' | translate }}</h1>
+            <div class="background-primary mb-2 br-10 w-100 brand_profile">
+                <div class="brand_profile_item">
+                    <div class="wallet_img">
+                        <span>
+                            <img src="/assets/images/wallet.png" alt="Wallet">
+                        </span>
+                    </div>
+                    <div class="brand_prof_info wallet_btn">
+                        <button class="btn btn-outline" routerLink="../my-wallet">{{ 'brandProfile.myWallet' | translate }}</button>
+                        <button class="btn btn-outline" routerLink="../billingHistory">{{ 'brandProfile.billingInformation' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

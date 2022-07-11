@@ -1,0 +1,10 @@
+<div class="container">
+    <h1 class="section-head my-4">{{questionText}}</h1>
+    <!-- <h1>Answers</h1> -->
+    <ul class="form_campign_data p-0">
+        <li class="task-progress-main mb-3" *ngFor="let answer of answersData">
+            <label class="answers_label">{{answer.answer}}</label>
+        </li>
+    </ul>
+</div>
+

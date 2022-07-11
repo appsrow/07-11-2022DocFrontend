@@ -1,0 +1,590 @@
+@import "../../../../assets/css/core/variables/colors";
+@import "../../../../assets/css/core/mixins";
+
+.campaign_tab {
+    .nav-tabs {
+        margin: 1.5rem 0;
+        background: #13193B;
+        border-radius: 10px;
+        border: 1px solid #3E4669;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        overflow-x: hidden;
+        position: sticky;
+        top: 93px;
+        z-index: 1;
+        li {
+            .nav-link {
+                color: #ffffff;
+                border: none;
+                background: #232E5A;
+                border-radius: 5px;
+                padding: 0.8rem 1.5rem;
+                position: relative;
+                transition: all 0.3s ease;
+                &::after {
+                    content: "";
+                    height: 3px;
+                    width: 150%;
+                    position: absolute;
+                    top: 50%;
+                    left: 100%;
+                    transform: translateY(-50%);
+                    background: #232E5A;
+                }
+                span {
+                    background: $teal-a200;
+                    width: 25px;
+                    height: 25px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 18px;
+                    line-height: normal;
+                    font-weight: 600;
+                    color: #252F5A;
+                    margin-right: 0.3rem;
+                }
+                &.active,&:hover, &.complate {
+                    background: #6577AD;
+                    transition: all 0.3s ease;
+                }
+                &.complate {
+                    span {
+                        color: #ffffff;
+                    }
+                    &::after {
+                        background: #6577AD;
+                    }
+                }
+            }
+            &:last-child {
+                .nav-link {
+                    &::after {
+                        content: none;
+                    }
+                }
+            }
+        }
+    }
+    .preview_info {
+        .profile_img {
+            @include profile_img;
+        }
+        .preview_highlight {
+            text-align: center;
+            ul, .preview_text  {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                text-align: left;
+                li {
+                    width: 50%;
+                    float: left;
+                    margin: 0.5rem 0;
+                    padding: 0 0.5rem;
+                    h6 {
+                        color: $teal-a200;
+                        font-weight: 500;
+                        font-size: 1.3rem;
+                        margin: 0;
+                    }
+                    span {
+                        color: $white;
+                        word-break: break-all;
+                        a {
+                            color: $white;
+                            &:hover {
+                                color: #a1aed4;
+                            }
+                        }
+                    }
+                    .date_info {
+                        width: 50%;
+                        display: inline-block;
+                    }
+                }
+                &.heighlight {
+                    display: flex;
+                    margin: 0 -15px;
+                    li {
+                        background: #6577ad;
+                        display: flex;
+                        align-items: flex-end;
+                        flex-direction: column;
+                        border-radius: 10px;
+                        padding: 0.75rem 1rem;
+                        justify-content: flex-start;
+                        margin: 0 15px;
+                        h5 {
+                            color: $white;
+                            font-weight: 600;
+                            margin: 0 0 0.2rem;
+                            font-size: 1.5rem;
+                            letter-spacing: 0.5px;
+                        }
+                        span {
+                            color: #252F5A;
+                            font-weight: 500;
+                            font-size: 1.1rem;
+                        }
+                        &.heighlight_amount {
+                            background: #0f2037;
+                            border: 1px solid #74faaa;
+                            h5 {
+                                color: #74faaa;
+                            }
+                            span {
+                                color: #ffffff;
+                            }
+                        }
+                    }
+                }
+            }
+            button {
+                transition: all 0.3s ease;
+                svg {
+                    margin-left: 0.4rem;
+                    stroke: #252F5A;
+                    transform: translateX(0%);
+                    transition: all 0.3s ease;
+                }
+                &:hover {
+                    svg {
+                        stroke: $teal-a200;
+                        transform: translateX(15%);
+                        transition: all 0.3s ease;
+                    }
+                }
+            }
+        }
+    }
+}
+.bootom_btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .paypal_btn {
+        min-width: 25%;
+    }
+}
+.btn{
+    border-radius: 100px;
+    padding: 0.4rem 1.7rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    min-width: 150px;
+    transition: all 0.3s ease;
+    color: white;
+}
+.target_camp {
+    padding: 1.3rem 1.3rem 0.7rem;
+    h5 {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin: 0 0 1rem;
+        font-size: 1.3rem;
+    }
+    .row {
+        > div {
+            margin-bottom: 1rem;
+            button {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 1rem;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                h6 {
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                    margin-bottom: 0.5rem;
+                    letter-spacing: 0.5px;
+                    text-align: left;
+                }
+                p {
+                    text-align: left;
+                }
+                &:hover,&:focus,&:active {
+                    background: $teal-a200 !important;
+                    box-shadow: 2px 2px 15px #070b28;
+                    transition: all 0.3s ease;
+                    h6, p {
+                        color: #252F5A !important;
+                    }
+                }
+            }
+        }
+    }
+}
+.campaign_details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    > label {
+        margin-right: 1rem;
+        color: #fff;
+        text-transform: capitalize;
+        letter-spacing: 0.5px;
+    }
+}
+
+@mixin can-toggle-branding (
+  $can-toggle-off-color: #6577ad, 
+  $can-toggle-on-color: #6577ad,
+  $can-toggle-inactive-text: rgba(white, 0.8),
+  $can-toggle-transition: cubic-bezier(0,1,0.5,1)
+) {  
+  input[type="checkbox"] {
+    &[disabled] ~ label {
+      color: rgba($can-toggle-off-color, 0.5);
+    }    
+    &:focus ~ label, &:hover ~ label {
+      .can-toggle__switch {
+        background-color: $can-toggle-off-color;
+      }
+    }
+    &:hover ~label { color: darken($can-toggle-off-color, 5%); }
+    &:checked {
+      ~ label {        
+        .can-toggle__switch {
+          background-color: lighten($can-toggle-on-color, 5%);
+          &:after { color: #070b28; }
+        }
+      }
+      
+      &:focus, &:hover {
+        ~ label {
+          .can-toggle__switch {
+            background-color: $can-toggle-on-color;
+          }
+        } 
+      }
+    }
+  }
+  
+  label {
+    .can-toggle__label-text { flex: 1; }
+    .can-toggle__switch {
+      transition: background-color 0.3s $can-toggle-transition;
+      background: lighten($can-toggle-off-color, 5%);
+      &:before { color: #070b28; }
+      &:after {
+        // Autoprefixer choked here, so making the prefixes explicit
+        -webkit-transition: -webkit-transform 0.3s $can-toggle-transition;
+        transition: transform 0.3s $can-toggle-transition;
+        color: #070b28; 
+      }
+    }
+  }
+}
+@mixin can-toggle-appearance ( 
+  $can-toggle-width: 240px,
+  $can-toggle-height: 35px,
+  $can-toggle-border-radius: 100px,
+  $can-toggle-offset: 2px,
+  $can-toggle-label-font-size: 1rem,
+  $can-toggle-switch-font-size: 0.8rem,
+  $can-toggle-shadow: 0 3px 3px rgba(black, 0.4)
+){
+  $can-toggle-switch-width: $can-toggle-width/2;
+  input[type="checkbox"] {
+    &:focus ~ label, &:hover ~ label {
+      .can-toggle__switch {
+        &:after { box-shadow: $can-toggle-shadow; } 
+      }
+    }
+    &:checked {
+      ~ label {
+        .can-toggle__switch {
+          &:after { transform: translate3d($can-toggle-width - ($can-toggle-switch-width + $can-toggle-offset),0,0); }  
+        }
+      }
+      &:focus, &:hover {
+        ~ label {
+          .can-toggle__switch { &:after { box-shadow: $can-toggle-shadow; } }
+        } 
+      }
+    }
+  }
+
+  label {
+    font-size: $can-toggle-label-font-size;
+    font-weight: 500;
+    .can-toggle__switch {
+      height: $can-toggle-height;
+      flex: 0 0 $can-toggle-width;
+      border-radius: $can-toggle-border-radius;
+      &:before {
+        left: $can-toggle-width/2;
+        font-size: $can-toggle-switch-font-size; 
+        line-height: $can-toggle-height;
+        width: $can-toggle-width/2;
+        padding: 0 12px;
+      }
+      &:after {
+        top: $can-toggle-offset; left: $can-toggle-offset;
+        border-radius: $can-toggle-border-radius/2;
+        width: $can-toggle-switch-width - $can-toggle-offset; 
+        line-height: $can-toggle-height - ($can-toggle-offset*2);
+        font-size: $can-toggle-switch-font-size;
+      }
+      &:hover {
+        &:after { box-shadow: $can-toggle-shadow; }
+        cursor: pointer;
+      }
+    } 
+  }
+}
+@include can-toggle-branding; 
+@include can-toggle-appearance; 
+.can-toggle {
+    position: relative;
+    display: inline-block;
+    text-align: right;
+    *, *:before, *:after { box-sizing: border-box; }  
+    input[type="checkbox"] {
+        opacity: 0;
+        position: absolute;
+        top: 0; left: 0;
+        &[disabled] ~ label {
+        pointer-events: none;
+        .can-toggle__switch { opacity: 0.4; }
+        }
+        &:checked {
+        ~ label {
+            .can-toggle__switch {
+            &:before {
+                content: attr(data-unchecked);
+                left: 0;
+            }
+            &:after {
+                content: attr(data-checked);
+            }  
+            }
+        }
+        &:focus, &:hover {
+            ~ label {
+            } 
+        }
+        }
+    }
+    label {
+        user-select: none;
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 240px;
+        float: right;
+        .can-toggle__label-text { 
+            flex: 1;
+            padding-left: 32px;
+        }
+        .can-toggle__switch {
+            position: relative;
+            &:before {
+                content: attr(data-checked);
+                position: absolute;
+                top: 0;
+                text-transform: uppercase;
+                text-align: center;
+            }
+            &:after {
+                content: attr(data-unchecked);
+                position: absolute;
+                z-index: 5;
+                text-transform: uppercase;
+                text-align: center;
+                background: #74faaa;
+                transform: translate3d(0,0,0);
+            }
+        } 
+    }
+} 
+
+.bank_info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    background: #252f59;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    li {
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        h6 {
+            color: #74FAAA;
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 0.4px;
+            margin: 0 0.6rem 0 0;
+        }
+        span {
+            color: #ffffff;
+            word-break: break-all;
+        }
+    }
+}
+
+@media only screen and (max-width: 1480px) {
+    .campaign_tab {
+        .preview_info {
+            .preview_highlight {
+                ul, .preview_text  {
+                    li {
+                        h6 {
+                            font-size: 1.1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .campaign_tab {
+        .nav-tabs {
+            li {
+                button.nav-link {
+                    padding: 0.8rem 1rem;
+                    span {
+                    }
+                }
+            }
+        }
+        .preview_info {
+            padding-bottom: 3rem !important;
+            .profile_img {
+                display: flex;
+                align-items: center;
+            }
+            .preview_highlight {
+                .preview_text {
+                    li {
+                        width: 100%;
+                        .date_info {
+                            width: 50% !important;
+                        }
+                    }
+                }
+                ul {
+                    li {
+                        width: 100% ;
+                        .date_info {
+                            width: 100% !important;
+                            &:first-child {
+                                margin: 0 0 1rem 0;
+                            }
+                        }
+                    }
+                    &.heighlight {
+                        flex-wrap: wrap;
+                        margin: 0 0 0.5rem -0.6rem !important;
+                        width: calc(100% + 1.2rem);
+                        li {
+                            margin: 1% 1%;
+                            min-width: calc(33% - 2%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    :ng-deep {
+        .tab-content .target_btn {
+            padding: 0 1.1rem;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .campaign_tab {
+        .nav-tabs {
+            li {
+                button {
+                    font-size: 0;
+                    span {
+                        font-size: 1rem;
+                        margin: 0 !important;
+                    }
+                }
+            }
+        }
+        .preview_info {
+            .preview_highlight {
+                ul {
+                    li {
+                        width: 100% !important;
+                        .date_info {
+                            width: 100%;
+                            &:first-child {
+                                margin: 0 0 1rem 0;
+                            }
+                        }
+                    }
+                    &.heighlight {
+                        flex-wrap: wrap;
+                        margin: 0 0 0 -2% !important;
+                        width: calc(100% + 4%);
+                        li {
+                            margin: 3% 2%;
+                            width: 50% !important;
+                            float: left;
+                            padding: 0.7rem 0.8rem;
+                            min-width: calc(50% - 4%);
+                            h5 {
+                                font-size: 1.1rem;
+                            }
+                            span {
+                                font-size: 1rem;
+                            }
+                        }
+                    }
+                }
+            }
+            .bootom_btn {
+               flex-direction: column-reverse;
+               .paypal_btn {
+                    min-width: 82%;
+                    margin: 0.6rem 0;
+                }
+            }
+        }
+    }
+    .bank_info{
+        margin: 0;
+        li {
+            align-items: flex-start;
+            flex-direction: column;
+            padding: 0 0 0.5rem 0;
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .campaign_tab .preview_info {
+        padding-bottom: 1rem !important;
+    }
+    .campaign_details {
+        flex-wrap: wrap;
+        margin: 0;
+        label {
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+    }
+}

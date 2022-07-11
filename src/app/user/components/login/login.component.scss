@@ -1,0 +1,209 @@
+@import "../../../../assets/css/core/variables/_colors.scss";
+.btn.btn-outline-danger {
+  border-radius: 100px;
+  padding: 0.4rem 1.7rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  min-width: 150px;
+}
+.model-completed.modal.fade.show{
+    display: block;
+    .modal-dialog {
+        z-index: 111111;
+    }
+}
+form.googleUserRegistrationForm .form-group label.lbl-input {
+    background-color: #333e6f;
+}
+.login-frm {
+    padding: 3rem;
+    .forgot-password {
+        font-size: 1rem;
+        color: hsl(0deg 0% 100% / 80%);
+        float: right;
+        &:hover {
+            color: $teal-a200;
+            text-decoration: none;
+        }
+    }    
+    .back_login {
+        font-size: 1rem;
+        color: hsl(0deg 0% 100% / 80%);
+        .heading-green {
+            &:hover {
+                color: hsl(0deg 0% 100% / 80%);
+            }
+        }
+        
+    }
+}
+h2.line {
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 1px solid $f-color; 
+    color: $f-color;
+    line-height: 0.1em;
+    margin: 2rem 0; 
+    span { 
+        background:$indigo-800; 
+        padding:0 10px; 
+        font-style: italic;
+    }
+}
+@media only screen and (max-width: 575px) {
+    .login-frm {
+        padding: 2rem 1rem;
+        .form-check {
+            label {
+              font-size: .9rem;
+            }
+        }
+        .forgot-password {
+            font-size: 0.9rem;
+            float: none;
+            text-align: center;
+            padding-top: 1.1rem !important;
+            display: inline-block;
+            width: 100%;
+        }
+    }
+}
+::ng-deep {
+    angular2-multiselect {
+      position: relative;
+      .cuppa-dropdown {
+        .selected-list {
+          .c-btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            font-size: 15px;
+            letter-spacing: 1px;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 7px 10PX;
+            border-radius: 5px;
+            color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #676e8c;
+            height: calc(1.5em + .75rem + 9px);
+            &.disabled {
+              background: #686f8d1a;
+            }
+            > span {
+              font-size: 0.8em;
+            }
+            .c-list {
+              display: flex;
+              align-items: center;
+              white-space: pre;
+              overflow-x: hidden;
+              width: calc(100% - 3rem);
+              max-width: 500px;
+              .c-token {
+                color: #070b28;
+                margin-right: 4px;
+                margin-top: 0;
+                padding: 1px 18px 2px 6px;
+                background: #74faaa;
+                font-size: 0.8rem;
+                font-weight: 500;
+                font-family: 'Poppins';
+                border-radius: 20px;
+                .c-remove{
+                  right: 6px;
+                  svg {
+                    fill: #000;
+                    width: 8px;
+                    height: 8px;
+                  }
+                }
+              }
+            }
+            .c-remove.clear-all {
+              svg {
+                fill: #fff;
+              }
+            }
+            .c-angle-down,.c-angle-up {
+              top: 40%;
+                svg {
+                  fill: #fff;
+                }
+            }
+          }
+        }
+        .dropdown-list {
+          // width: 100% !important;
+          min-width: 270px;
+          // bottom: 50px !important;
+          // left: 0px !important;
+          // top: auto !important;
+          // position: absolute !important;
+          .list-area {
+            .select-all {
+              label {
+                color: #252f5a;
+                &::before {
+                  background-color: #eeeff2;
+                  border: 1px solid #bdc3d0;
+                }
+              }
+            }
+            ul {
+              li {
+                label {
+                  color: #252f5a;
+                  &::after {
+                    color: #000;
+                  }
+                  &::before {
+                    background-color: #eeeff2;
+                    border: 1px solid #bdc3d0;
+                  }
+                }
+              }
+            }
+            div {
+              &:last-child {
+                // max-height: 170px !important;
+                max-height: 100px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .verification_input {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0.5rem 0 0.5rem !important;
+    width: 100%;
+    label.lbl-popup-input {
+      position: inherit;
+      width: 100%;
+      text-align: center;
+      margin: 0 !important;
+      font-size: 1rem;
+    }
+    input.form-control {
+      margin: 0 0.4rem;
+      width: 2.5rem !important;
+      min-width: auto !important;
+      text-align: center;
+      padding: 0 0.5rem;
+      &:hover, &:focus {
+        border-color: #74faaa;
+      }
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .verification_input {
+      input.form-control {
+        margin: 0px 0.3rem;
+        width: 2.4rem !important;
+      }
+    }
+  }

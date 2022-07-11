@@ -1,0 +1,396 @@
+<div class="container">
+  <h1 class="section-head my-4">{{ 'shared.userRegistration' | translate }}</h1>
+  <div class="background-primary p-4 br-5 mb-5">
+    <form [formGroup]="userRegistrationForm">
+      <div class="row">
+        <div class="col-md-6">
+          <a class="btn btn-primary w-100 py-3 registration_btn" (click)="doGoogleLogin()">
+            <img src="/assets/images/google.png" class="img-google" alt="{{ 'shared.googleSignin' | translate }}" />
+            <span class="heading-white ms-2">&nbsp;{{ 'shared.googleSignin' | translate }}</span>
+          </a>
+        </div>
+        <div class="col-md-6">
+          <a class="btn btn-primary registration_btn w-100 py-3" routerLink="../login">
+            <span class="heading-white">{{ 'shared.alreadyAccount' | translate }} </span>
+            <span class="heading-green">&nbsp;{{ 'shared.login' | translate }}</span>
+          </a>
+        </div>
+        <div class="col-md-12 mb-3">
+          <h2 class="line f-16"><span>or</span></h2>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="lbl-input">{{ 'shared.firstName' | translate }} <span class="text-danger">*</span></label>
+            <input type="text" maxlength="30" formControlName="firstName" class="form-control"
+              (keypress)="utilityService.onlyAlpha($event)">
+            <div
+              *ngIf="userRegistrationForm.controls['firstName'].errors && (userRegistrationForm.controls['firstName'].dirty || userRegistrationForm.controls['firstName'].touched) || submitted">
+              <div *ngIf="userRegistrationForm.controls['firstName'].errors?.required" class="text-danger">
+                {{ 'shared.firstNameRequired' | translate }} </div>
+              <div *ngIf="userRegistrationForm.controls['firstName'].errors?.minlength" class="text-danger">
+                {{ 'shared.firstNameMinLength' | translate }} </div>
+              <div *ngIf="userRegistrationForm.controls['firstName'].errors?.pattern" class="text-danger">
+                {{ 'user.enterValidFirstName' | translate }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="lbl-input">{{ 'shared.lastName' | translate }} <span class="text-danger">*</span></label>
+            <input type="text" maxlength="30" formControlName="lastName" class="form-control"
+              (keypress)="utilityService.onlyAlphAndSpace($event)">
+            <div
+              *ngIf="userRegistrationForm.controls['lastName'].errors && (userRegistrationForm.controls['lastName'].dirty || userRegistrationForm.controls['lastName'].touched) || submitted">
+              <div *ngIf="userRegistrationForm.controls['lastName'].errors?.required" class="text-danger">
+                {{ 'shared.lastNameRequired' | translate }}</div>
+              <div *ngIf="userRegistrationForm.controls['lastName'].errors?.minlength" class="text-danger">
+                {{ 'shared.lastNameMinLength' | translate }}</div>
+              <div *ngIf="userRegistrationForm.controls['lastName'].errors?.pattern" class="text-danger">
+                {{ 'user.enterValidLastName' | translate }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group date-picker">
+            <label class="lbl-input">{{ 'shared.dob' | translate }} <span class="text-danger">*</span></label>
+            <ng2-flatpickr id="statistics-admin-date" formControlName="birthDate" [config]="datePickerOptions">
+            </ng2-flatpickr>
+            <div
+              *ngIf="userRegistrationForm.controls['birthDate'].errors && (userRegistrationForm.controls['birthDate'].dirty || userRegistrationForm.controls['birthDate'].touched) || submitted">
+              <div *ngIf="userRegistrationForm.controls['birthDate'].errors?.required" class="text-danger">
+                {{ 'shared.dobRequired' | translate }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="lbl-input">{{ 'shared.email' | translate }} <span class="text-danger">*</span></label>
+            <input type="text" formControlName="email" class="form-control">
+            <div
+              *ngIf="userRegistrationForm.controls['email'].errors && (userRegistrationForm.controls['email'].dirty || userRegistrationForm.controls['email'].touched) || submitted">
+              <div *ngIf="userRegistrationForm.controls['email'].errors?.required" class="text-danger">
+                {{ 'shared.emailRequired' | translate }}</div>
+              <div
+                *ngIf="userRegistrationForm.controls['email'].value !== '' && userRegistrationForm.controls['email'].invalid"
+                class="text-danger">{{ 'shared.emailWrongFormat' | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row form-row">
+            <div class="form-group col-6 col-sm-6 col-md-5 col-lg-6 pe-1">
+              <label class="lbl-input">{{ 'shared.countryCode' | translate }}</label>
+              <angular2-multiselect *ngIf="countriesDialingCodes" [data]="countriesDialingCodes"
+                [settings]="countriesDialingCodesSettings" formControlName="selectedCountryDialingCode">
+              </angular2-multiselect>
+              <div
+                *ngIf="userRegistrationForm.controls['selectedCountryDialingCode'].errors && (userRegistrationForm.controls['selectedCountryDialingCode'].dirty || userRegistrationForm.controls['selectedCountryDialingCode'].touched) || submitted">
+                <div *ngIf="userRegistrationForm.controls['selectedCountryDialingCode'].errors?.required"
+                  class="text-danger">
+                  {{ 'shared.countryCodeRequired' | translate }} </div>
+              </div>
+            </div>
+            <div class="form-group col-6 col-sm-6 col-md-7 col-lg-6 ps-2">
+              <label class="lbl-input">{{ 'shared.phoneNumber' | translate }}</label>
+              <input type="text" maxlength="15" formControlName="phone" class="form-control"
+                (keypress)="utilityService.phoneNumberValidation($event)" (keyup)="showVerifyButton('registrationForm')"
+                [readonly]="phoneNumberVerfied">
+              <button class="btn btn-green btn-verify" [ngClass]="{'verified': phoneNumberVerfied }"
+                *ngIf="showVerifyBtn" (click)="verifyPhone('','registrationForm')"><span *ngIf="!phoneNumberVerfied">{{
+                  'shared.verify' | translate }}</span> <span *ngIf="phoneNumberVerfied">{{ 'shared.verified' |
+                  translate }}</span></button>
+              <div
+                *ngIf="userRegistrationForm.controls['phone'].errors && (userRegistrationForm.controls['phone'].dirty || userRegistrationForm.controls['phone'].touched) || submitted">
+                <div *ngIf="userRegistrationForm.controls['phone'].errors?.required" class="text-danger">
+                  {{ 'shared.phoneNumberRequired' | translate }}</div>
+                <div *ngIf="userRegistrationForm.controls['phone'].errors?.minlength" class="text-danger">
+                  {{ 'shared.phoneMinLength' | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="lbl-input">{{ 'shared.gender' | translate }} <span class="text-danger">*</span></label>
+            <angular2-multiselect [data]="genderList" [settings]="genderSettings" formControlName="selectedGenders">
+            </angular2-multiselect>
+            <div
+              *ngIf="userRegistrationForm.controls['selectedGenders'].errors && (userRegistrationForm.controls['selectedGenders'].dirty || userRegistrationForm.controls['selectedGenders'].touched) || submitted">
+              <div *ngIf="userRegistrationForm.controls['selectedGenders'].errors?.required" class="text-danger">
+                {{ 'shared.genderRequired' | translate }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="lbl-input">{{ 'shared.country' | translate }} <span class="text-danger">*</span></label>
+            <angular2-multiselect *ngIf="countries" [data]="countries" [settings]="dropdownSettings"
+              (onSelect)="onChangeCountry($event)" formControlName="selectedCountries">
+            </angular2-multiselect>
+            <div
+              *ngIf="userRegistrationForm.controls['selectedCountries'].errors && (userRegistrationForm.controls['selectedCountries'].dirty || userRegistrationForm.controls['selectedCountries'].touched) || submitted">
+              <div *ngIf="userRegistrationForm.controls['selectedCountries'].errors?.required" class="text-danger">
+                {{ 'shared.countryRequired' | translate }} </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row form-row">
+            <div class="form-group col-12 col-md-6">
+              <label class="lbl-input">{{ 'shared.state' | translate }} <span class="text-danger">*</span></label>
+              <angular2-multiselect [data]="stateList" [settings]="dropdownSettings" formControlName="state">
+              </angular2-multiselect>
+              <div
+                *ngIf="userRegistrationForm.controls['state'].errors && (userRegistrationForm.controls['state'].dirty || userRegistrationForm.controls['state'].touched) || submitted">
+                <div *ngIf="userRegistrationForm.controls['state'].errors?.required" class="text-danger">
+                  {{ 'shared.stateRequired' | translate }} </div>
+              </div>
+            </div>
+            <div class="form-group col-12 col-md-6">
+              <label class="lbl-input">{{ 'shared.city' | translate }} <span class="text-danger">*</span></label>
+              <input type="text" formControlName="city" class="form-control">
+              <div
+                *ngIf="userRegistrationForm.controls['city'].errors && (userRegistrationForm.controls['city'].dirty || userRegistrationForm.controls['city'].touched) || submitted">
+                <div *ngIf="userRegistrationForm.controls['city'].errors?.required" class="text-danger">
+                  {{ 'shared.cityRequired' | translate }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+          <div class="row form-row">
+            <div class="form-group col-12 col-md-6">
+              <label class="lbl-input">{{ 'shared.password' | translate }} <span class="text-danger">*</span></label>
+              <input name="password" maxlength="16" [type]="showPassword ? 'text' : 'password'"
+                class="form-control pwd-control" formControlName="password">
+              <div class="btn-eye">
+                <i alt="show" class="fa fa-eye eye-show" (click)="showPassword = !showPassword"
+                  [class.hide]="showPassword"></i>
+                <i alt="hide" class="fa fa-eye-slash eye-hide" (click)="showPassword = !showPassword"
+                  [class.hide]="!showPassword"></i>
+              </div>
+              <div
+                *ngIf="userRegistrationForm.controls['password'].errors && (userRegistrationForm.controls['password'].dirty || userRegistrationForm.controls['password'].touched) || submitted">
+                <div *ngIf="userRegistrationForm.controls['password'].errors?.required" class="text-danger">
+                  {{ 'shared.passwordRequired' | translate }}</div>
+                <div *ngIf="userRegistrationForm.controls['password'].errors?.pattern" class="text-danger">
+                  {{ 'shared.passwordPattern' | translate }} </div>
+              </div>
+            </div>
+            <div class="form-group col-12 col-md-6">
+              <label class="lbl-input">{{ 'shared.confirmPassword' | translate }} <span
+                  class="text-danger">*</span></label>
+              <input name="password" maxlength="16" [type]="showConfPassword ? 'text' : 'password'"
+                class="form-control pwd-control" formControlName="confirmPassword">
+              <div class="btn-eye">
+                <i alt="show" class="fa fa-eye eye-show" (click)="showConfPassword = !showConfPassword"
+                  [class.hide]="showConfPassword"></i>
+                <i alt="hide" class="fa fa-eye-slash eye-hide" (click)="showConfPassword = !showConfPassword"
+                  [class.hide]="!showConfPassword"></i>
+              </div>
+              <div
+                *ngIf="userRegistrationForm.controls['confirmPassword'].errors && (userRegistrationForm.controls['confirmPassword'].dirty || userRegistrationForm.controls['password'].touched) || submitted">
+                <div *ngIf="userRegistrationForm.controls['confirmPassword'].errors?.required" class="text-danger">
+                  {{ 'shared.confirmPasswordRequired' | translate }}</div>
+                <div *ngIf="userRegistrationForm.controls['confirmPassword'].errors?.pattern" class="text-danger">
+                  {{ 'shared.passwordPattern' | translate }}</div>
+                <div *ngIf="userRegistrationForm.controls['confirmPassword'].errors?.mustMatch" class="text-danger">
+                  {{ 'shared.confirmPasswordSame' | translate }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="row form-row">
+            <div class="form-group col-sm-12 col-md-8 col-lg-6 mb-0">
+              <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha">
+              </ngx-recaptcha2>
+              <div
+                *ngIf="userRegistrationForm.controls['recaptcha'].errors && (userRegistrationForm.controls['recaptcha'].dirty || userRegistrationForm.controls['recaptcha'].touched) || submitted">
+                <div *ngIf="userRegistrationForm.controls['recaptcha'].errors?.required" class="text-danger">
+                  {{ 'shared.recaptchaRequired' | translate }}</div>
+              </div>
+            </div>
+            <div class="form-group col-sm-12 col-md-4 col-lg-6 text-center text-md-end">
+              <button type="submit" (click)="doRegistration()" class="btn btn-green mt-3">{{ 'shared.signup' | translate
+                }}</button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="error" class="text-danger mb-2 text-center">
+          {{error}}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="model-completed modal fade bd-example-modal-xl" [ngClass]="{'show': showModel == true}" id="form_modal"
+  tabindex="-1" aria-labelledby="task_modalLabel" aria-hidden="true">
+  <div class="modal-backdrop fade" [ngClass]="{'show': showModel == true}"></div>
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex justify-content-between w-100 p-2">
+          <h5 class="heading-green without_title mb-0">{{ 'shared.update' | translate }} {{ 'shared.profile' | translate
+            }}</h5>
+        </div>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="googleUserRegistrationForm" class="googleUserRegistrationForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.firstName' | translate }} <span class="text-danger">*</span></label>
+                <input type="text" maxlength="30" formControlName="firstName" class="form-control"
+                  (keypress)="utilityService.onlyAlpha($event)">
+                <div
+                  *ngIf="googleUserRegistrationForm.controls['firstName'].errors && (googleUserRegistrationForm.controls['firstName'].dirty || googleUserRegistrationForm.controls['firstName'].touched) || googleUserSubmitted">
+                  <div *ngIf="googleUserRegistrationForm.controls['firstName'].errors?.required" class="text-danger">
+                    {{ 'shared.firstNameRequired' | translate }} </div>
+                  <div *ngIf="googleUserRegistrationForm.controls['firstName'].errors?.minlength" class="text-danger">
+                    {{ 'shared.firstNameMinLength' | translate }} </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.lastName' | translate }} <span class="text-danger">*</span></label>
+                <input type="text" maxlength="30" formControlName="lastName" class="form-control"
+                  (keypress)="utilityService.onlyAlpha($event)">
+                <div
+                  *ngIf="googleUserRegistrationForm.controls['lastName'].errors && (googleUserRegistrationForm.controls['lastName'].dirty || googleUserRegistrationForm.controls['lastName'].touched) || googleUserSubmitted">
+                  <div *ngIf="googleUserRegistrationForm.controls['lastName'].errors?.required" class="text-danger">
+                    {{ 'shared.lastNameRequired' | translate }}</div>
+                  <div *ngIf="googleUserRegistrationForm.controls['lastName'].errors?.minlength" class="text-danger">
+                    {{ 'shared.lastNameMinLength' | translate }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group date-picker">
+                <label class="lbl-input">{{ 'shared.dob' | translate }} <span class="text-danger">*</span></label>
+                <ng2-flatpickr id="statistics-admin-date" formControlName="dob" [config]="googleDatePickerOptions">
+                </ng2-flatpickr>
+                <div
+                  *ngIf="googleUserRegistrationForm.controls['dob'].errors && (googleUserRegistrationForm.controls['dob'].dirty || googleUserRegistrationForm.controls['dob'].touched) || googleUserSubmitted">
+                  <div *ngIf="googleUserRegistrationForm.controls['dob'].errors?.required" class="text-danger">
+                    {{ 'shared.dobRequired' | translate }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.email' | translate }} <span class="text-danger">*</span></label>
+                <input type="text" formControlName="email" class="form-control" readonly>
+                <div
+                  *ngIf="googleUserRegistrationForm.controls['email'].errors && (googleUserRegistrationForm.controls['email'].dirty || googleUserRegistrationForm.controls['email'].touched) || googleUserSubmitted">
+                  <div *ngIf="googleUserRegistrationForm.controls['email'].errors?.required" class="text-danger">
+                    {{ 'shared.emailRequired' | translate }}</div>
+                  <div
+                    *ngIf="googleUserRegistrationForm.controls['email'].value !== '' && googleUserRegistrationForm.controls['email'].invalid"
+                    class="text-danger">{{ 'shared.emailWrongFormat' | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row form-row">
+                <div class="form-group col-4 col-sm-4 col-md-4 col-lg-3 mb-0">
+                  <label class="lbl-input">{{ 'shared.countryCode' | translate }} <span
+                      class="text-danger">*</span></label>
+                  <angular2-multiselect *ngIf="countriesDialingCodes" [data]="countriesDialingCodes"
+                    [settings]="countriesDialingCodesSettings" formControlName="selectedCountryDialingCode">
+                  </angular2-multiselect>
+                  <div
+                    *ngIf="googleUserRegistrationForm.controls['selectedCountryDialingCode'].errors && (googleUserRegistrationForm.controls['selectedCountryDialingCode'].dirty || googleUserRegistrationForm.controls['selectedCountryDialingCode'].touched) || googleUserSubmitted">
+                    <div *ngIf="googleUserRegistrationForm.controls['selectedCountryDialingCode'].errors?.required"
+                      class="text-danger">
+                      {{ 'shared.countryCodeRequired' | translate }} </div>
+                  </div>
+                </div>
+                <div class="form-group col-8 col-sm-8 col-md-8 col-lg-9 mb-0">
+                  <label class="lbl-input">{{ 'shared.phoneNumber' | translate }}</label>
+                  <input type="text" maxlength="15" formControlName="phone" class="form-control"
+                    (keypress)="utilityService.phoneNumberValidation($event)"
+                    (keyup)="showVerifyButton('googleRegistrationForm')" [readonly]="phoneNumberVerfied">
+                  <button class="btn btn-green btn-verify" *ngIf="showVerifyBtn"
+                    (click)="verifyPhone('','googleRegistrationForm')">{{ 'shared.verify' | translate }}</button>
+                  <div
+                    *ngIf="googleUserRegistrationForm.controls['phone'].errors && (googleUserRegistrationForm.controls['phone'].dirty || googleUserRegistrationForm.controls['phone'].touched) || googleUserSubmitted">
+                    <div *ngIf="googleUserRegistrationForm.controls['phone'].errors?.required" class="text-danger">
+                      {{ 'shared.phoneNumberRequired' | translate }}</div>
+                    <div *ngIf="googleUserRegistrationForm.controls['phone'].errors?.minlength" class="text-danger">
+                      {{ 'shared.phoneMinLength' | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.gender' | translate }} <span class="text-danger">*</span></label>
+                <angular2-multiselect [data]="genderList" [settings]="genderSettings" formControlName="selectedGenders">
+                </angular2-multiselect>
+                <div
+                  *ngIf="googleUserRegistrationForm.controls['selectedGenders'].errors && (googleUserRegistrationForm.controls['selectedGenders'].dirty || googleUserRegistrationForm.controls['selectedGenders'].touched) || submitted">
+                  <div *ngIf="googleUserRegistrationForm.controls['selectedGenders'].errors?.required"
+                    class="text-danger">{{ 'shared.genderRequired' | translate }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.country' | translate }} <span class="text-danger">*</span></label>
+                <angular2-multiselect *ngIf="countries" [data]="countries" [settings]="dropdownSettings"
+                  (onSelect)="onChangeCountryGoogleForm($event)" formControlName="selectedCountries">
+                </angular2-multiselect>
+                <div
+                  *ngIf="googleUserRegistrationForm.controls['selectedCountries'].errors && (googleUserRegistrationForm.controls['selectedCountries'].dirty || googleUserRegistrationForm.controls['selectedCountries'].touched) || submitted">
+                  <div *ngIf="googleUserRegistrationForm.controls['selectedCountries'].errors?.required"
+                    class="text-danger">
+                    {{ 'shared.countryRequired' | translate }} </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row form-row">
+                <div class="form-group col-12 col-md-6">
+                  <label class="lbl-input">{{ 'shared.state' | translate }} <span class="text-danger">*</span></label>
+                  <angular2-multiselect [data]="stateList" [settings]="dropdownSettings" formControlName="state">
+                  </angular2-multiselect>
+                  <div
+                    *ngIf="googleUserRegistrationForm.controls['state'].errors && (googleUserRegistrationForm.controls['state'].dirty || googleUserRegistrationForm.controls['state'].touched) || googleUserSubmitted">
+                    <div *ngIf="googleUserRegistrationForm.controls['state'].errors?.required" class="text-danger">
+                      {{ 'shared.stateRequired' | translate }} </div>
+                  </div>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                  <label class="lbl-input">{{ 'shared.city' | translate }} <span class="text-danger">*</span></label>
+                  <input type="text" formControlName="city" class="form-control">
+                  <div
+                    *ngIf="googleUserRegistrationForm.controls['city'].errors && (googleUserRegistrationForm.controls['city'].dirty || googleUserRegistrationForm.controls['city'].touched) || googleUserSubmitted">
+                    <div *ngIf="googleUserRegistrationForm.controls['city'].errors?.required" class="text-danger">
+                      {{ 'shared.cityRequired' | translate }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="errorGoogleForm" class="text-danger mb-2 text-center">
+              {{errorGoogleForm}}
+            </div>
+            <div class="col-md-12">
+              <div class="form-group text-center mb-0">
+                <button type="submit" (click)="updateGoogleUserProfile()" class="btn btn-green">{{ 'shared.btnUpdate' |
+                  translate }} {{ 'shared.profile' | translate }}</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<app-confirm-mobile-verification #confirmMobileVerificationComponent [phone_number]="phoneNumberOnly"
+  [country_dialing_code]="countryCodeOnly" (parentFunction)="parentFunction($event)"></app-confirm-mobile-verification>

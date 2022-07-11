@@ -1,0 +1,25 @@
+{
+    "landingPage": {
+        "coinsBase" : "DropforCoin",
+        "CoinParagraph": "¡Nos hemos vuelto locos! Hemos creado la verdadera forma de obtener suscripciones de Twitch, tarjetas regalo y miles de productos de forma gratuita.",
+        "btnEarnMoney": "Gana dinero ahora",
+        "btnCreateCampaign": "Crear campaña",
+        "titleHowItWorks": "Cómo funciona",
+        "completeTasks": "Tareas completas",
+        "completeTasksParagraph": "Lo único que debes hacer para conseguir los puntos es descargar las aplicaciones de las marcas más famosas, seguirlas en la red social que elijas, visitar su página web, rellenar una encuesta o publicar en Instagram o Twitter. Así de fácil verás como tus coins aumentan.",
+        "winRewards": "Gana recompensas",
+        "winRewardsParagraph": "Ahora solo tienes que canjear tus puntos por productos o servicios. Puedes elegir entre una suscripción a tu streamer favorito de Twitch, obtener dinero a través de Paypal, canjear tus puntos por productos o, incluso, tarjetas de regalo. ¡Empieza a ganar ahora! Nosotros hacemos el resto.",
+        "tasks":"Tareas",
+        "rewards": "Recompensas",
+        "simple": "Muy sencillo",
+        "iamUser": "Soy un usuario",
+        "iamBrand": "Soy una marca",
+        "areYouBrand": "¿Eres una marca?",
+        "redeem": "Canjee sus puntos por las recompensas que elija",
+        "createCampaign": "Crea tu campaña personalizada para obtener los mejores resultados con la ayuda de nuestras acciones.",
+        "stepAway":"Estás a un paso de crear una campaña dirigida extremadamente eficaz",
+        "fillDetail":"Completa tus datos para que podamos comenzar",
+        "wouldYouLikeToText": "¿Le gustaría crear una campaña de Dropforcoin? Póngase en contacto con nuestro equipo de ventas en: "
+}
+}
+

@@ -1,0 +1,16 @@
+// Bootstrap brand color customization
+
+@import '../variables/colors';
+/*     brand Colors              */
+
+$brand-primary:              $indigo-800 !default;
+$brand-secondary:            $teal-a200 !default;
+$brand-info:                 $cyan-500 !default;
+$brand-success:              $teal-a200 !default;
+$brand-warning:              $orange-500 !default;
+$brand-danger:               $red-500 !default;
+$brand-rose:                 $pink-500 !default;
+$brand-inverse:              $black-color !default;
+$back-bg:                    $indigo-dark !default;
+
+$text-color:   #121212;

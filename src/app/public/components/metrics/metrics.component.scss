@@ -1,0 +1,757 @@
+@import "../../../../assets/css/core/mixins";
+@import "../../../../assets/css/core/variables/colors";
+
+.statis_head {
+    .section-head {
+        font-size: 1.2rem;
+        margin: 0 0 .3rem;
+
+        img {
+            margin-right: 0.5rem;
+            max-width: 25px;
+        }
+    }
+
+    p {
+        margin: 0 0 0.3rem;
+        font-size: 0.9rem;
+        color: #A1AED4;
+    }
+
+    span.badge {
+        border: 1px solid;
+    }
+}
+
+.statis_datepicker {
+    .form-group {
+        margin: 0;
+        &.col {
+            >label.lbl-input {
+                left: 1.5rem;
+            }
+        }
+
+        ::ng-deep {
+            ng2-flatpickr {
+                min-width: 200px;
+                display: inline-block;
+                width: 100%;
+            }
+
+            mat-form-field {
+                height: 100%;
+                width: 100%;
+                display: inline-block;
+
+                .mat-form-field-wrapper {
+                    display: inline-block;
+                    height: 100%;
+                    padding: 0;
+                    width: 100%;
+
+                    .mat-form-field-flex {
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        width: 100%;
+                        font-size: 15px;
+                        letter-spacing: 1px;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        padding: 7px 10PX;
+                        border-radius: 5px;
+                        color: rgba(255, 255, 255, 0.8);
+                        border: 2px solid #676e8c;
+                        height: calc(1.5em + 0.75rem + 9px);
+
+                        .mat-form-field-infix {
+                            margin: 0;
+                            padding: 0;
+                            border: 0;
+                            height: 100%;
+
+                            .mat-form-field-label-wrapper {
+                                top: 0;
+                                padding-top: 0;
+
+                                .mat-form-field-label {
+                                    top: 0.3rem;
+                                    color: #ffffffcf;
+                                    font-size: 0.85rem;
+                                }
+                            }
+                        }
+
+                        .mat-form-field-suffix {
+                            .mat-datepicker-toggle {
+                                button {
+                                    .mat-button-wrapper {
+                                        color: #fff;
+
+                                        svg {
+                                            width: 1.5rem;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .mat-form-field-underline {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.statis_graph {
+    width: 100%;
+    display: inline-block;
+    margin: 3.5rem 0 0;
+    position: relative;
+
+    .chart_legend {
+        display: inline-block;
+        float: right;
+        top: -3.5rem;
+        position: absolute;
+        right: 0;
+
+        div {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            letter-spacing: 0.6px;
+            margin: 0.3rem 0;
+
+            span {
+                width: 25px;
+                height: 15px;
+                display: inline-block;
+                margin-right: 0.4rem;
+                border-radius: 3px;
+            }
+
+            &.completed_task span {
+                background: #74FAAA;
+            }
+
+            &.no_of_clicks span {
+                background: #6577AD;
+            }
+        }
+    }
+    ::ng-deep {
+        ngx-charts-bar-vertical-2d {
+            fill: #fff;
+            display: inline-block;
+            width: 100%;
+            overflow-x: auto;
+            ngx-charts-chart {
+                display: inline-block;
+                width: 100%;
+                .ngx-charts-outer,
+                .ngx-charts {
+                    width: 100% !important;
+                    display: inline-block;
+                    max-width: 100%;
+                    .bar-chart {
+                        width: 100% !important;
+                        display: inline-block;
+                        transform: scalex(1.06) translate(3%, 3%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.total_graph {
+    background: #2D3766;
+    border-radius: 15px;
+    box-shadow: 0 0 0.5rem 0.05rem rgb(0 0 0 / 20%);
+    padding: 0rem;
+    display: inline-block;
+    width: 100%;
+
+    h5 {
+        margin: 0;
+        width: 100%;
+        display: inline-block;
+        background: #6577ad;
+        padding: 0.5rem 1rem;
+        border-radius: 10px 10px 0 0;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+
+    .total_graph_inner {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0.3rem 1.5rem 0.8rem;
+    }
+
+    .total_chart {
+        margin-left: 1rem;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 100%;
+
+        h6 {
+            margin: 0.4rem 0;
+            color: #c0cff8;
+            font-weight: 500;
+            font-size: 1.2rem;
+
+            span {
+                width: 100%;
+                display: inline-block;
+                color: #fff;
+                font-size: 1rem;
+                margin-top: 0.3rem;
+            }
+        }
+    }
+}
+
+.container .camp_name {
+    color: #74faaa;
+    margin: 0;
+}
+@media only screen and (min-width: 1780px) {
+    .statis_graph {
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                ngx-charts-chart {
+                    .ngx-charts-outer,
+                    .ngx-charts {
+                        .bar-chart {
+                            transform: scalex(0.84) translate(3%, 3%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1536px) {
+    .statis_graph {
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                ngx-charts-chart {
+                    .ngx-charts-outer,
+                    .ngx-charts {
+                        .bar-chart {
+                            transform: scale(1.06) translate(3%, 3%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1480px) {
+    .statis_graph {
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                ngx-charts-chart {
+                    .ngx-charts-outer,
+                    .ngx-charts {
+                        .bar-chart {
+                            transform: scalex(1.15) translateX(4%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1439px) {
+    .statis_graph {
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                ngx-charts-chart {
+                    .ngx-charts-outer,
+                    .ngx-charts {
+                        .bar-chart {
+                            transform: scalex(1.10) translateX(3.5%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .statis_graph {
+        overflow-y: hidden;
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                display: inline-block;
+                ngx-charts-chart>.ngx-charts-outer {
+                    display: inline-block;
+                    svg {
+                        display: inline-block;
+                        padding-top: 1rem;
+                        .bar-chart {
+                            transform: scalex(1.13) translateX(3.5%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1180px) {
+    .statis_graph {
+        overflow-y: hidden;
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                display: inline-block;
+                ngx-charts-chart>.ngx-charts-outer {
+                    display: inline-block;
+                    svg {
+                        display: inline-block;
+                        padding-top: 1rem;
+                        .bar-chart {
+                            transform: scalex(1.19) translateX(4%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1120px) {
+    .statis_graph {
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                ngx-charts-chart {
+
+                    .ngx-charts-outer,
+                    .ngx-charts {
+                        .bar-chart {
+                            transform: scaleX(1.13) translateX(2.5%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .statis_graph {
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                ngx-charts-chart {
+
+                    .ngx-charts-outer,
+                    .ngx-charts {
+                        .bar-chart {
+                            transform: scaleX(1.18) translateX(3.5%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .statis_graph {
+        overflow-y: hidden;
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                display: inline-block;
+                ngx-charts-chart>.ngx-charts-outer {
+                    display: inline-block;
+                    svg {
+                        display: inline-block;
+                        padding-top: 1rem;
+                        .bar-chart {
+                            transform: scalex(0.98) translateX(4.5%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .statis_datepicker .form-group {
+        margin: 1rem 0 0;
+    }
+
+    .total_graph {
+        ::ng-deep {
+            ngx-charts-advanced-pie-chart {
+                width: 120px;
+            }
+        }
+
+        h5 {
+            font-size: 1rem;
+        }
+
+        .total_graph_inner {
+            align-items: center;
+            flex-direction: column;
+            padding: 0.3rem 1rem 0.8rem;
+
+            .total_chart {
+                width: calc(100% + 1.6rem);
+                margin: 0.5rem -0.8rem 0;
+                text-align: center;
+                flex-direction: row;
+
+                h6 {
+                    font-size: 1.1rem;
+                    width: calc(50% - 0.3rem);
+                    padding: 0 0.3rem;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 819px) {
+    .statis_graph {
+        overflow-y: hidden;
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                display: inline-block;
+                ngx-charts-chart>.ngx-charts-outer {
+                    display: inline-block;
+                    svg {
+                        display: inline-block;
+                        padding-top: 1rem;
+                        .bar-chart {
+                            transform: scalex(1.19) translateX(5%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .statis_datepicker .form-group {
+        margin: 1rem 0 0;
+    }
+
+    .container .camp_name {
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 0;
+        color: #74faaa;
+    }
+
+    .total_graph {
+        margin-bottom: 0.5rem;
+
+        ::ng-deep {
+            ngx-charts-advanced-pie-chart {
+                width: 100px;
+            }
+        }
+    }
+
+    .statis_graph {
+        overflow-y: hidden;
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                display: inline-block;
+                ngx-charts-chart>.ngx-charts-outer {
+                    display: inline-block;
+                    svg {
+                        display: inline-block;
+                        padding-top: 1rem;
+                        .bar-chart {
+                            transform: translateX(11%) scaleX(1.28);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .total_graph {
+        margin-bottom: 1.5rem;
+
+        h5 {
+            font-size: 1rem;
+        }
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .total_graph {
+        .total_graph_inner {
+            align-items: center;
+            flex-direction: column;
+            padding: 0.3rem 1rem 0.8rem;
+
+            .total_chart {
+                width: calc(100% + 1.6rem);
+                margin: 0.5rem -0.8rem 0;
+                text-align: center;
+                flex-direction: row;
+
+                h6 {
+                    font-size: 1.1rem;
+                    width: calc(50% - 0.3rem);
+                    padding: 0 0.3rem;
+                }
+            }
+        }
+    }
+    .statis_graph {
+        overflow-y: hidden;
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                display: inline-block;
+                ngx-charts-chart>.ngx-charts-outer {
+                    display: inline-block;
+                    svg {
+                        display: inline-block;
+                        padding-top: 1rem;
+                        .bar-chart {
+                            transform: translateX(15%) scaleX(1.45);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.container {
+    .logo {
+        width: auto;
+        max-width: 100%;
+        height: 75px;
+        padding: 5px;
+        image-rendering: high-quality;
+    }
+
+    .camp_name {
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-top: 0rem;
+        color: #74faaa;
+    }
+}
+
+::ng-deep {
+    angular2-multiselect {
+        position: relative;
+
+        .cuppa-dropdown {
+            .selected-list {
+                .c-btn {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    font-size: 15px;
+                    letter-spacing: 1px;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    padding: 7px 10PX;
+                    border-radius: 5px;
+                    color: rgba(255, 255, 255, 0.8);
+                    border: 2px solid #676e8c;
+                    height: calc(1.5em + .75rem + 9px);
+
+                    &.disabled {
+                        background: #686f8d1a;
+                    }
+
+                    >span {
+                        font-size: 0.8em;
+                    }
+
+                    .c-list {
+                        display: flex;
+                        align-items: center;
+                        white-space: pre;
+                        overflow-x: hidden;
+                        width: calc(100% - 3rem);
+                        max-width: 500px;
+
+                        .c-token {
+                            color: #070b28;
+                            margin-right: 4px;
+                            margin-top: 0;
+                            padding: 1px 18px 2px 6px;
+                            background: #74faaa;
+                            font-size: 0.8rem;
+                            font-weight: 500;
+                            font-family: 'Poppins';
+                            border-radius: 20px;
+
+                            .c-remove {
+                                right: 6px;
+
+                                svg {
+                                    fill: #000;
+                                    width: 8px;
+                                    height: 8px;
+                                }
+                            }
+                        }
+                    }
+
+                    .c-remove.clear-all {
+                        svg {
+                            fill: #fff;
+                        }
+                    }
+
+                    .c-angle-down,
+                    .c-angle-up {
+                        top: 40%;
+
+                        svg {
+                            fill: #fff;
+                        }
+                    }
+                }
+            }
+
+            .dropdown-list {
+                bottom: 50px !important;
+                left: 0px !important;
+                top: auto !important;
+                position: absolute !important;
+                .arrow-2 {
+                    bottom: -14px;
+                    top: auto;
+                    transform: rotate(180deg);
+                }
+                .arrow-up {
+                    top: auto;
+                    bottom: -13px;
+                    transform: rotate(180deg);
+                }
+                .list-area {
+                    .select-all {
+                        label {
+                            color: #252f5a;
+
+                            &::before {
+                                background-color: #eeeff2;
+                                border: 1px solid #bdc3d0;
+                            }
+                        }
+                    }
+
+                    ul {
+                        li {
+                            padding: 3px 10px;
+
+                            label {
+                                color: #252f5a;
+
+                                &::after {
+                                    color: #000;
+                                }
+
+                                &::before {
+                                    background-color: #eeeff2;
+                                    border: 1px solid #bdc3d0;
+                                }
+                            }
+                        }
+                    }
+
+                    div {
+                        &:last-child {
+                            max-height: 170px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .modal-body {
+        angular2-multiselect {
+            .cuppa-dropdown {
+                .dropdown-list {
+                    .list-area {
+                        div {
+                            &:last-child {
+                                max-height: 100px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.form-group {
+    width: 100%;
+
+    i {
+        color: $teal-a200;
+
+        &:hover {
+            color: #fff;
+            cursor: pointer;
+        }
+    }
+}
+
+ul.language-ul {
+    margin: 15px auto 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding-left: 0;
+
+    .language-main {
+        width: 100px;
+        margin: 0;
+        border: 1px solid #74FAAA !important;
+        border-radius: 70px;
+        overflow: hidden;
+        display: flex;
+
+        a.nav-link {
+            width: 50%;
+            text-align: center;
+            padding: 0.5rem !important;
+            justify-content: center;
+
+            &::before {
+                content: none;
+            }
+
+            &.active {
+                background: $teal-a200;
+                color: #171f43 !important;
+                border: 1px solid $teal-a200  !important;
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 480px) {
+    .camp_name {
+        margin-top: 1rem;
+    }
+}

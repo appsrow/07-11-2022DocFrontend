@@ -1,0 +1,215 @@
+<div class="container" *ngIf="isProfileDataLoaded">
+  <h1 class="section-head my-4">{{ 'shared.user' | translate }} {{ 'shared.profile' | translate }}</h1>
+  <form [formGroup]="myProfileForm">
+    <div class="background-primary mb-4 br-10 w-100 brand_edit_profile">
+      <div class="text-center profile_img mb-4">
+        <div class="profile_main">
+          <div class="profile-img" (click)="fileInput.click()">
+            <span>
+              <img class="img-upload" (change)="onSelectProfile($event)"
+                [src]="myProfileForm.controls.photo.value ? myProfileForm.controls.photo.value : '/assets/images/brand-1.png'"
+                alt="User Profile">
+            </span>
+            <div class="upload-img">
+              <i class="fa fa-camera" aria-hidden="true"></i>
+            </div>
+            <div class="delete_profile" *ngIf="myProfileForm.controls.photo.value" (click)="deletePhoto()">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </div>
+          </div>
+          <h5>{{ 'shared.uploadUserLogo' | translate }}</h5>
+          <span>{{ 'shared.photoMaxSize' | translate }}</span>
+        </div>
+        <input type="file" #fileInput accept="image/jpeg, image/png" (change)="onSelectProfile($event)"
+          class="fileInput">
+        <div *ngIf="imageError" class="text-danger mb-2 text-center">
+          {{imageError}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="lbl-input">{{ 'shared.firstName' | translate }} <span class="text-danger">*</span></label>
+            <input type="text" maxlength="30" formControlName="firstName" class="form-control"
+              (keypress)="utilityService.onlyAlpha($event)">
+            <div
+              *ngIf="myProfileForm.controls['firstName'].errors && (myProfileForm.controls['firstName'].dirty || myProfileForm.controls['firstName'].touched) || submitted">
+              <div *ngIf="myProfileForm.controls['firstName'].errors?.required" class="text-danger">{{
+                'shared.firstNameRequired' | translate }} </div>
+              <div *ngIf="myProfileForm.controls['firstName'].errors?.minlength" class="text-danger">{{
+                'shared.firstNameMinLength' | translate }} </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="lbl-input">{{ 'shared.lastName' | translate }} <span class="text-danger">*</span></label>
+            <input type="text" maxlength="30" formControlName="lastName" class="form-control"
+              (keypress)="utilityService.onlyAlphAndSpace($event)">
+            <div
+              *ngIf="myProfileForm.controls['lastName'].errors && (myProfileForm.controls['lastName'].dirty || myProfileForm.controls['lastName'].touched) || submitted">
+              <div *ngIf="myProfileForm.controls['lastName'].errors?.required" class="text-danger">{{
+                'shared.lastNameRequired' | translate }}</div>
+              <div *ngIf="myProfileForm.controls['lastName'].errors?.minlength" class="text-danger">{{
+                'shared.lastNameMinLength' | translate }}</div>
+              <div *ngIf="myProfileForm.controls['lastName'].errors?.pattern" class="text-danger">
+                {{ 'user.enterValidLastName' | translate }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group date-picker">
+            <label class="lbl-input">{{ 'shared.dob' | translate }} <span class="text-danger">*</span></label>
+            <ng2-flatpickr id="date" formControlName="dob" [config]="datePicker"></ng2-flatpickr>
+            <div
+              *ngIf="myProfileForm.controls['dob'].errors && (myProfileForm.controls['dob'].dirty || myProfileForm.controls['dob'].touched) || submitted">
+              <div *ngIf="myProfileForm.controls['dob'].errors?.required" class="text-danger">
+                {{ 'shared.dobRequired' | translate }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="lbl-input">{{ 'shared.email' | translate }} <span class="text-danger">*</span></label>
+            <input type="email" formControlName="email" class="form-control" readonly>
+            <div
+              *ngIf="myProfileForm.controls['email'].errors && (myProfileForm.controls['email'].dirty || myProfileForm.controls['email'].touched) || submitted">
+              <div *ngIf="myProfileForm.controls['email'].errors?.required" class="text-danger">{{
+                'shared.emailRequired' | translate }}</div>
+              <div *ngIf="myProfileForm.controls['email'].value !== '' && myProfileForm.controls['email'].invalid"
+                class="text-danger">{{ 'shared.emailWrongFormat' | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row form-row">
+            <div class="form-group col-3 mb-0">
+              <label class="lbl-input">{{ 'shared.countryCode' | translate }}</label>
+              <angular2-multiselect *ngIf="countriesDialingCodes" [data]="countriesDialingCodes"
+                [settings]="countriesDialingCodesSettings" formControlName="selectedCountryDialingCode">
+              </angular2-multiselect>
+              <div
+                *ngIf="myProfileForm.controls['selectedCountryDialingCode'].errors && (myProfileForm.controls['selectedCountryDialingCode'].dirty || myProfileForm.controls['selectedCountryDialingCode'].touched) || submitted">
+                <div *ngIf="myProfileForm.controls['selectedCountryDialingCode'].errors?.required" class="text-danger">
+                  {{ 'shared.countryCodeRequired' | translate }} </div>
+              </div>
+            </div>
+            <div class="form-group col-9 mb-0">
+              <label class="lbl-input">{{ 'shared.phoneNumber' | translate }}</label>
+              <input type="text" maxlength="15" formControlName="phone" class="form-control"
+                (keypress)="utilityService.phoneNumberValidation($event)" (keyup)="showVerifyButton()"
+                [readonly]="phoneNumberVerfied">
+              <button class="btn btn-green btn-verify" [ngClass]="{'verified': phoneNumberVerfied }"
+                *ngIf="showVerifyBtn" (click)="verifyPhone()"><span *ngIf="!phoneNumberVerfied">{{ 'shared.verify' |
+                  translate }}</span><span *ngIf="phoneNumberVerfied">{{ 'shared.verified' | translate
+                  }}</span></button>
+              <div
+                *ngIf="myProfileForm.controls['phone'].errors && (myProfileForm.controls['phone'].dirty || myProfileForm.controls['phone'].touched) || submitted">
+                <div *ngIf="myProfileForm.controls['phone'].errors?.required" class="text-danger">{{
+                  'shared.phoneNumberRequired' | translate }}</div>
+                <div *ngIf="myProfileForm.controls['phone'].errors?.minlength" class="text-danger">{{
+                  'shared.phoneMinLength' | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row form-row">
+            <div class="form-group col-12 col-md-6 mb-0">
+              <label class="lbl-input">{{ 'shared.gender' | translate }} <span class="text-danger">*</span></label>
+              <select class="form-select" formControlName="gender">
+                <option value="1">{{ 'shared.male' | translate }}</option>
+                <option value="2">{{ 'shared.female' | translate }}</option>
+                <option value="3">{{ 'shared.others' | translate }}</option>
+              </select>
+              <div
+                *ngIf="myProfileForm.controls['gender'].errors && (myProfileForm.controls['gender'].dirty || myProfileForm.controls['gender'].touched) || submitted">
+                <div *ngIf="myProfileForm.controls['gender'].errors?.required" class="text-danger">{{
+                  'shared.genderRequired' | translate }}</div>
+              </div>
+            </div>
+            <div class="form-group col-12 col-md-6 mb-0">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.country' | translate }}</label>
+                <angular2-multiselect *ngIf="countries" [data]="countries" [settings]="dropdownSettings"
+                  (onSelect)="onChangeCountry($event)" formControlName="country">
+                </angular2-multiselect>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+          <div class="row form-row">
+            <div class="form-group col-12 col-md-6">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.state' | translate }} <span class="text-danger">*</span></label>
+                <angular2-multiselect *ngIf="isStateLoaded" [data]="stateList" [settings]="dropdownSettings"
+                  formControlName="state">
+                </angular2-multiselect>
+              </div>
+            </div>
+            <div class="form-group col-12 col-md-6">
+              <label class="lbl-input">{{ 'shared.city' | translate }} <span class="text-danger">*</span></label>
+              <input type="text" formControlName="city" class="form-control"
+                (keypress)="utilityService.onlyAlpha($event)">
+              <div
+                *ngIf="myProfileForm.controls['city'].errors && (myProfileForm.controls['city'].dirty || myProfileForm.controls['city'].touched) || submitted">
+                <div *ngIf="myProfileForm.controls['city'].errors?.required" class="text-danger">{{
+                  'shared.cityRequired' | translate }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="error" class="text-danger mb-2 text-center">
+          {{ 'shared.fillAllFields' | translate }}
+        </div>
+        <div class="col-md-12 text-center ">
+          <button type="submit" class="btn btn-green" (click)="updateProfile()">{{ 'shared.btnUpdate' |
+            translate }}</button><br>
+          <h6 class="mt-4">{{ 'user.deleteAccount' | translate }}</h6>
+          <a href="mailto:support@dropforcoin.com" title="Brand Email">support@dropforcoin.com</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- <ng-template #content let-modal id="verify_phone"> 
+  <div class="modal-header head_with_name">
+    <h5 class="modal-title" id="modal-basic-title">{{ 'shared.phoneNoVerification' | translate }}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pt-0" >
+    <form [formGroup]="userPhoneVerificationForm">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mb-2">
+            <p class="mb-3 heading-white text">{{ 'shared.forSecurityText' | translate }} </p>
+            <h5 class="text-uppercase text-center">{{ 'shared.yourPhone' | translate }}: <b>{{ phoneNumber }}</b></h5>
+          </div>
+          <div class="form-group m-0 verification_input">
+           
+           <div *ngIf="isVerifyCodeRequested" class="text-center">
+             <label *ngIf="isVerifyCodeRequested" class="lbl-popup-input pb-2">{{ 'shared.pleaseEnterYourVerificationCode' | translate }}<span class="text-danger error-msg">*</span></label>
+             <ng-otp-input  (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+            <div [ngClass]="{'hide': !showOtpRequiredText }">
+              <div class="text-danger">{{ 'shared.verificationCodeRequired' | translate }}</div>
+            </div>
+          </div><br>
+            <div class="d-flex justify-content-center align-items-center flex-column mt-3">
+              <button type="button" class="btn btn-green" *ngIf="!isVerifyCodeRequested" (click)="requestCode()">{{ 'shared.requestCode' | translate }}</button>
+              <button type="button" class="btn btn-green" *ngIf="isVerifyCodeRequested" (click)="verifyCode()">{{ 'shared.verify' | translate }} the code</button>
+              <button type="button" class="btn btn-link mt-2 btn-skip" (click)="skipVerification()">{{ 'shared.skipVerification' | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>  -->
+
+<app-confirm-mobile-verification #confirmMobileVerificationComponent [phone_number]="phoneNumberOnly"
+  [country_dialing_code]="countryCodeOnly" (parentFunction)="parentFunction($event)"></app-confirm-mobile-verification>

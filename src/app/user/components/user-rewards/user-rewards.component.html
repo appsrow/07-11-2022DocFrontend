@@ -1,0 +1,313 @@
+<div class="container">
+  <div class="me-0 ms-0 d-lg-flex d-md-flex d-sm-block d-xs-block align-item-center justify-content-between">
+    <div class="my-3">
+      <div class="totalearncoin heading-secoundry f-18">{{ 'userRewards.currentBalance' | translate }} :
+        {{ totalWalletBalance | number : '1.2-2' }}
+      </div>
+    </div>
+    <a class="btn btn-green my-3" (click)="showAllRedeemRewards()" *ngIf="btnRedeemHistory">{{ 'shared.redeemedHistory'
+      | translate }}</a>
+  </div>
+  <h1 class="section-head my-4">{{ 'userRewards.rewards' | translate }}</h1>
+  <div class="row">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4" *ngFor="let reward of rewards">
+      <div class="background-primary text-center w-100 br-10 task_item">
+        <div class="div-image">
+          <img [src]="reward.photo ? reward.photo : '/assets/images/reward_default.png'"
+            alt="Image of {{ reward.photo }}">
+        </div>
+        <h5>{{ reward.description | titlecase }}</h5>
+        <h5>{{ this.utilityService.parseFloatNumber(reward.minimum_coins) }} coins</h5>
+        <button type="button" class="btn-outline  mb-4 mt-2"
+          *ngIf="utilityService.parseFloatNumber(totalWalletBalance) >= utilityService.parseFloatNumber(reward.minimum_coins) && reward.id == 1"
+          (click)="goToTwitch()">{{ 'userRewards.getSubscription' | translate }}</button>
+
+        <!-- remove the code comment start -->
+        <!-- <button type="button" class="btn-outline btn-outline-white  mb-4 mt-2"
+          *ngIf="utilityService.parseFloatNumber(totalWalletBalance) < utilityService.parseFloatNumber(reward.minimum_coins) && (reward.id == 1)"><i
+            class="fa fa-lock mw-2" aria-hidden="true"></i>
+          {{ 'userRewards.NotEnoughCoins' | translate }}</button>
+        <button type="button" class="btn-outline btn-outline-white  mb-4 mt-2" *ngIf="reward.id != 1"><i
+            class="fa fa-lock mw-2" aria-hidden="true"></i>
+          {{ 'userRewards.comingSoon' | translate }}</button> -->
+        <!-- remove the code comment end -->
+
+        <button type="button" class="btn-outline  mb-4 mt-2"
+          *ngIf="utilityService.parseFloatNumber(totalWalletBalance) >= reward.minimum_coins && reward.id == 2 && reward.active == 1"
+          (click)="openModel(content,modalDataConfirmMobile)">{{ 'userRewards.getPayment' | translate }}</button>
+        <button type="button" class="btn-outline  mb-4 mt-2"
+          *ngIf="utilityService.parseFloatNumber(totalWalletBalance) >= reward.minimum_coins && reward.id == 2 && reward.active == 0"><i
+            class="fa fa-lock mw-2" aria-hidden="true"></i>{{ 'userRewards.NotAvailable' | translate }}</button>
+        <button type="button" class="btn-outline btn-outline-white mb-4 mt-2"
+          *ngIf="reward.id != 2 && reward.id != 1 && reward.id != 3">{{ 'userRewards.NotAvailable' | translate
+          }}</button>
+        <button type="button" class="btn-outline btn-outline-white  mb-4 mt-2"
+          *ngIf="utilityService.parseFloatNumber(totalWalletBalance) < utilityService.parseFloatNumber(reward.minimum_coins) && (reward.id == 1 || reward.id == 2 || reward.id == 3)"><i
+            class="fa fa-lock mw-2" aria-hidden="true"></i>
+          {{ 'userRewards.NotEnoughCoins' | translate }}</button>
+        <button type="button" class="btn-outline  mb-4 mt-2"
+          *ngIf="utilityService.parseFloatNumber(totalWalletBalance) >= utilityService.parseFloatNumber(reward.minimum_coins) && reward.id == 3"
+          (click)="goToGiftCards()">Get gift cards</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-12 mb-4" *ngIf="alreadyRedeemed">
+    <div class="col-md-12 d-flex justify-content-between  my-4">
+      <h1 class="section-head">{{ 'user.alreadyRedeemed' | translate }}</h1>
+      <button *ngIf="showLoadMoreButton" (click)="loadMoreReword()" class="btn btn-green btn-task">{{ 'user.viewAll' |
+        translate }}</button>
+    </div>
+    <div class="background-primary w-100 br-10 p-3 p-md-4 allready_redeem">
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" *ngFor="let userReward of userAlreadyRedeemRewards">
+          <div class="task-progress-main d-flex mb-4" *ngIf="userReward.name == 'paypal'">
+            <div class="task-progress-image">
+              <img src="/assets/images/paypal.png" alt="task image">
+            </div>
+            <div class="task-progress-content">
+              <h4 class="heading">{{ 'user.paypal' | translate }}</h4>
+              <div class="task-info d-flex mb-2">
+                <img src="/assets/images/calendar.png" class="me-2" alt="calender-icon">
+                <h5 class="heading-secoundry mb-0">{{ userReward.converted_transaction_date }}</h5>
+              </div>
+              <div class="task-info d-flex">
+                <img src="/assets/images/coin-icon.png" class="me-2" alt="calender-icon">
+                <h5 class="heading-secoundry mb-0">{{ userReward.coins }} </h5>
+              </div>
+            </div>
+            <div class="status_badge">
+              <span *ngIf="userReward.status === 'PROCESSING'" class="badge badge-pill badge-warning">{{
+                userReward.status }}</span>
+              <span *ngIf="userReward.status === 'DENIED'" class="badge badge-pill badge-danger">{{ userReward.status
+                }}</span>
+              <span *ngIf="userReward.status === 'CANCELED'" class="badge badge-pill badge-danger">{{ userReward.status
+                }}</span>
+            </div>
+          </div>
+          <div class="task-progress-main d-flex mb-4" *ngIf="userReward.name == 'twitch'">
+            <div class="task-progress-image">
+              <img src="/assets/images/twitch_big.png" alt="task image">
+            </div>
+            <div class="task-progress-content">
+              <h4 class="heading">{{ userReward.description }}</h4>
+              <div class="task-info d-flex mb-2">
+                <img src="/assets/images/calendar.png" class="me-2" alt="calender-icon">
+                <h5 class="heading-secoundry mb-0">{{ userReward.converted_transaction_date }}</h5>
+              </div>
+              <div class="task-info d-flex">
+                <img src="/assets/images/coin-icon.png" class="me-2" alt="calender-icon">
+                <h5 class="heading-secoundry mb-0">{{ userReward.coins }} </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header head_with_name">
+    <h5 class="modal-title" id="modal-basic-title">{{ 'shared.getPaypalReward' | translate }}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pt-0">
+    <form [formGroup]="userRewardForm">
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+            <h5 class="my-4 heading-white ">{{ 'userRewards.contentTitle1' | translate }} <span>&#8364;</span>
+              {{totalAmount | number : '1.0-0'}} {{ 'userRewards.contentTitle2' | translate }} </h5>
+            <p class="my-4 heading-white text">{{ 'userRewards.contentSubTitle1' | translate }} </p>
+          </div>
+          <div class="form-group m-0">
+            <label class="lbl-popup-input mb-2">{{ 'user.paypal' | translate }} {{ 'shared.id' | translate }}<span
+                class="text-danger error-msg">*</span></label>
+            <input type="text" formControlName="paypalEmail" class="form-control"
+              placeholder="{{ 'shared.enterPaypalId' | translate }}">
+            <div
+              *ngIf="userRewardForm.controls['paypalEmail'].errors && (userRewardForm.controls['paypalEmail'].dirty || userRewardForm.controls['paypalEmail'].touched) || submitted">
+              <div *ngIf="userRewardForm.controls['paypalEmail'].errors?.required" class="text-danger">{{ 'user.paypal'
+                | translate }} {{ 'shared.emailRequired' | translate }} </div>
+              <div
+                *ngIf="userRewardForm.controls['paypalEmail'].value !== '' && userRewardForm.controls['paypalEmail'].invalid"
+                class="text-danger">{{ 'shared.emailWrongFormat' | translate }}</div>
+            </div>
+            <div class="details mt-4">
+              <div class="details-left">
+                <h5 class="heading-green">{{ 'userRewards.details' | translate }}</h5>
+                <h5 class="line-main">{{totalAmount | number : '1.0-0' }} <span>&#8364;</span> &nbsp;{{
+                  'userRewards.throughPaypal' | translate }}
+                  <hr class="line" />
+                </h5>
+                <h5 class="text-right bold mt-5">{{ 'userRewards.totalAmount' | translate }}</h5>
+              </div>
+              <div class="details-right">
+                <h5 class="heading-green">{{ 'userRewards.total' | translate }}</h5>
+                <h5>{{totalCoinsDetails}} {{ 'userRewards.coins' | translate }}</h5>
+                <h5 class="bold mt-5">{{totalCoinsDetails}} {{ 'userRewards.coins' | translate }}</h5>
+              </div>
+            </div>
+            <div class="terms">
+              <p class="mt-4 heading-white text">{{ 'userRewards.termsConfirm' | translate }}
+                <a (click)="goToPrivacy('terms')" target="_blank">{{ 'footer.terms' | translate }}</a> {{
+                'userRewards.our' | translate }}
+                <a (click)="goToPrivacy('privacy')" target="_blank">{{ 'footer.privacy' | translate }} </a> {{
+                'userRewards.and' | translate }} {{ 'userRewards.our' | translate }}
+                <a (click)="goToPrivacy('returnPolicy')" target="_blank">{{ 'footer.returnPolicy' | translate }}</a>
+              </p>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-green " (click)="openConfirmModel(confirm)">{{ 'shared.confirm' |
+                translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #confirm let-modal>
+  <div class="modal-header head_with_name">
+    <h5 class="modal-title" id="modal-basic-title">{{ 'shared.confirmPaypalId' | translate }}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pt-0">
+    <form [formGroup]="userRewardForm">
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+            <h6 class="my-4 heading-white ">{{ 'userRewards.confirmTitle' | translate }} </h6>
+          </div>
+          <div class="form-group m-0">
+            <label class="heading-white mt-3"><span class="bold">{{ 'user.paypal' | translate }} {{ 'shared.id' |
+                translate }} :</span> &nbsp;<span class="">{{ paypalEmail }}</span></label>
+
+          </div>
+          <div class="details mt-4">
+            <div class="details-left">
+              <h5 class="heading-green">{{ 'userRewards.checkout' | translate }}</h5>
+              <h5 class="line-main">{{totalAmount | number : '1.0-0' }} <span>&#8364;</span> &nbsp;{{
+                'userRewards.throughPaypal' | translate }}
+                <hr class="line" />
+              </h5>
+              <h5 class="text-right bold mt-5">{{ 'userRewards.totalAmount' | translate }}</h5>
+            </div>
+            <div class="details-right">
+              <h5 class="heading-green">{{ 'userRewards.total' | translate }}</h5>
+              <h5>{{totalCoinsDetails}} {{ 'userRewards.coins' | translate }}</h5>
+              <h5 class="bold mt-5">{{totalCoinsDetails}} {{ 'userRewards.coins' | translate }}</h5>
+            </div>
+          </div>
+          <h6 class="heading-white mt-4 mb-5">{{ 'userRewards.availableBalanceCondition' | translate }}
+            <span>{{totalAvailableCoinsPaypal}}</span>&nbsp;{{ 'userRewards.coins' | translate }}
+          </h6>
+          <div class="terms">
+            <p class="mt-4 heading-white text mb-0">
+              {{ 'userRewards.condition1' | translate }}
+            </p>
+            <p class="heading-white text">
+              {{ 'userRewards.condition2' | translate }}
+              <a (click)="goToPrivacy('legalNote')">{{ 'userRewards.legalNote' | translate }}</a>
+            </p>
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <button type="button" class="btn btn-green me-3" (click)="getUserRewardPaypal()"
+              (click)="modal.close('Save click')">{{ 'shared.confirm' | translate }}</button>
+            <button type="button" class="btn-outline" (click)="modal.close('Cross click')">{{ 'shared.cancel' |
+              translate }}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #modalDataConfirmMobile let-modal let-c="close" let-d="dismiss">
+  <div class="modal-body px-0 pb-0">
+    <button type="button" class="close without_head" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+    <form [formGroup]="userPhoneVerificationForm">
+      <div class="row">
+        <div class="col-md-12 f-20 text-center mb-3">
+          <h5 class="heading-green without_title mb-0">{{ 'shared.weNeedYourPhone' | translate }}</h5>
+        </div>
+        <div class="col-md-12 text-center">
+          <p>{{ 'shared.OopsSecurityText' | translate }}</p>
+          <div class="row">
+            <div class="col-4 col-sm-3 col-md-3 pe-0">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.countryCode' | translate }}</label>
+                <angular2-multiselect *ngIf="countriesDialingCodes" [data]="countriesDialingCodes"
+                  [settings]="countriesDialingCodesSettings" formControlName="selectedCountryDialingCode">
+                </angular2-multiselect>
+                <div
+                  *ngIf="userPhoneVerificationForm.controls['selectedCountryDialingCode'].errors && (userPhoneVerificationForm.controls['selectedCountryDialingCode'].dirty || userPhoneVerificationForm.controls['selectedCountryDialingCode'].touched) || submittedPhone">
+                  <div *ngIf="userPhoneVerificationForm.controls['selectedCountryDialingCode'].errors?.required"
+                    class="text-danger"> {{ 'shared.countryCodeRequired' | translate }} </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-8 col-sm-9 col-md-9">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.phoneNumber' | translate }}</label>
+                <input type="text" maxlength="15" formControlName="phone" class="form-control"
+                  (keypress)="utilityService.phoneNumberValidation($event)"
+                  placeholder="{{ 'shared.phoneNumber' | translate }}">
+                <div
+                  *ngIf="userPhoneVerificationForm.controls['phone'].errors && (userPhoneVerificationForm.controls['phone'].dirty || userPhoneVerificationForm.controls['phone'].touched) || submittedPhone">
+                  <div *ngIf="userPhoneVerificationForm.controls['phone'].errors?.required"
+                    class="text-danger text-start">{{ 'shared.phoneNumberRequired' | translate }}</div>
+                  <div *ngIf="userPhoneVerificationForm.controls['phone'].errors?.minlength"
+                    class="text-danger text-start">{{ 'shared.phoneMinLength' | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center task_btn">
+          <button class="btn btn-green btn-task ms-3" (click)="sendVerificationCode(verificationCodeModal)">{{
+            'shared.confirm' | translate }}</button>
+          <button class="btn btn-green btn-task ms-3" (click)="cancel()">{{ 'shared.cancel' | translate }}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #verificationCodeModal let-modal>
+  <div class="modal-header head_with_name">
+    <h5 class="modal-title" id="modal-basic-title">{{ 'shared.phoneNoVerification' | translate }}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pt-0">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="m-3">
+          <p class="my-4 heading-white text">{{ 'shared.forSecurityText' | translate }} </p>
+          <h5>{{ 'shared.yourPhone' | translate }}: {{ phoneNumber }}</h5>
+        </div>
+        <div class="form-group m-0 verification_input">
+          <label class="lbl-popup-input mb-2">{{ 'shared.pleaseEnterYourVerificationCode' | translate }}<span
+              class="text-danger error-msg">*</span></label>
+          <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+          <div [ngClass]="{'hide': !showOtpRequiredText }">
+            <div class="text-danger">{{ 'shared.verificationCodeRequired' | translate }}</div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center m-3">
+          <button type="button" class="btn btn-green" [ngClass]="{'disabled': !isVerifyButtonEnable }"
+            (click)="verifyCode(content)">{{ 'shared.verify' | translate }}</button><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

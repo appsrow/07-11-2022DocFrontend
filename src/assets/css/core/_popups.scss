@@ -1,0 +1,88 @@
+@import '../core/variables/brand';
+.modal {
+    max-width: none !important;
+    padding: 0 !important;
+    &.modal-lg {
+        max-width: 80%;
+    }
+    .modal-dialog {
+        .modal-content {
+            background: #333E6F;
+            color:$f-color;
+            border-radius: 1.5rem;
+            margin: 3px;
+            padding: 1.3rem;
+            .close.without_head {
+                background: transparent;
+                border: 0;
+                padding: 0;
+                font-size: 1.5rem;
+                position: absolute;
+                right: 1rem;
+                top: .5rem;
+                color: #fff;
+                transition: all 0.3s ease;
+                z-index: 1;
+                &:hover,&:focus {
+                    color: $teal-a200;
+                    transition: all 0.3s ease;
+                }
+            }
+            .modal-header {
+                background: #333E6F;
+                padding: 0.3rem 0.5em;
+                border-bottom: unset;
+                justify-content: flex-end;
+                border-radius: 1.5rem 1.5rem 0 0;
+                h5 {
+                    color: $white;
+                    font-weight: 500;
+                }
+                .close {
+                    color: $white;
+                    text-shadow:none;
+                    opacity: 1;
+                    background: inherit;
+                    box-shadow: unset !important;
+                    border: none;
+                    font-size: 23px;
+                    text-align: right;
+                    &:focus{
+                        outline: none;
+                    }
+                }
+                &.head_with_name {
+                    justify-content: space-between;
+                    padding: 0.5rem 1rem;
+                    background: #333E6F;
+                }
+            }
+            .modal-body {
+                padding: 1.5rem 1rem;
+                .without_title {
+                    font-weight: 500;
+                    margin: 0;
+
+                }
+                .modal-inner {
+                    form {
+                        .form-row {
+                            .form-group {
+                                margin-bottom: 0.5rem;
+                                label {
+                                    margin-bottom: 0.2rem;
+                                }
+                                input {
+                                    height: calc(1.2em + 1.2rem + 2px);
+                                }
+                                select {
+                                    height: calc(1.2em + 1.2rem + 2px);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

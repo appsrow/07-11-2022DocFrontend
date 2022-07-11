@@ -1,0 +1,221 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 statis_head mt-4" *ngIf="campaignDetails">
+            <h3 class="section-head">
+                <img *ngIf="campaignDetails.campaign_type_name == 'uploadvideo'"
+                    src="../../../../assets/images/icon_video.png" alt="Video icon">
+                <img *ngIf="campaignDetails.campaign_type_name == 'Lead'" src="../../../../assets/images/lead.png"
+                    alt="Lead icon">
+                <img *ngIf="campaignDetails.campaign_type_name == 'Follow'"
+                    src="../../../../assets/images/icon_follow.png" alt="Follow icon">
+                <img *ngIf="campaignDetails.campaign_type_name == 'Appsdownload'"
+                    src="../../../../assets/images/icon_download.png" alt="Download icon">
+                <img *ngIf="campaignDetails.campaign_type_name == 'clicksonthewebsite'"
+                    src="../../../../assets/images/icon_visit.png" alt="Website icon">
+                {{ campaignDetails.campaign_name }}
+            </h3>
+            <p>({{campaignDetails.start_date | date:'dd-MM-yyyy'}} To {{campaignDetails.end_date |
+                date:'dd-MM-yyyy'}})</p>
+        </div>
+    </div>
+    <div class="background-primary my-4 br-10 w-100 p-3 pb-0 p-md-4 ">
+        <div class="row">
+            <div class="col-12 statis_datepicker">
+                <form class="row">
+                    <div class="col-12 col-md-6 col-lg-4 form-group date-picker">
+                        <angular2-multiselect *ngIf="chartTypeList" [data]="chartTypeList"
+                            [settings]="chartTypeSettings" [(ngModel)]="chartType" name="chartType"
+                            (onSelect)="onChangeType($event)">
+                        </angular2-multiselect>
+                        <label class="lbl-input">{{ 'brandStatistics.selectChartType' | translate }} <span
+                                class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 form-group date-picker" *ngIf="showDatePickerType === 'week'">
+                        <ng2-flatpickr id="statistics-date" [config]="weekPickerOptions"></ng2-flatpickr>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 form-group date-picker" *ngIf="showDatePickerType === 'month'">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="dp" placeholder="Month and Year"
+                                [(ngModel)]="monthYearDate" name="monthYearDate">
+                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                            <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+                                (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+                            </mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 form-group date-picker" *ngIf="showDatePickerType === 'year'">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="year" name="year" placeholder="Year"
+                                hidden="true" [readonly]="true" />
+                            <input matInput [ngModel]="year | date : 'yyyy'" placeholder="Year" [readonly]="true"
+                                name="year" />
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYear($event, picker)">
+                            </mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col text-center text-lg-end">
+                        <button class="btn btn-green text-nowrap mt-3 mt-lg-1" (click)="triggerModal(modalData)">{{
+                            'brandStatistics.generateSharableLink' | translate }}</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="statis_graph" *ngIf="saleDataMulti.length>0">
+            <div class="chart_legend">
+                <div class="completed_task">
+                    <span></span>
+                    {{ 'brandStatistics.completedTask' | translate }}
+                </div>
+                <div class="no_of_clicks">
+                    <span></span>
+                    {{ 'brandStatistics.numberOfClicks' | translate }}
+                </div>
+            </div>
+            <ngx-charts-bar-vertical-2d [view]="view" [results]="saleDataMulti" [scheme]="colorScheme"
+                [schemeType]="schemeType" [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxis]="true" [yAxis]="true">
+            </ngx-charts-bar-vertical-2d>
+        </div>
+        <div *ngIf="saleDataMulti.length === 0" class="my-5  text-center">
+            <h5>{{'shared.statiscsNoData' | translate}} {{ selectedWeekDates.length>0 ? selectedWeekDates[0].dates :
+                ''}}
+                {{'shared.to' | translate}}
+                {{ selectedWeekDates[6] ? selectedWeekDates[6].dates : ''}}</h5>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="total_graph">
+                    <h5 class="heading-green">{{ 'brandStatistics.totalTargetVsTotalAchieved' | translate }}</h5>
+                    <div class="total_graph_inner" *ngIf="targetDetails">
+                        <circle-progress [percent]="targetDetails.target_percentage" [radius]="50" [space]="-12"
+                            [outerStrokeWidth]="12" [outerStrokeColor]="'#74FAAA'" [innerStrokeColor]="'#6577ad'"
+                            [innerStrokeWidth]="12" [title]="targetDetails.target_percentage + '%'"
+                            [titleColor]="'#ffffff'" [titleFontSize]="'16'" [showSubtitle]="false"
+                            [animationDuration]="1000" [showBackground]="false" [startFromZero]="false"
+                            [showUnits]="false"></circle-progress>
+                        <div class="total_chart">
+                            <h6> {{ 'brandStatistics.totalTarget' | translate }}
+                                <span>{{targetDetails.total_target}}</span>
+                            </h6>
+                            <h6>{{ 'brandStatistics.totalAchieved' | translate }}
+                                <span>{{targetDetails.total_archived}}</span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="total_graph">
+                    <h5 class="heading-green">{{ 'brandStatistics.totalBudgetVsTotalLeft' | translate }}</h5>
+                    <div class="total_graph_inner" *ngIf="budgetDetails">
+                        <circle-progress [percent]="budgetSpentInPercentage" [radius]="50" [space]="-12"
+                            [outerStrokeWidth]="12" [outerStrokeColor]="'#74FAAA'" [innerStrokeColor]="'#6577ad'"
+                            [innerStrokeWidth]="12" [title]="'€ ' + budgetDetails.total_spend" [titleColor]="'#ffffff'"
+                            [titleFontSize]="'18'" [showSubtitle]="false" [animationDuration]="1000"
+                            [showBackground]="false" [startFromZero]="false" [showUnits]="false"></circle-progress>
+                        <div class="total_chart">
+                            <h6>{{ 'brandStatistics.totalBudget' | translate }}
+                                <span>€ {{budgetDetails.total_budget}}</span>
+                            </h6>
+                            <h6>{{ 'brandStatistics.totalLeft' | translate }}
+                                <span>€ {{budgetDetails.total_left}}</span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center pt-4">
+            <button class="btn btn-green" (click)="backToMyCampaign()"><i class="fa fa-long-arrow-left"
+                    aria-hidden="true"></i>{{ 'shared.back' | translate }} </button>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalData let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header head_with_name px-0 pt-0">
+        <h5 class="modal-title" id="modal-basic-title"> {{ 'brandStatistics.metricsLink' | translate }}</h5>
+        <button type="button" class="close met_link" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body p-0 pt-4 pb-1">
+        <form [formGroup]="metricsLinkForm">
+            <div class="row">
+                <div class="col-sm 12 col-md-12 mb-2">
+                    <div class="form-group m-0">
+                        <label class="lbl-popup-input mb-2">{{ 'brandStatistics.link' | translate }}<span
+                                class="text-danger error-msg">*</span></label>
+                        <input type="text" formControlName="link" readonly class="form-control" maxlength="50">
+                        <button class="copy_clipboard" data-toggle="tooltip" data-placement="right" title="Copy"
+                            (click)="copyText(metricsLinkForm.controls['link'].value)">
+                            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 210.107 210.107"
+                                style="enable-background:new 0 0 210.107 210.107;" xml:space="preserve">
+                                <!-- <title>Copy</title> -->
+                                <g>
+                                    <path style="fill:currentColor;"
+                                        d="M168.506,0H80.235C67.413,0,56.981,10.432,56.981,23.254v2.854h-15.38
+                                        c-12.822,0-23.254,10.432-23.254,23.254v137.492c0,12.822,10.432,23.254,23.254,23.254h88.271
+                                        c12.822,0,23.253-10.432,23.253-23.254V184h15.38c12.822,0,23.254-10.432,23.254-23.254V23.254C191.76,10.432,181.328,0,168.506,0z
+                                            M138.126,186.854c0,4.551-3.703,8.254-8.253,8.254H41.601c-4.551,0-8.254-3.703-8.254-8.254V49.361
+                                        c0-4.551,3.703-8.254,8.254-8.254h88.271c4.551,0,8.253,3.703,8.253,8.254V186.854z M176.76,160.746
+                                        c0,4.551-3.703,8.254-8.254,8.254h-15.38V49.361c0-12.822-10.432-23.254-23.253-23.254H71.981v-2.854
+                                        c0-4.551,3.703-8.254,8.254-8.254h88.271c4.551,0,8.254,3.703,8.254,8.254V160.746z" />
+                                </g>
+                            </svg>
+                        </button>
+                        <div
+                            *ngIf="metricsLinkForm.controls['link'].errors && (metricsLinkForm.controls['link'].dirty || metricsLinkForm.controls['link'].touched) || submitted">
+                            <div *ngIf="metricsLinkForm.controls['link'].errors?.required"
+                                class="text-danger error-msg">
+                                {{ 'brandStatistics.linkRequired' | translate }}</div>
+                        </div>
+                    </div>
+                </div>&nbsp;&nbsp;
+                &nbsp;&nbsp;
+                <!-- <div class="col-md-12"> -->
+                <div class="col-sm-12 col-md-12 mb-4">
+                    <div class="form-group m-0">
+                        <label class="lbl-popup-input mb-2">{{ 'brandStatistics.password' | translate }}<span
+                                class="text-danger error-msg">*</span></label>
+                        <input type="text" formControlName="password" class="form-control" maxlength="50">
+                        <button class="copy_clipboard" data-toggle="tooltip" data-placement="right" title="Copy"
+                            (click)="copyText(metricsLinkForm.controls['password'].value)">
+                            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 210.107 210.107"
+                                style="enable-background:new 0 0 210.107 210.107;" xml:space="preserve">
+                                <!-- <title>Copy</title> -->
+                                <g>
+                                    <path style="fill:currentColor;"
+                                        d="M168.506,0H80.235C67.413,0,56.981,10.432,56.981,23.254v2.854h-15.38
+                                        c-12.822,0-23.254,10.432-23.254,23.254v137.492c0,12.822,10.432,23.254,23.254,23.254h88.271
+                                        c12.822,0,23.253-10.432,23.253-23.254V184h15.38c12.822,0,23.254-10.432,23.254-23.254V23.254C191.76,10.432,181.328,0,168.506,0z
+                                            M138.126,186.854c0,4.551-3.703,8.254-8.253,8.254H41.601c-4.551,0-8.254-3.703-8.254-8.254V49.361
+                                        c0-4.551,3.703-8.254,8.254-8.254h88.271c4.551,0,8.253,3.703,8.253,8.254V186.854z M176.76,160.746
+                                        c0,4.551-3.703,8.254-8.254,8.254h-15.38V49.361c0-12.822-10.432-23.254-23.253-23.254H71.981v-2.854
+                                        c0-4.551,3.703-8.254,8.254-8.254h88.271c4.551,0,8.254,3.703,8.254,8.254V160.746z" />
+                                </g>
+                            </svg>
+                        </button>
+                        <div
+                            *ngIf="metricsLinkForm.controls['password'].errors && (metricsLinkForm.controls['password'].dirty || metricsLinkForm.controls['password'].touched) || submitted">
+                            <div *ngIf="metricsLinkForm.controls['password'].errors?.required"
+                                class="text-danger error-msg">
+                                {{ 'brandStatistics.passwordRequired' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button *ngIf="!isLinkAlreadyGenerated" type="button" class="btn btn-green"
+                    (click)="insertMetricsData()">{{
+                    'brandStatistics.generateBtn' | translate }}</button>
+                <button *ngIf="isLinkAlreadyGenerated" type="button" class="btn btn-green"
+                    (click)="copyCredentials()">{{
+                    'brandStatistics.copyCredentials' | translate }}</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

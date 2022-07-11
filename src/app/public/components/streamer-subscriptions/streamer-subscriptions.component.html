@@ -1,0 +1,110 @@
+<div class="retodrop">
+    <section class="retodrop_main">
+        <div class="retodrop_main_info">
+            <h1>#{{ 'streamerSubscriptions.D4cChallange' | translate}}</h1>
+            <p>{{ 'streamerSubscriptions.welcomeChallange' | translate}}<span> TOP 1.</span></p>
+            <div class="stars">
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+            </div>
+            <!-- <div class="rocket_img">
+                <img src="../../../../assets/images/how_plane.png" alt="Rocket" class="rocket_main">
+                <img src="../../../../assets/images/how_flam.png" alt="Rocket" class="rocket_flam">
+            </div> -->
+        </div>
+    </section>
+    <section class="retodrop_progress">
+        <h3>{{ 'streamerSubscriptions.youHaveNotHeard' | translate}}</h3>
+        <h2>{{ 'streamerSubscriptions.weAreGivingAway' | translate }} {{totalSubscriptions}} SUBS</h2>
+        <div class="my-4">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="40">
+                    {{rewardedSubscriptions}}</div>
+                <span>{{notRewardedSubscriptions}}</span>
+            </div>
+            <div class="d-flex justify-content-between progress_text">
+                <p>{{ 'streamerSubscriptions.rewarded' | translate}}</p>
+                <p>{{ 'streamerSubscriptions.notRewarded' | translate}}</p>
+            </div>
+        </div>
+    </section>
+    <section class="retodrop_Table my-3">
+        <div class="container">
+            <h2 class="d-flex justify-content-center py-5">{{ 'streamerSubscriptions.top10Streamers' | translate}}</h2>
+            <div class="retodrop_datatable table-responsive">
+                <table class="table" *ngIf="top10StreamerList">
+                    <tr *ngFor="let streamer of top10StreamerList let i = index">
+                        <td class="text-center">{{ i+1 }}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img [src]="streamer.streamer_image"
+                                    onerror="this.src='../../../../assets/images/userprofile.png'"
+                                    alt="../../../../assets/images/userprofile.png" alt="user">
+                                <span>{{ streamer.description }}</span>
+                            </div>
+                        </td>
+                        <td class="text-nowrap">{{ streamer.subscriptions }} subs</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+    <section class="retodrop_footer">
+        <div>
+            <p class="py-5">{{ 'streamerSubscriptions.fightForFavorriteText' | translate}}</p>
+            <div class="primera_btn">
+                <button type="button" (click)="goToRegistration()" class="btn btn-primary how_register"
+                    title="REGISTRARSE AHORA">{{
+                    'streamerSubscriptions.registerNow' | translate}}</button>
+            </div>
+        </div>
+    </section>
+</div>

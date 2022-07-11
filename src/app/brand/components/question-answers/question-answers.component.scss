@@ -1,0 +1,15 @@
+.form_campign_data{
+    .task-progress-main{
+        display: flex;
+        flex-direction: column;
+        background: #252F5A !important;
+        color: #fff !important;
+        padding: 0.8rem;
+        border-radius: 10px;
+        box-shadow: 0 0 8px rgb(0 0 0 / 18%), 0 8px 16px rgb(0 0 0 / 36%);
+        .answers_label{
+            font-size: 1rem;
+            color: #fff;
+        }
+    }
+}

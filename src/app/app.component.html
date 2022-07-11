@@ -1,0 +1,26 @@
+<app-header *ngIf="headerShow"></app-header>
+<ngx-spinner></ngx-spinner>
+<div id="cookieNotice" class="light display-right" style="height: auto;" [ngClass]="{'d-none': isConsented }">
+    <div id="closeIcon">
+    </div>
+    <div class="content-wrap">
+        <div class="msg-wrap">
+            <h4>{{ 'cookieConsentModal.cookieHeader' | translate }}</h4>
+            <p>{{ 'cookieConsentModal.cookieConsentText' | translate }} <a class="text-white"
+                    (click)="goToCookiePolicy()">{{ 'cookieConsentModal.readMe' | translate }}</a></p>
+        </div>
+        <div class="btn-wrap">
+            <button class="btn-primary" (click)="acceptAllCookies()">{{ 'cookieConsentModal.acceptAllButton' | translate
+                }}</button>
+            <button class="btn-primary" (click)="acceptRequiredCookies()">{{ 'cookieConsentModal.acceptRequiredButton' |
+                translate }}</button>
+        </div>
+    </div>
+</div>
+<div class="main-content"
+    [ngClass]="{'admin-login': selectedType == 'adminLogin' || selectedType === 'campaignMetrics' || selectedType === 'streamerMetrics'}"
+    role="main">
+    <router-outlet></router-outlet>
+</div>
+
+<app-footer *ngIf="footerShow"></app-footer>

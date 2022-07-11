@@ -1,0 +1,59 @@
+@import "../../../../assets/css/core/variables/_colors.scss";
+.btn.btn-outline-danger {
+    border-radius: 100px;
+    padding: 0.4rem 1.7rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    min-width: 150px;
+  }
+.model-completed.modal.fade.show{
+    display: block;
+    .modal-dialog {
+        z-index: 111111;
+    }
+}
+.login-frm {
+    padding: 3rem;
+    .forgot-password {
+        font-size: 1rem;
+        color: hsl(0deg 0% 100% / 80%);
+        float: right;
+        &:hover {
+            color: $teal-a200;
+            text-decoration: none;
+        }
+    }    
+    .back_login {
+        font-size: 1rem;
+        color: hsl(0deg 0% 100% / 80%);
+        .heading-green {
+            &:hover {
+                color: hsl(0deg 0% 100% / 80%);
+            }
+        }
+        
+    }
+}
+
+.modal.fade.show {
+    display: block;
+}
+
+@media only screen and (max-width: 575px) {
+    .login-frm {
+        padding: 2rem 1rem;
+        .form-check {
+            label {
+              font-size: .9rem;
+            }
+        }
+        .forgot-password {
+            font-size: 0.9rem;
+            float: none;
+            text-align: center;
+            padding-top: 1.1rem !important;
+            display: inline-block;
+            width: 100%;
+        }
+    }
+}

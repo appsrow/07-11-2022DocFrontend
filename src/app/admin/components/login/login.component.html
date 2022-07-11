@@ -1,0 +1,65 @@
+<div class="container admin_login">
+    <form [formGroup]="adminLoginForm">
+        <div class="row">
+            <div class="offset-md-0 col-md-12 offset-lg-1 col-lg-10 offset-xl-2 col-xl-8">
+                <div class="background-primary login-frm br-10 mb-1">
+                    <div class="row g-0">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="login_frm">
+                                <a href="#" class="logo_admin"><img src="/assets/images/logo.svg" alt="Logo" class="logo" /></a>
+                                <h1 class="section-head text-sm-center w-100">{{ 'shared.signin' | translate }}</h1>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" formControlName="email" placeholder="{{ 'shared.email' | translate }}">
+                                    <div
+                                    *ngIf="adminLoginForm.controls['email'].errors && (adminLoginForm.controls['email'].dirty || adminLoginForm.controls['email'].touched) || submitted">
+                                    <div *ngIf="adminLoginForm.controls['email'].errors?.required" class="text-danger error-msg">
+                                        {{ 'shared.emailRequired' | translate }}</div>
+                                    <div *ngIf="adminLoginForm.controls['email'].value !== '' && adminLoginForm.controls['email'].invalid"
+                                        class="text-danger error-msg"> {{ 'shared.emailWrongFormat' | translate }}
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input name="password" [type]="showPassword ? 'text' : 'password'" class="form-control pwd-control"
+                                    formControlName="password" placeholder="{{ 'shared.password' | translate }}">
+                                    <div class="btn-eye">
+                                    <i alt="show" class="fa fa-eye eye-show" (click)="showPassword = !showPassword"
+                                        [class.hide]="showPassword"></i>
+                                    <i alt="hide" class="fa fa-eye-slash eye-hide" (click)="showPassword = !showPassword"
+                                        [class.hide]="!showPassword"></i>
+                                    </div>
+                                    <div
+                                    *ngIf="adminLoginForm.controls['password'].errors && (adminLoginForm.controls['password'].dirty || adminLoginForm.controls['password'].touched) || submitted">
+                                    <div *ngIf="adminLoginForm.controls['password'].errors?.required" class="text-danger error-msg">
+                                        {{ 'shared.passwordRequired' | translate }}</div>
+                                    <div *ngIf="adminLoginForm.controls['password'].errors?.pattern" class="text-danger error-msg">
+                                        {{ 'shared.passwordPattern' | translate }}</div>
+                                    </div>
+                                </div>
+                                <div *ngIf="error" class="text-danger mb-2 text-center">
+                                    {{ error }}
+                                </div>
+                                <button type="submit" class="btn btn-green w-100" (click)="doLogin()">{{ 'shared.signin' | translate }}</button>
+                            <div class="form-group mb-0">
+                                <ul class="language-ul">
+                                    <li class="nav-item language-main" >
+                                        <a  class="nav-link" [class.active]="switchLanguage=='es'"
+                                          (click)="selectLanguage('es')">ES</a>
+                                        <a  class="nav-link" [class.active]="switchLanguage==''"
+                                          (click)="selectLanguage('en')">EN</a>
+                                      </li>
+                                </ul>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="d-none d-md-block col-md-6">
+                            <div class="login_img">
+                                <img src="/assets/images/login_side.jpg" alt="Login Image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

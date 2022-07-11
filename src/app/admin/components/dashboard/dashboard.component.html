@@ -1,0 +1,153 @@
+<div class="container-fluid p-4">
+  <div class="information mt-3 row row-cols-1 row-cols-sm-2 row-cols-md-3  row-cols-lg-5">
+    <div class="col mb-4">
+      <div class="box box-green">
+        <div class="d-flex justify-content-between align-item-center">
+          <div class="img-left">
+            <img src="/assets/images/totalBrand.png" alt="image-dashboard" class="img-dashboard">
+          </div>
+          <div class="content-right text-end">
+            <h2 class="heading-white mb-0">{{ totalBrands }}</h2>
+            <h5 class="heading-white f-17">
+              <a routerLink="../brands">{{ 'dashboard.totalBrands' | translate }}</a>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col mb-4">
+      <div class="box box-blue">
+        <div class="d-flex justify-content-between align-item-center">
+          <div class="img-left">
+            <img src="/assets/images/totalUsers.png" alt="image-dashboard" class="img-dashboard">
+          </div>
+          <div class="content-right text-end">
+            <h2 class="heading-white mb-0"> {{ totalUsers }}</h2>
+            <h5 class="heading-white f-17"><a routerLink="../users">{{ 'dashboard.totalUsers' | translate }}</a></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col mb-4">
+      <div class="box box-red">
+        <div class="d-flex justify-content-between align-item-center">
+          <div class="img-left">
+            <img src="/assets/images/money-bag.png" alt="image-dashboard" class="img-dashboard">
+          </div>
+          <div class="content-right text-end">
+            <h2 class="heading-white mb-0"> <i class="fa fa-eur" aria-hidden="true"></i> {{ totalFund  | number : '1.2-2'}}</h2>
+            <h5 class="heading-white f-17">{{ 'dashboard.totalFund' | translate }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col mb-4">
+      <div class="box box-yellow">
+        <div class="d-flex justify-content-between align-item-center">
+          <div class="img-left">
+            <img src="/assets/images/totalSpent.png" alt="image-dashboard" class="img-dashboard">
+          </div>
+          <div class="content-right text-end">
+            <h2 class="heading-white mb-0"><i class="fa fa-eur" aria-hidden="true"></i> {{ totalSpent  | number : '1.2-2'}}</h2>
+            <h5 class="heading-white f-17">{{ 'dashboard.totalSpent' | translate }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col mb-4">
+      <div class="box box-dark">
+        <div class="d-flex justify-content-between align-item-center">
+          <div class="img-left">
+            <img src="/assets/images/totalProfit.png" alt="image-dashboard" class="img-dashboard">
+          </div>
+          <div class="content-right text-end">
+            <h2 class="heading-white mb-0"> <i class="fa fa-eur" aria-hidden="true"></i> {{ totalProfit  }}</h2>
+            <h5 class="heading-white f-17">{{ 'dashboard.totalProfit' | translate }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="background-primary p-4 my-4 col-lg-12  br-10 w-100">
+    <form [formGroup]="brandRegistrationForm">
+      <div class="row">
+          <div class=" col-sm-12 col-md-6 col-lg-8 col-xl-9 my-2 mb-4">
+        <h4 class="section-head mb-0">{{ 'dashboard.brandRegistration' | translate }} </h4>
+      </div>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+        <div class="form-group">
+            <label class="lbl-input">{{ 'dashboard.selectYear' | translate }}</label>
+            <angular2-multiselect [data]="year" [(ngModel)]="selectedElement" (onSelect)="onChangeYear($event)"
+              [settings]="dropdownSettings" formControlName="year">
+            </angular2-multiselect>
+          </div>
+      </div>
+      </div>
+      <div class="statis_graph" *ngIf="saleDataMulti.length > 0">
+        <ngx-charts-bar-vertical-2d 
+            [view]="view"
+            [results]="saleDataMulti"
+            [scheme] = "colorScheme"
+            [schemeType] = "schemeType"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true">
+        </ngx-charts-bar-vertical-2d>
+      </div>
+    </form>
+  </div>
+  <div class="background-primary p-4 my-3 br-10 w-100">
+    <div class="row">
+        <div class=" col-sm-12 col-md-6 col-lg-8 col-xl-9 my-2 mb-4">
+      <h4 class="section-head mb-0">{{ 'dashboard.highestPaidCampaigns' | translate }}</h4>
+    </div>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+        <form>
+          <div class="date-picker form-group mb-0">
+            <label class="lbl-input">{{ 'dashboard.selectMonth' | translate }}</label>
+            <ng2-flatpickr id="statistics-date" [config]="monthPickerOptions"></ng2-flatpickr>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="table-responsive datatabe_main pb-4">
+        <table class="table table-striped row-border hover" id="highestPaidCampaignTable">
+            <thead>
+                <tr>
+                    
+                    <th class="text-start">{{ 'invoice.camapignName' | translate }}</th>
+                    <th class="text-start">{{ 'admin.createdDate' | translate }}</th>
+                    <th class="text-start">{{ 'invoice.category' | translate }}</th>
+                    <th class="text-start">{{ 'admin.brand' | translate }}</th>
+                    <th class="text-start">{{ 'admin.amount' | translate }}</th>
+                    <th class="text-end">{{ 'admin.actions' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody class="text-start">
+                <tr *ngFor="let data of campaignsData">
+                    <td>{{ data.campaign }}</td>
+                    <td>{{ data.startDate | date: 'dd/MM/YYYY'}}</td>
+                    <td>
+                    <span *ngIf="data.category === 'video_plays'">{{'shared.videoplays' | translate}}</span>
+                    <span *ngIf="data.category === 'lead_target'">{{'shared.lead' | translate}}</span>
+                    <span *ngIf="data.category === 'follow'">{{'shared.follow' | translate}}</span>
+                    <span *ngIf="data.category === 'apps_download'">{{'shared.appsDownload' | translate}}</span>
+                    <span *ngIf="data.category === 'click_websites'">{{'shared.clicksonthewebsite' | translate}}</span>
+                    </td>
+                    <td class="name_text">{{ data.brand }}</td>
+                    <td><i class="fa fa-eur" aria-hidden="true"></i>  {{ data.amount }}</td>
+                    <td class="text-end">
+                        <div class="table_action">
+                            <a  title="View statics" class="view_statics" (click)="goToCampaignStatistics(data.id)">
+                                <i _ngcontent-cxm-c223="" aria-hidden="true" class="fa fa-line-chart f-16"></i>
+                                <span> {{ 'brand.view' | translate }}</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>

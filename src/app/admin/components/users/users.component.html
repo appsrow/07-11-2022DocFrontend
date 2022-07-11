@@ -1,0 +1,53 @@
+<div class="container">
+  <h1 class="section-head my-4">{{ 'shared.users' | translate }}</h1>
+  <div class="background-primary mb-4 br-10 w-100 p-2 p-md-4 my_campaign_data">
+    <div class="table-responsive datatabe_main">
+      <table class="table table-striped row-border hover" id="userDatatable">
+        <thead>
+          <tr>
+            <th class="text-start"><span>{{ 'admin.name' | translate }}</span></th>
+            <th class="text-start"> <span>{{ 'admin.emailId' | translate }}</span></th>
+            <th class="text-start"> <span>{{ 'admin.mobileNo' | translate }}.</span></th>
+            <th class="name_text"><span>{{ 'admin.gender' | translate }}</span></th>
+            <th class="name_text"><span>{{ 'admin.createdDate' | translate }}</span></th>
+            <th class="name_text text-center"><span>{{ 'admin.status' | translate }}</span></th>
+            <th class="text-end"><span>{{ 'admin.actions' | translate }}</span></th>
+          </tr>
+        </thead>
+        <tbody class="text-start">
+          <tr *ngFor="let data of userData">
+            <td class="name_text">{{ data.first_name }} {{ data.last_name }}</td>
+            <td>{{ data.email }}</td>
+            <td>{{ data.phone }}</td>
+            <td class="name_text">
+              <span *ngIf="data.gender === null">-</span>
+              <span *ngIf="data.gender === '1'">{{'shared.male' | translate}}</span>
+              <span *ngIf="data.gender === '2'">{{'shared.female' | translate}}</span>
+              <span *ngIf="data.gender === '3'">{{'shared.others' | translate}}</span>
+            </td>
+            <td>{{ data.converted_created_at}}</td>
+            <td class="name_text text-center">
+              <div *ngIf="data.confirmed == 1">
+                <span class="badge rounded-pill text-success" *ngIf="data.active === 1">{{'shared.active' |
+                  translate}}</span>
+                <span class="badge rounded-pill text-warning" *ngIf="data.active === 0">{{'shared.inActive' |
+                  translate}}</span>
+              </div>
+              <div *ngIf="data.confirmed == 0">
+                <span class="badge rounded-pill text-warning" *ngIf="data.confirmed == 0">{{'shared.activationPending' |
+                  translate}}</span>
+              </div>
+            </td>
+            <td class="text-center">
+              <a title="Edit user" class="quick_acton" [routerLink]="'../user-details/'+data.id"
+                *ngIf="data.confirmed == 1">
+                <span class="text-success"><i class="fa fa-pencil"></i></span>
+              </a>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

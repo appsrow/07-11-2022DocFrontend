@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="background-primary my-4 br-10 w-100 p-3 p-md-4 ">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-9 statis_head">
+        <h3 class="section-head" *ngIf="campaignDetails">
+          <img *ngIf="campaignDetails.campaign_type_name == 'uploadvideo'"
+            src="../../../../assets/images/icon_video_blue.png" alt="Video icon">
+          <img *ngIf="campaignDetails.campaign_type_name == 'Lead'" src="../../../../assets/images/lead_blue.png"
+            alt="Lead icon">
+          <img *ngIf="campaignDetails.campaign_type_name == 'Follow'"
+            src="../../../../assets/images/icon_follow_blue.png" alt="Follow icon">
+          <img *ngIf="campaignDetails.campaign_type_name == 'Appsdownload'"
+            src="../../../../assets/images/icon_download_blue.png" alt="Download icon">
+          <img *ngIf="campaignDetails.campaign_type_name == 'clicksonthewebsite'"
+            src="../../../../assets/images/icon_visit_blue.png" alt="Website icon">
+          {{ campaignDetails.campaign_name }}
+        </h3>
+        <p>({{campaignDetails.start_date | date:'dd-MM-yyyy'}} To {{campaignDetails.end_date | date:'dd-MM-yyyy'}})</p>
+        <span class="badge rounded-pill text-success">Active</span>
+      </div>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 statis_datepicker">
+        <form>
+          <div class="form-group date-picker">
+            <ng2-flatpickr id="statistics-admin-date" [config]="weekPickerOptions"></ng2-flatpickr>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="statis_graph" *ngIf="saleDataMulti.length>0">
+      <div class="chart_legend">
+        <div class="completed_task">
+          <span></span>
+          {{'brandStatistics.completedTask' | translate}}
+        </div>
+        <div class="no_of_clicks">
+          <span></span>
+          {{'brandStatistics.numberOfClicks' | translate}}
+        </div>
+      </div>
+      <ngx-charts-bar-vertical-2d [view]="view" [results]="saleDataMulti" [scheme]="colorScheme"
+        [schemeType]="schemeType" [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxis]="true" [yAxis]="true">
+      </ngx-charts-bar-vertical-2d>
+    </div>
+    <div *ngIf="saleDataMulti.length === 0" style="text-align: center; margin: 20px 0 30px;">
+      {{'shared.statiscsNoData' | translate}} {{selectedWeekDates[0].dates}} {{'shared.to' | translate}}
+      {{selectedWeekDates[6].dates}}</div>
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div class="total_graph">
+          <h5 class="">{{'brandStatistics.totalTargetVsTotalAchieved' | translate}}</h5>
+          <div class="total_graph_inner">
+            <circle-progress [percent]="targetDetails.target_percentage" [radius]="50" [space]="-12"
+              [outerStrokeWidth]="12" [outerStrokeColor]="'#3f8cff'" [innerStrokeColor]="'#69728d'"
+              [innerStrokeWidth]="12" [title]="targetDetails.target_percentage + '%'" [titleColor]="'#ffffff'"
+              [titleFontSize]="'16'" [showSubtitle]="false" [animationDuration]="1000" [showBackground]="false"
+              [startFromZero]="false" [showUnits]="false"></circle-progress>
+            <div class="total_chart">
+              <h6>{{'brandStatistics.totalTarget' | translate}}
+                <span>{{targetDetails.total_target}}</span>
+              </h6>
+              <h6>{{'brandStatistics.totalAchieved' | translate}}
+                <span>{{targetDetails.total_archived}}</span>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div class="total_graph">
+          <h5 class="">{{'brandStatistics.totalTargetVsTotalAchieved' | translate}}</h5>
+          <div class="total_graph_inner">
+            <circle-progress [percent]="budgetSpentInPercentage" [radius]="50" [space]="-12" [outerStrokeWidth]="12"
+              [outerStrokeColor]="'#3f8cff'" [innerStrokeColor]="'#69728d'" [innerStrokeWidth]="12"
+              [title]="'€ ' + budgetDetails.total_spend" [titleColor]="'#ffffff'" [titleFontSize]="'16'"
+              [showSubtitle]="false" [animationDuration]="1000" [showBackground]="false" [startFromZero]="false"
+              [showUnits]="false"></circle-progress>
+            <div class="total_chart">
+              <h6>{{'brandStatistics.totalBudget' | translate}}
+                <span>€ {{budgetDetails.total_budget}}</span>
+              </h6>
+              <h6>{{'brandStatistics.totalLeft' | translate}}
+                <span>€ {{budgetDetails.total_left}}</span>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center pt-4">
+      <button class="btn btn-green" (click)="backToCampaign()"><i class="fa fa-long-arrow-left"
+          aria-hidden="true"></i>{{ 'shared.back' | translate }} </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,307 @@
+<nav class="navbar navbar-inverse navbar-expand-lg bg-primary fixed-top mb-0">
+  <div class="container">
+    <a href="#"><img src="/assets/images/logo.svg" alt="Logo" class="logo" /></a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+      aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation"
+      (click)="isShown = !isShown">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <div class="collapse justify-content-end navbar-collapse me-auto" [ngClass]="{ 'show': isShown }"
+      id="navbarTogglerDemo03">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item" *ngIf="(!isLoggedIn || accountDetail.user_info.user_type != '3')"
+          [class.active]="pageName=='/' || pageName=='/home'" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="/home">
+            {{ 'header.menu.label0' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" [class.active]="pageName=='/admin/dashboard'"
+          *ngIf="(isLoggedIn && accountDetail.user_info.user_type === '3')" (click)="sideMenuHide()">
+          <a class="nav-link" href="./admin/dashboard">
+            {{ 'header.menu.label0' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" [class.active]="pageName=='/admin/users'"
+          *ngIf="(isLoggedIn && accountDetail.user_info.user_type === '3')" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="./admin/users" href="javascript:void(0);">
+            {{ 'shared.users' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" [class.active]="pageName=='/admin/brands'"
+          *ngIf="(isLoggedIn && accountDetail.user_info.user_type === '3')" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="./admin/brands" href="javascript:void(0);">
+            {{ 'shared.brands' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" [class.active]="pageName=='/admin/campaigns'"
+          *ngIf="(isLoggedIn && accountDetail.user_info.user_type === '3')" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="./admin/campaigns" href="javascript:void(0);">
+            {{ 'shared.campaigns' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" [class.active]="pageName=='/admin/invoices'"
+          *ngIf="(isLoggedIn && accountDetail.user_info.user_type === '3')" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="./admin/invoices" href="javascript:void(0);">
+            {{ 'shared.invoices' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" [class.active]="pageName=='/admin/reports'"
+          *ngIf="(isLoggedIn && accountDetail.user_info.user_type === '3')" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="./admin/reports" href="javascript:void(0);">
+            {{'shared.reports' | translate}}
+          </a>
+        </li>
+        <li class="nav-item" [class.active]="pageName=='/admin/giftCardDetails'"
+          *ngIf="(isLoggedIn && accountDetail.user_info.user_type === '3')" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="./admin/giftCardDetails" href="javascript:void(0);">
+            {{ 'shared.giftCards' | translate }}
+          </a>
+        </li>
+        <li class="nav-item profile" *ngIf="(isLoggedIn && accountDetail.user_info.user_type === '3')">
+          <div class="dropdown text-end">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="profile_dropdown"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="profile_img">
+                <img src="../../../assets/images/userprofile.png" alt="Profile" class="rounded-circle">
+              </div>
+              <h6>{{ 'shared.admin' | translate }}</h6>
+            </a>
+            <ul class="dropdown-menu text-small background-primary" aria-labelledby="profile_dropdown">
+              <li (click)="sideMenuHide()">
+                <a class="dropdown-item" routerLink="./admin/internalDashboard">
+                  <svg data-name="Layer 1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M40 47H8a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h32a2 2 0 0 1 2 2v42a2 2 0 0 1-2 2Zm-30-4h28V5H10Z"
+                      fill="currentColor"></path>
+                    <path
+                      d="M15 19a2 2 0 0 1-1.41-3.41l4-4a2 2 0 0 1 2.31-.37l2.83 1.42 5-4.16a2 2 0 0 1 2.47-.08l4 3a2 2 0 1 1-2.4 3.2l-2.73-2.05-4.79 4a2 2 0 0 1-2.17.25l-2.71-1.37-3 3A2 2 0 0 1 15 19Z"
+                      fill="currentColor"></path>
+                    <circle cx="15" cy="24" r="2" fill="currentColor"></circle>
+                    <circle cx="15" cy="31" r="2" fill="currentColor"></circle>
+                    <circle cx="15" cy="38" r="2" fill="currentColor"></circle>
+                    <path
+                      d="M33 26H22a2 2 0 0 1 0-4h11a2 2 0 0 1 0 4ZM33 33H22a2 2 0 0 1 0-4h11a2 2 0 0 1 0 4ZM33 40H22a2 2 0 0 1 0-4h11a2 2 0 0 1 0 4Z"
+                      fill="currentColor"></path>
+                  </svg>
+                  Internal Dashboard
+                </a>
+              </li>
+              <li (click)="sideMenuHide()">
+                <a class="dropdown-item" (click)="logout()">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M5.24975 26.5H5.25H15.75H15.7502C16.2805 26.4995 16.7888 26.2886 17.1637 25.9137C17.5386 25.5388 17.7495 25.0305 17.75 24.5002V24.5V21.875V21.625H17.5H15.75H15.5V21.875V24.25H5.5V3.75H15.5V6.125V6.375H15.75H17.5H17.75V6.125V3.5V3.49975C17.7495 2.96955 17.5386 2.46121 17.1637 2.0863C16.7888 1.71139 16.2805 1.50053 15.7502 1.5H15.75L5.25 1.5L5.24975 1.5C4.71955 1.50053 4.21121 1.71139 3.8363 2.0863C3.46139 2.46121 3.25053 2.96955 3.25 3.49975V3.5L3.25 24.5L3.25 24.5002C3.25053 25.0305 3.46139 25.5388 3.8363 25.9137C4.21121 26.2886 4.71955 26.4995 5.24975 26.5Z"
+                      stroke-width="0.5" />
+                    <path
+                      d="M17.836 17.836L17.6592 18.0128L17.836 18.1895L19.0732 19.4268L19.25 19.6036L19.4268 19.4268L24.6768 14.1768L24.8536 14L24.6768 13.8232L19.4268 8.57322L19.25 8.39645L19.0732 8.57322L17.836 9.81047L17.6592 9.98725L17.836 10.164L20.5469 12.875H8.75H8.5V13.125V14.875V15.125H8.75H20.5469L17.836 17.836Z"
+                      stroke-width="0.5" />
+                  </svg>
+                  {{ 'shared.signout' | translate }}
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item" [class.active]="pageName=='/user/userTasks'"
+          *ngIf="(isLoggedIn && accountDetail.user_info.user_type === '2')" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="./user/userTasks" href="javascript:void(0);">
+            {{ 'header.menu.label1' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link" routerLink="./user/login">
+            {{ 'header.menu.label1' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" [class.active]="pageName=='/user/userRewards'"
+          *ngIf="(isLoggedIn && accountDetail.user_info.user_type === '2')" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="./user/userRewards" href="javascript:void(0);">
+            {{ 'header.menu.label2' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link" routerLink="./user/login">
+            {{ 'header.menu.label2' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn || (isLoggedIn && accountDetail.user_info.user_type === '2')"
+          (click)="sideMenuHide()">
+          <a class="nav-link" (click)="goToHowitWorks('HowitWorks')" href="javascript:void(0);">
+            {{ 'header.menu.label3' | translate }}
+          </a>
+        </li>
+        <li class=" nav-item" *ngIf="!isLoggedIn || (isLoggedIn && accountDetail.user_info.user_type === '2')"
+          (click)="sideMenuHide()">
+          <a class="nav-link" (click)="goToStreamerSubscriptionsPage()" href="javascript:void(0);">
+            #RetroDropForCoin
+          </a>
+        </li>
+        <li class=" nav-item profile" *ngIf="!isLoggedIn" (click)="sideMenuHide()">
+          <a class="nav-link btn-outline" routerLink="roleSelection" href="javascript:void(0);">
+            {{ 'header.menu.label4' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" [class.active]="pageNameWithoutParameters=='/brand/createCampaignTabs'"
+          *ngIf="isLoggedIn && accountDetail.user_info.user_type === '1'" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="./brand/createCampaignTabs" href="javascript:void(0);">
+            {{ 'header.menu.label6' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" [class.active]="pageName=='/brand/myCampaign'"
+          *ngIf="isLoggedIn && accountDetail.user_info.user_type === '1'" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="./brand/myCampaign" href="javascript:void(0);">
+            {{ 'header.menu.label7' | translate }}
+          </a>
+        </li>
+        <li class="nav-item" [class.active]="pageName=='/brand/lead-campaigns'"
+          *ngIf="isLoggedIn && accountDetail.user_info.user_type === '1'" (click)="sideMenuHide()">
+          <a class="nav-link" routerLink="./brand/lead-campaigns" routerLinkActive="/brand/lead-campaigns"
+            href="javascript:void(0);">
+            {{ 'header.menu.label8' | translate }}
+          </a>
+        <li class="nav-item profile" *ngIf="isLoggedIn && accountDetail.user_info.user_type === '2'">
+          <div class="dropdown text-end">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="profile_dropdown"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="profile_img">
+                <img src="../../../assets/images/userprofile.png" alt="Profile" class="rounded-circle">
+              </div>
+              <h6><img src="../../../assets/images/coin.png" alt="Coins"> {{totalCoins | number : '1.2-2'}}</h6>
+            </a>
+            <ul class="dropdown-menu text-small background-primary" aria-labelledby="profile_dropdown">
+              <li class="profile-head" (click)="sideMenuHide()">
+                <div class="profile_info">
+                  <div class="profile_img">
+                    <img src="../../../assets/images/userprofile.png" alt="Profile" class="rounded-circle">
+                  </div>
+                  <div class="ml-2">{{userFirstName}} {{userLastName}}</div>
+                  <!-- <div class="ml-2">{{userInfo.first_name}} {{userInfo.last_name}}</div> -->
+                  <!-- <span>{{accountDetail.user_info.first_name}} {{accountDetail.user_info.last_name}}</span> -->
+                </div>
+              </li>
+              <li (click)="sideMenuHide()">
+                <a class="dropdown-item" routerLink="./user/changePassword">
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="122.879px" height="118.662px"
+                    viewBox="0 0 122.879 118.662" enable-background="new 0 0 122.879 118.662" xml:space="preserve">
+                    <g>
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M43.101,54.363h4.138v-8.738c0-4.714,1.93-8.999,5.034-12.105v-0.004 c3.105-3.105,7.392-5.034,12.108-5.034c4.714,0,8.999,1.929,12.104,5.034l0.004,0.004c3.104,3.105,5.034,7.392,5.034,12.104v8.738 l3.297,0.001c0.734,0,1.335,0.601,1.335,1.335v28.203c0,0.734-0.602,1.335-1.336,1.335H43.101c-0.734,0-1.336-0.602-1.336-1.335 V55.698C41.765,54.964,42.366,54.363,43.101,54.363L43.101,54.363z M16.682,22.204c-1.781,2.207-3.426,4.551-5.061,7.457 c-5.987,10.645-8.523,22.731-7.49,34.543c1.01,11.537,5.432,22.827,13.375,32.271c2.853,3.392,5.914,6.382,9.132,8.968 c11.112,8.935,24.276,13.341,37.405,13.216c13.134-0.125,26.209-4.784,37.145-13.981c3.189-2.682,6.179-5.727,8.915-9.13 c6.396-7.957,10.512-17.29,12.071-27.138c1.532-9.672,0.595-19.829-3.069-29.655c-3.487-9.355-8.814-17.685-15.775-24.206 C96.695,8.333,88.593,3.755,79.196,1.483c-2.943-0.712-5.939-1.177-8.991-1.374c-3.062-0.197-6.193-0.131-9.401,0.224 c-2.011,0.222-3.459,2.03-3.238,4.041c0.222,2.01,2.03,3.459,4.04,3.237c2.783-0.308,5.495-0.366,8.141-0.195 c2.654,0.171,5.23,0.568,7.731,1.174c8.106,1.959,15.104,5.914,20.838,11.288c6.138,5.751,10.847,13.125,13.941,21.427 c3.212,8.613,4.035,17.505,2.696,25.959c-1.36,8.589-4.957,16.739-10.553,23.699c-2.469,3.071-5.121,5.78-7.912,8.127 c-9.591,8.067-21.031,12.153-32.502,12.263c-11.473,0.109-23.001-3.762-32.764-11.61c-2.895-2.328-5.621-4.983-8.129-7.966 c-6.917-8.224-10.771-18.092-11.655-28.202c-0.908-10.375,1.317-20.988,6.572-30.331c1.586-2.82,3.211-5.071,5.013-7.241 l0.533,14.696c0.071,2.018,1.765,3.596,3.782,3.524s3.596-1.765,3.524-3.782l-0.85-23.419c-0.071-2.019-1.765-3.596-3.782-3.525 c-0.126,0.005-0.25,0.016-0.372,0.032v-0.003L3.157,16.715c-2.001,0.277-3.399,2.125-3.122,4.126 c0.276,2.002,2.124,3.4,4.126,3.123L16.682,22.204L16.682,22.204L16.682,22.204z M53.899,54.363h20.963v-8.834 c0-2.883-1.18-5.504-3.077-7.403l-0.002,0.001c-1.899-1.899-4.521-3.08-7.402-3.08c-2.883,0-5.504,1.18-7.404,3.078 c-1.898,1.899-3.077,4.521-3.077,7.404V54.363L53.899,54.363L53.899,54.363z M64.465,69.795l2.116,9.764l-5.799,0.024l1.701-9.895 c-1.584-0.509-2.733-1.993-2.733-3.747c0-2.171,1.76-3.931,3.932-3.931c2.17,0,3.931,1.76,3.931,3.931 C67.612,67.845,66.261,69.433,64.465,69.795L64.465,69.795L64.465,69.795z" />
+                    </g>
+                  </svg>
+                  {{ 'shared.changePassword' | translate }}
+                </a>
+              </li>
+              <li (click)="sideMenuHide()">
+                <a class="dropdown-item" routerLink="./user/userProfile">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M14 2.33325C10.7835 2.33325 8.16667 4.95009 8.16667 8.16658C8.16667 11.3831 10.7835 13.9999 14 13.9999C17.2165 13.9999 19.8333 11.3831 19.8333 8.16658C19.8333 4.95009 17.2165 2.33325 14 2.33325ZM14 11.6666C12.0703 11.6666 10.5 10.0963 10.5 8.16658C10.5 6.23692 12.0703 4.66659 14 4.66659C15.9297 4.66659 17.5 6.23692 17.5 8.16658C17.5 10.0963 15.9297 11.6666 14 11.6666ZM24.5 24.4999V23.3333C24.5 18.8311 20.8355 15.1666 16.3333 15.1666H11.6667C7.16333 15.1666 3.5 18.8311 3.5 23.3333V24.4999H5.83333V23.3333C5.83333 20.1168 8.45017 17.4999 11.6667 17.4999H16.3333C19.5498 17.4999 22.1667 20.1168 22.1667 23.3333V24.4999H24.5Z" />
+                  </svg>
+                  {{ 'shared.profile' | translate }}
+                </a>
+              </li>
+              <li (click)="sideMenuHide()">
+                <a class="dropdown-item" (click)="logout()">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M5.24975 26.5H5.25H15.75H15.7502C16.2805 26.4995 16.7888 26.2886 17.1637 25.9137C17.5386 25.5388 17.7495 25.0305 17.75 24.5002V24.5V21.875V21.625H17.5H15.75H15.5V21.875V24.25H5.5V3.75H15.5V6.125V6.375H15.75H17.5H17.75V6.125V3.5V3.49975C17.7495 2.96955 17.5386 2.46121 17.1637 2.0863C16.7888 1.71139 16.2805 1.50053 15.7502 1.5H15.75L5.25 1.5L5.24975 1.5C4.71955 1.50053 4.21121 1.71139 3.8363 2.0863C3.46139 2.46121 3.25053 2.96955 3.25 3.49975V3.5L3.25 24.5L3.25 24.5002C3.25053 25.0305 3.46139 25.5388 3.8363 25.9137C4.21121 26.2886 4.71955 26.4995 5.24975 26.5Z"
+                      stroke-width="0.5" />
+                    <path
+                      d="M17.836 17.836L17.6592 18.0128L17.836 18.1895L19.0732 19.4268L19.25 19.6036L19.4268 19.4268L24.6768 14.1768L24.8536 14L24.6768 13.8232L19.4268 8.57322L19.25 8.39645L19.0732 8.57322L17.836 9.81047L17.6592 9.98725L17.836 10.164L20.5469 12.875H8.75H8.5V13.125V14.875V15.125H8.75H20.5469L17.836 17.836Z"
+                      stroke-width="0.5" />
+                  </svg>
+                  {{ 'shared.signout' | translate }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item profile" *ngIf="isLoggedIn && accountDetail.user_info.user_type === '1'">
+          <div class="dropdown text-end">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="profile_dropdown"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="profile_img">
+                <img src="../../../assets/images/userprofile.png" alt="Profile" class="rounded-circle">
+              </div>
+              <h6 class="ml-2">{{companyInfo?.company_name}}</h6>
+            </a>
+            <ul class="dropdown-menu text-small background-primary" aria-labelledby="profile_dropdown">
+              <li (click)="sideMenuHide()">
+                <a class="dropdown-item" routerLink="./brand/changePassword">
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="122.879px" height="118.662px"
+                    viewBox="0 0 122.879 118.662" enable-background="new 0 0 122.879 118.662" xml:space="preserve">
+                    <g>
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M43.101,54.363h4.138v-8.738c0-4.714,1.93-8.999,5.034-12.105v-0.004 c3.105-3.105,7.392-5.034,12.108-5.034c4.714,0,8.999,1.929,12.104,5.034l0.004,0.004c3.104,3.105,5.034,7.392,5.034,12.104v8.738 l3.297,0.001c0.734,0,1.335,0.601,1.335,1.335v28.203c0,0.734-0.602,1.335-1.336,1.335H43.101c-0.734,0-1.336-0.602-1.336-1.335 V55.698C41.765,54.964,42.366,54.363,43.101,54.363L43.101,54.363z M16.682,22.204c-1.781,2.207-3.426,4.551-5.061,7.457 c-5.987,10.645-8.523,22.731-7.49,34.543c1.01,11.537,5.432,22.827,13.375,32.271c2.853,3.392,5.914,6.382,9.132,8.968 c11.112,8.935,24.276,13.341,37.405,13.216c13.134-0.125,26.209-4.784,37.145-13.981c3.189-2.682,6.179-5.727,8.915-9.13 c6.396-7.957,10.512-17.29,12.071-27.138c1.532-9.672,0.595-19.829-3.069-29.655c-3.487-9.355-8.814-17.685-15.775-24.206 C96.695,8.333,88.593,3.755,79.196,1.483c-2.943-0.712-5.939-1.177-8.991-1.374c-3.062-0.197-6.193-0.131-9.401,0.224 c-2.011,0.222-3.459,2.03-3.238,4.041c0.222,2.01,2.03,3.459,4.04,3.237c2.783-0.308,5.495-0.366,8.141-0.195 c2.654,0.171,5.23,0.568,7.731,1.174c8.106,1.959,15.104,5.914,20.838,11.288c6.138,5.751,10.847,13.125,13.941,21.427 c3.212,8.613,4.035,17.505,2.696,25.959c-1.36,8.589-4.957,16.739-10.553,23.699c-2.469,3.071-5.121,5.78-7.912,8.127 c-9.591,8.067-21.031,12.153-32.502,12.263c-11.473,0.109-23.001-3.762-32.764-11.61c-2.895-2.328-5.621-4.983-8.129-7.966 c-6.917-8.224-10.771-18.092-11.655-28.202c-0.908-10.375,1.317-20.988,6.572-30.331c1.586-2.82,3.211-5.071,5.013-7.241 l0.533,14.696c0.071,2.018,1.765,3.596,3.782,3.524s3.596-1.765,3.524-3.782l-0.85-23.419c-0.071-2.019-1.765-3.596-3.782-3.525 c-0.126,0.005-0.25,0.016-0.372,0.032v-0.003L3.157,16.715c-2.001,0.277-3.399,2.125-3.122,4.126 c0.276,2.002,2.124,3.4,4.126,3.123L16.682,22.204L16.682,22.204L16.682,22.204z M53.899,54.363h20.963v-8.834 c0-2.883-1.18-5.504-3.077-7.403l-0.002,0.001c-1.899-1.899-4.521-3.08-7.402-3.08c-2.883,0-5.504,1.18-7.404,3.078 c-1.898,1.899-3.077,4.521-3.077,7.404V54.363L53.899,54.363L53.899,54.363z M64.465,69.795l2.116,9.764l-5.799,0.024l1.701-9.895 c-1.584-0.509-2.733-1.993-2.733-3.747c0-2.171,1.76-3.931,3.932-3.931c2.17,0,3.931,1.76,3.931,3.931 C67.612,67.845,66.261,69.433,64.465,69.795L64.465,69.795L64.465,69.795z" />
+                    </g>
+                  </svg>
+                  {{ 'shared.changePassword' | translate }}
+                </a>
+              </li>
+              <li (click)="sideMenuHide()">
+                <a class="dropdown-item" routerLink="./brand/profile">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M14 2.33325C10.7835 2.33325 8.16667 4.95009 8.16667 8.16658C8.16667 11.3831 10.7835 13.9999 14 13.9999C17.2165 13.9999 19.8333 11.3831 19.8333 8.16658C19.8333 4.95009 17.2165 2.33325 14 2.33325ZM14 11.6666C12.0703 11.6666 10.5 10.0963 10.5 8.16658C10.5 6.23692 12.0703 4.66659 14 4.66659C15.9297 4.66659 17.5 6.23692 17.5 8.16658C17.5 10.0963 15.9297 11.6666 14 11.6666ZM24.5 24.4999V23.3333C24.5 18.8311 20.8355 15.1666 16.3333 15.1666H11.6667C7.16333 15.1666 3.5 18.8311 3.5 23.3333V24.4999H5.83333V23.3333C5.83333 20.1168 8.45017 17.4999 11.6667 17.4999H16.3333C19.5498 17.4999 22.1667 20.1168 22.1667 23.3333V24.4999H24.5Z" />
+                  </svg>
+                  {{ 'shared.profile' | translate }}
+                </a>
+              </li>
+              <li (click)="sideMenuHide()">
+                <a class="dropdown-item" routerLink="./brand/billingHistory">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M11.0835 12.2499H14.0002C14.3096 12.2499 14.6063 12.127 14.8251 11.9082C15.0439 11.6894 15.1668 11.3927 15.1668 11.0833C15.1668 10.7738 15.0439 10.4771 14.8251 10.2583C14.6063 10.0395 14.3096 9.91658 14.0002 9.91658H12.8335V9.33325C12.8335 9.02383 12.7106 8.72708 12.4918 8.50829C12.273 8.2895 11.9763 8.16658 11.6668 8.16658C11.3574 8.16658 11.0607 8.2895 10.8419 8.50829C10.6231 8.72708 10.5002 9.02383 10.5002 9.33325V9.97492C9.79133 10.1189 9.16126 10.521 8.73227 11.1034C8.30328 11.6857 8.10598 12.4067 8.17867 13.1264C8.25137 13.846 8.58886 14.513 9.12564 14.9978C9.66243 15.4826 10.3602 15.7506 11.0835 15.7499H12.2502C12.4049 15.7499 12.5533 15.8114 12.6627 15.9208C12.772 16.0302 12.8335 16.1785 12.8335 16.3333C12.8335 16.488 12.772 16.6363 12.6627 16.7457C12.5533 16.8551 12.4049 16.9166 12.2502 16.9166H9.33351C9.02409 16.9166 8.72734 17.0395 8.50855 17.2583C8.28976 17.4771 8.16684 17.7738 8.16684 18.0833C8.16684 18.3927 8.28976 18.6894 8.50855 18.9082C8.72734 19.127 9.02409 19.2499 9.33351 19.2499H10.5002V19.8333C10.5002 20.1427 10.6231 20.4394 10.8419 20.6582C11.0607 20.877 11.3574 20.9999 11.6668 20.9999C11.9763 20.9999 12.273 20.877 12.4918 20.6582C12.7106 20.4394 12.8335 20.1427 12.8335 19.8333V19.1916C13.5423 19.0476 14.1724 18.6455 14.6014 18.0631C15.0304 17.4808 15.2277 16.7598 15.155 16.0401C15.0823 15.3205 14.7448 14.6535 14.208 14.1687C13.6712 13.6839 12.9735 13.4159 12.2502 13.4166H11.0835C10.9288 13.4166 10.7804 13.3551 10.671 13.2457C10.5616 13.1363 10.5002 12.988 10.5002 12.8333C10.5002 12.6785 10.5616 12.5302 10.671 12.4208C10.7804 12.3114 10.9288 12.2499 11.0835 12.2499ZM24.5002 13.9999H21.0002V3.49992C21.001 3.29434 20.9475 3.09219 20.845 2.91395C20.7426 2.73571 20.5949 2.58771 20.4168 2.48492C20.2395 2.38252 20.0383 2.32861 19.8335 2.32861C19.6287 2.32861 19.4275 2.38252 19.2502 2.48492L15.7502 4.49158L12.2502 2.48492C12.0728 2.38252 11.8716 2.32861 11.6668 2.32861C11.462 2.32861 11.2609 2.38252 11.0835 2.48492L7.58351 4.49158L4.08351 2.48492C3.90615 2.38252 3.70496 2.32861 3.50017 2.32861C3.29538 2.32861 3.09419 2.38252 2.91684 2.48492C2.7388 2.58771 2.59108 2.73571 2.48865 2.91395C2.38621 3.09219 2.33269 3.29434 2.33351 3.49992V22.1666C2.33351 23.0948 2.70225 23.9851 3.35863 24.6415C4.01501 25.2978 4.90525 25.6666 5.83351 25.6666H22.1668C23.0951 25.6666 23.9853 25.2978 24.6417 24.6415C25.2981 23.9851 25.6668 23.0948 25.6668 22.1666V15.1666C25.6668 14.8572 25.5439 14.5604 25.3251 14.3416C25.1063 14.1228 24.8096 13.9999 24.5002 13.9999ZM5.83351 23.3333C5.52409 23.3333 5.22734 23.2103 5.00855 22.9915C4.78976 22.7727 4.66684 22.476 4.66684 22.1666V5.51825L7.00017 6.84825C7.18023 6.9423 7.38036 6.99141 7.58351 6.99141C7.78665 6.99141 7.98678 6.9423 8.16684 6.84825L11.6668 4.84158L15.1668 6.84825C15.3469 6.9423 15.547 6.99141 15.7502 6.99141C15.9533 6.99141 16.1534 6.9423 16.3335 6.84825L18.6668 5.51825V22.1666C18.67 22.5646 18.741 22.9591 18.8768 23.3333H5.83351ZM23.3335 22.1666C23.3335 22.476 23.2106 22.7727 22.9918 22.9915C22.773 23.2103 22.4763 23.3333 22.1668 23.3333C21.8574 23.3333 21.5607 23.2103 21.3419 22.9915C21.1231 22.7727 21.0002 22.476 21.0002 22.1666V16.3333H23.3335V22.1666Z" />
+                  </svg>
+                  {{ 'shared.billingHistory' | translate }}
+                </a>
+              </li>
+              <li (click)="sideMenuHide()">
+                <a class="dropdown-item" routerLink="./brand/my-wallet">
+                  <svg class="wallet_icon" width="28" height="28" viewBox="0 0 28 28" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M22.75 7.875H5.25C3.80025 7.875 2.625 9.05025 2.625 10.5V21C2.625 22.4497 3.80025 23.625 5.25 23.625H22.75C24.1997 23.625 25.375 22.4497 25.375 21V10.5C25.375 9.05025 24.1997 7.875 22.75 7.875Z"
+                      stroke="#252F5A" stroke-width="2.5" stroke-linejoin="round" />
+                    <path
+                      d="M22.4963 7.8751V6.23447C22.4961 5.83208 22.4072 5.43469 22.2358 5.07063C22.0644 4.70657 21.8147 4.38483 21.5047 4.12836C21.1946 3.87189 20.8318 3.68701 20.442 3.58692C20.0523 3.48683 19.6453 3.47399 19.25 3.54932L4.8475 6.00752C4.22205 6.12671 3.6578 6.46043 3.25207 6.95112C2.84634 7.44181 2.62457 8.0587 2.625 8.69541V11.3751"
+                      stroke="#252F5A" stroke-width="2.5" stroke-linejoin="round" />
+                    <path
+                      d="M19.8764 17.0028C19.5795 17.0028 19.2892 16.9148 19.0423 16.7498C18.7954 16.5848 18.6029 16.3503 18.4893 16.076C18.3757 15.8016 18.3459 15.4998 18.4039 15.2085C18.4618 14.9173 18.6048 14.6497 18.8148 14.4398C19.0247 14.2298 19.2923 14.0868 19.5835 14.0289C19.8748 13.9709 20.1766 14.0007 20.451 14.1143C20.7253 14.2279 20.9598 14.4204 21.1248 14.6673C21.2898 14.9142 21.3778 15.2045 21.3778 15.5014C21.3778 15.8996 21.2197 16.2815 20.9381 16.5631C20.6565 16.8447 20.2746 17.0028 19.8764 17.0028Z"
+                      fill="#252F5A" />
+                  </svg>
+                  {{ 'shared.wallet' | translate }}
+                </a>
+              </li>
+              <li (click)="sideMenuHide()">
+                <a class="dropdown-item" (click)="logout()">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M5.24975 26.5H5.25H15.75H15.7502C16.2805 26.4995 16.7888 26.2886 17.1637 25.9137C17.5386 25.5388 17.7495 25.0305 17.75 24.5002V24.5V21.875V21.625H17.5H15.75H15.5V21.875V24.25H5.5V3.75H15.5V6.125V6.375H15.75H17.5H17.75V6.125V3.5V3.49975C17.7495 2.96955 17.5386 2.46121 17.1637 2.0863C16.7888 1.71139 16.2805 1.50053 15.7502 1.5H15.75L5.25 1.5L5.24975 1.5C4.71955 1.50053 4.21121 1.71139 3.8363 2.0863C3.46139 2.46121 3.25053 2.96955 3.25 3.49975V3.5L3.25 24.5L3.25 24.5002C3.25053 25.0305 3.46139 25.5388 3.8363 25.9137C4.21121 26.2886 4.71955 26.4995 5.24975 26.5Z"
+                      stroke-width="0.5" />
+                    <path
+                      d="M17.836 17.836L17.6592 18.0128L17.836 18.1895L19.0732 19.4268L19.25 19.6036L19.4268 19.4268L24.6768 14.1768L24.8536 14L24.6768 13.8232L19.4268 8.57322L19.25 8.39645L19.0732 8.57322L17.836 9.81047L17.6592 9.98725L17.836 10.164L20.5469 12.875H8.75H8.5V13.125V14.875V15.125H8.75H20.5469L17.836 17.836Z"
+                      stroke-width="0.5" />
+                  </svg>
+                  {{ 'shared.signout' | translate }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item language-main" (click)="sideMenuHide()">
+          <a [routerLink]="pageName" class="nav-link" [class.active]="switchLanguage=='es'"
+            (click)="selectLanguage('es')">ES</a>
+          <a [routerLink]="pageName" class="nav-link" [class.active]="switchLanguage==''"
+            (click)="selectLanguage('en')">EN</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

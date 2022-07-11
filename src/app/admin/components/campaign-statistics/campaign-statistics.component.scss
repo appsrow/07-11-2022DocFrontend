@@ -1,0 +1,250 @@
+@import "../../../../assets/css/core/mixins";
+@import "../../../../assets/css/core/variables/colors";
+
+.statis_head {
+    .section-head {
+        font-size: 1.2rem;
+        margin: 0 0 .3rem;
+        color: #3f8cff;
+        img {
+            margin-right: 0.5rem;
+            max-width: 25px;
+        }
+    }
+    p {
+        margin: 0 0 0.3rem;
+        font-size: 0.9rem;
+        color: #A1AED4;
+    }
+    span.badge {
+        border: 1px solid #3f8cff;
+        color: #3f8cff !important;
+    }
+}
+.statis_datepicker {
+    .form-group {
+        margin: 0;
+    }
+}
+.statis_graph {
+    width: 100%;
+    display: inline-block;
+    margin: 2.5rem 0 0;
+    position: relative;
+    .chart_legend {
+        display: inline-block;
+        float: right;
+        top: -3.5rem;
+        position: absolute;
+        right: 0;
+        div {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            letter-spacing: 0.6px;
+            margin: 0.3rem 0;
+            span {
+                width: 25px;
+                height: 15px;
+                display: inline-block;
+                margin-right: 0.4rem;
+                border-radius: 3px;
+            }
+            &.completed_task span {
+                background: #3f8cff;
+            }
+            &.no_of_clicks span {
+                background: #69728d;
+            }
+        }
+    }
+    ::ng-deep {
+        ngx-charts-bar-vertical-2d {
+            fill:#fff;
+            display: inline-block;
+            width: 100%;
+            overflow-x: auto;
+            ngx-charts-chart {
+                display: inline-block;
+                width: 100%;
+                .ngx-charts-outer , .ngx-charts{
+                    width: 100% !important;
+                    display: inline-block;
+                    max-width: 100%;
+                    .bar-chart {
+                        width: 100% !important;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+}
+.total_graph {
+    background: #2D3766;
+    border-radius: 15px;
+    box-shadow: 0 0 0.5rem 0.05rem rgb(0 0 0 / 20%);
+    padding: 0rem;
+    display: inline-block;
+    width: 100%;
+    h5 {
+        margin: 0;
+        width: 100%;
+        display: inline-block;
+        background: #6577ad;
+        padding: 0.5rem 1rem;
+        border-radius: 10px 10px 0 0;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+        color: #fff;
+    }
+    .total_graph_inner {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0.3rem 1.5rem 0.8rem;
+    }
+    .total_chart {
+        margin-left: 1rem;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 100%;
+        h6 {
+            margin: 0.4rem 0;
+            color: #c0cff8;
+            font-weight: 500;
+            font-size: 1.2rem;
+            span {
+                width: 100%;
+                display: inline-block;
+                color: #fff;
+                font-size: 1rem;
+                margin-top: 0.3rem;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1536px) {
+    .statis_graph {
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                ngx-charts-chart {
+                    .ngx-charts-outer, .ngx-charts {
+                        .bar-chart {
+                            transform: scale(0.88) translateX(3%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1480px) {
+    .statis_graph {
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                ngx-charts-chart {
+                    .ngx-charts-outer, .ngx-charts {
+                        .bar-chart {
+                            transform: scale(0.88) translateX(3%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 991px) {
+    .statis_graph {
+        overflow-y: hidden;
+    }
+    .statis_datepicker .form-group {
+        margin: 1rem 0 0;
+    }
+    .total_graph {
+        ::ng-deep {
+            ngx-charts-advanced-pie-chart {
+                width: 120px;
+            }
+        }
+        h5 {
+            font-size: 1rem;
+        }
+        .total_graph_inner {
+            align-items: center;
+            flex-direction: column;
+            padding: 0.3rem 1rem 0.8rem;
+            .total_chart {
+                width: calc(100% + 1.6rem);
+                margin: 0.5rem -0.8rem 0;
+                text-align: center;
+                flex-direction: row;
+                h6 {
+                    font-size: 1.1rem;
+                    width: calc(50% - 0.3rem);
+                    padding: 0 0.3rem;
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 767px) {
+    .statis_datepicker .form-group {
+        margin: 1rem 0 0;
+    }
+    .total_graph {
+        margin-bottom: 0.5rem;
+        ::ng-deep {
+            ngx-charts-advanced-pie-chart {
+                width: 100px;
+            }
+        }
+    }
+    .statis_graph {
+        overflow-y: hidden;
+        ::ng-deep {
+            ngx-charts-bar-vertical-2d {
+                display: inline-block;
+                ngx-charts-chart
+                > .ngx-charts-outer {
+                    display: inline-block;
+                    svg {
+                        display: inline-block;
+                        padding-top: 1rem;
+                        .bar-chart {
+                            transform: translateX(15%) scaleX(1.35);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .total_graph {
+        margin-bottom: 1.5rem;
+        h5 {
+            font-size: 1rem;
+        }
+    }
+}
+@media only screen and (max-width: 480px) {
+    .total_graph {
+        .total_graph_inner {
+            align-items: center;
+            flex-direction: column;
+            padding: 0.3rem 1rem 0.8rem;
+            .total_chart {
+                width: calc(100% + 1.6rem);
+                margin: 0.5rem -0.8rem 0;
+                text-align: center;
+                flex-direction: row;
+                h6 {
+                    font-size: 1.1rem;
+                    width: calc(50% - 0.3rem);
+                    padding: 0 0.3rem;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+@import "../../../../assets/css/core/variables/_colors.scss";
+
+.btn.btn-primary.registration_btn{
+    border-radius: 5px;
+    background: #070B28;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    &:hover {
+        background:hsl(233deg 70% 9% / 50%);
+        border-color: #070b28;
+        .heading-green, .heading-white {
+            color: #74FAAA;
+        }
+    }
+}
+h2.line {
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 1px solid $f-color; 
+    color: $f-color;
+    line-height: 0.1em;
+    margin: 2rem 0; 
+    span { 
+        background:$indigo-800; 
+        padding:0 10px; 
+        font-style: italic;
+    }
+}
+// .video-div {
+//     background: #070b28;
+// }
+@media only screen and (max-width: 767px) {
+    .btn.btn-primary.registration_btn  {
+        margin: 0.5rem 0;
+    }
+    h2.line {
+        margin: 1rem 0;
+    }
+}

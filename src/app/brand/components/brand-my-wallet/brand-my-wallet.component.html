@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row page-header">
+        <h1 class="section-head my-4 col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">{{ 'brandMyWallet.myWallet' | translate }}</h1>
+        <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 wallet_bal">
+            <div class="search_campaign">
+                <input name="searchInput" type="text" [(ngModel)]="searchInput" >
+            </div>
+            <h5>{{ 'brandMyWallet.myBalance' | translate }}: {{ walletBalance | currency: 'EUR'}}</h5>
+        </div>
+    </div>
+    <div class="mb-4 br-10 w-100 my_wallet">
+        <h5 *ngIf="isbrandDetailsNull">Currently there are no campaigns.</h5>
+        <ul>
+            <li class="background-primary mb-4" *ngFor="let campaignDetail of brandCampaignDetails | search: searchInput">
+                <div class="wallet_item">
+                    <div class="wallet_info">
+                        <h5>{{ campaignDetail.campaign_name  }}</h5>
+                        <span *ngIf="campaignDetail.campaign_type_name === 'uploadvideo'">{{'shared.videoplays' | translate}} {{'shared.campaign' | translate}}</span>
+                        <span *ngIf="campaignDetail.campaign_type_name === 'Lead'">{{'shared.lead' | translate}} {{'shared.campaign' | translate}}</span>
+                        <span *ngIf="campaignDetail.campaign_type_name === 'Follow'">{{'shared.follow' | translate}} {{'shared.campaign' | translate}}</span>
+                        <span *ngIf="campaignDetail.campaign_type_name === 'Appsdownload'">{{'shared.appsDownload' | translate}} {{'shared.campaign' | translate}}</span>
+                        <span *ngIf="campaignDetail.campaign_type_name === 'clicksonthewebsite'">{{'shared.clicksonthewebsite' | translate}} {{'shared.campaign' | translate}}</span>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" [style.width]="campaignDetail.campaign_details.percentage+'%'" aria-valuemin="0"
+                            aria-valuemax="100">{{ campaignDetail.campaign_details.percentage }}%</div>
+                        </div>
+                    </div>
+                    <div class="wallet_action">
+                        <div class="wallet_static">
+                            <div class="total_spent">
+                                <h6 class="text-danger">{{ campaignDetail.campaign_details.spend_euro | currency: 'EUR' }}</h6>
+                                <span>{{ 'brandMyWallet.totalSpent' | translate }}</span>
+                            </div>
+                            <div class="total_left">
+                                <h6 class="text-success">{{ campaignDetail.campaign_details.left_euro | currency: 'EUR' }}</h6>
+                                <span>{{ 'brandMyWallet.left' | translate }}</span>
+                            </div>
+                        </div>
+                        <div class="wallet_btn">
+                            <a (click)="goToCampaignStatistics(campaignDetail.id)" class="btn btn-view"><i class="fa fa-line-chart" aria-hidden="true"></i> {{ 'brandMyCampaign.view' | translate }}</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div (click)="goToMyCampaigns()" class="row-md-6 text-center" style="margin: 0 10px;">
+        <button class="btn-outline"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{
+            'shared.back' | translate }}</button>
+    </div>
+</div>

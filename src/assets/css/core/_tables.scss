@@ -1,0 +1,257 @@
+@import '../core/variables/brand';
+@import '../core/variables/type';
+
+.table{
+    thead{
+        border-top: 1px solid #e0e6ed;
+        border-bottom: 1px solid #e0e6ed;
+        tr{
+            th{     
+                color: #ffffff;
+                background: #054f66;
+                font-weight: 700;
+                font-size: 13px;
+                border: none;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                white-space: pre;
+                box-sizing: content-box;
+            }
+        }
+    }
+    tbody {
+        tr {
+            td {
+                box-sizing: content-box;
+                color: $text-color;
+                button.btn {
+                    padding: 1px 10px;
+                    font-size: 12px;
+                    svg {
+                        width: 15px;
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+    }
+    > thead > tr > th,
+    > tbody > tr > th,
+    > tfoot > tr > th,
+    > thead > tr > td,
+    > tbody > tr > td,
+    > tfoot > tr > td{
+        padding: 2px ​7p;
+        font-size: 13px;
+        letter-spacing: 1px;
+        vertical-align: middle;
+    }
+   .form-check{
+       margin-top: 0;
+
+       .form-check-sign{
+           top: -13px;
+           left: 0;
+           padding-right: 0;
+       }
+    }
+
+   .radio,
+   .checkbox{
+       margin-top: 0;
+       margin-bottom: 0;
+       padding: 0;
+       width: 15px;
+
+       .icons{
+           position: relative;
+       }
+   }
+   
+
+   .th-description{
+       max-width: 150px;
+   }
+   .td-price{
+       font-size: 26px;
+       font-weight: $font-weight-light;
+       margin-top: 5px;
+       text-align: right;
+   }
+   .td-total{
+        font-weight: $font-weight-bold;
+        font-size: $font-size-h5;
+        padding-top: 20px;
+        text-align: right;
+    }
+
+   .td-actions .btn{
+    margin: 0px;
+    padding: 5px;
+    }
+
+    > tbody > tr{
+        position: relative;
+    }
+}
+::ng-deep {
+    .dataTables_wrapper {
+        .dataTables_length {
+            margin-bottom: 1rem;
+            label {
+                color: #ffffff;
+                text-transform: capitalize;
+                select {
+                    border-radius: 60px;
+                    padding: 2px 20px 2px 5px;
+                    color: #fff;
+                    margin: 0 5px;
+                    border: 1px solid #6577ad;
+                    background-image: url(/assets/images/down-arrow_white.png);
+                    background-repeat: no-repeat;
+                    background-position: center right 5px;
+                    background-size: 10px;
+                    -webkit-appearance: none;
+                }
+            }
+        }
+        .dataTables_filter {
+            margin-bottom: 1rem;
+            label {
+                font-size: 0;
+                input {
+                    font-size: 1rem;
+                    border-radius: 100px;
+                    border: 1px solid #6577ad;
+                    color: #fff;
+                    padding: 2px 5px 2px 30px;
+                    position: relative;
+                    background: url(/assets/images/search.png) no-repeat left 10px center / auto 55%;
+                }
+            }
+        }
+        .dataTables_info {
+            color: #fff;
+            padding-top: 1rem;
+        }
+        .dataTables_paginate {
+            color: #fff;
+            padding-top: 1rem;
+            a {
+                padding: 0.3rem 0.8rem;
+                color: #fff !important;
+                margin: 0;
+                border: none;
+                &:hover, &:focus {
+                    color: $teal-a200 !important;
+                    background: transparent;
+                    border: none;
+                }
+            }
+            span {
+                a {
+                    border: 1px solid #6577ad;
+                    color: #fff !important;
+                    transition: all 0.3s ease;
+                    border-radius: 100px;
+                    width: 30px;
+                    height: 30px;
+                    display: inline-flex;
+                    align-items: center;
+                    line-height: normal;
+                    margin: 0 4px;
+                    justify-content: center;
+                    &.current,&:hover {
+                        background-color:$teal-a200;
+                        background: $teal-a200;
+                        color: #252f5a !important;
+                        transition: all 0.3s ease;
+                    }
+                }
+            }
+        }
+        table.dataTable {
+            border-bottom: none !important;
+            thead {
+                tr {
+                    th {
+                        background-image: none !important;
+                        position: relative;
+                        padding: 0.6rem 0.4rem;
+                        &.sorting span::after {
+                            content: "\2191\2193";
+                        }
+                        &.sorting_asc span::after {
+                            content: "\2191";
+                        }
+                        &.sorting_desc span::after {
+                            content: "\2193";
+                        }
+                        span {
+                            position: relative;
+                            padding-right: 25px !important;
+                            &::after {
+                                right: 0.2rem;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                position: absolute;
+                                bottom: 0.9em;
+                                display: inline-block;
+                                font-weight: normal;
+                                font-size: 13px;
+                                height: 25px;
+                                font-family: "FontAwesome free";
+                            }
+                        }
+                    }
+                }
+            }
+            tbody {
+                tr{
+                    transition: all 0.1s ease;                    
+                    &:hover {
+                        background-color: #f5f5f5;
+                    }
+                    &:nth-of-type(odd){
+                        background-color: #f9f9f9 ;
+                    }
+                    td {
+                        border: none;
+                        color: #121212;
+                        vertical-align: middle;
+                        font-size: 13px;
+                        letter-spacing: 1px;
+                        border-bottom: 1px solid #e0e6ed;
+                        .tbl_action {
+                            display: flex;
+                            a {
+                                padding: 0 0.4rem;
+                                svg {
+                                    width: 17px;
+                                    height: auto;
+                                }
+                            }
+                        }
+                        .coupon_badge {
+                            border: 1.5px dashed #054f66;
+                            border-radius: 4px;
+                            padding: 0.2rem 1rem;
+                            background: hsl(194deg 91% 21% / 10%);
+                            color: #054f66;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+       
+    }
+}
+
+.table-striped>tbody>tr:nth-of-type(odd){
+    background-color: #f9f9f9 ;
+}
+
+.table.table-hover tbody tr:hover{
+  background-color: #f5f5f5;
+}

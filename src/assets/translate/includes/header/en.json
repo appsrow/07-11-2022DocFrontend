@@ -1,0 +1,22 @@
+{
+    "header": {
+        "menu": {
+            "label0": "Home",
+            "label1": "Tasks",
+            "label2": "Rewards",
+            "label3": "How it works",
+            "label4": "Sign in",
+            "label5": "Sign out",
+            "label6": "New Campaign",
+            "label7": "My Campaign",
+            "label8": "Lead",
+            "label9": "Streamer Subscriptions"
+        }
+    },
+    "footer": {
+        "allRightReseved": "All rights reserved",
+        "terms": "Terms and Conditions",
+        "privacy": "Privacy Policy",
+        "returnPolicy": "Return policy"
+    }
+}

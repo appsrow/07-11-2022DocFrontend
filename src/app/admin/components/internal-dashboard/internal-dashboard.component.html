@@ -1,0 +1,100 @@
+<div class="container-fluid p-4" *ngIf="dashboardKpi">
+  <div class="datePickers">
+    <form [formGroup]="createCampaignForm">
+      <div class="row mb-4 mx-0 mx-md-1">
+        <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-0">
+          <ul class="internal_info">
+            <li><span>{{ 'internalDashboard.loggedUsers' | translate }}:</span> {{ dashboardKpi.logged_users }}</li>
+            <li><span>{{ 'internalDashboard.activeUsers' | translate }}:</span>  {{ dashboardKpi.active_users }}</li>
+            <li><span>{{ 'internalDashboard.activeCampaigns' | translate }}:</span>  {{ dashboardKpi.count_current_campaigns }}</li>
+            <li><span>{{ 'internalDashboard.activeTasks' | translate }}:</span>  {{ dashboardKpi.count_active_tasks }}</li>
+            <li><span>{{ 'internalDashboard.unspentCoins' | translate }}:</span>  {{ dashboardKpi.total_users_unspend_coins }} ({{ dashboardKpi.total_users_unspend_coins_euros }} &euro; )</li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 d-flex align-items-center px-0 px-lg-3">
+          <div class="row w-100 mx-0">
+            <div class="col-12 col-md-12 col-lg-6">
+              <div class="form-group date-picker mb-4 mb-lg-0">
+                <label class="lbl-input">{{ 'shared.startDate' | translate }} </label>
+                <ngx-datepicker [options]="startDate" formControlName="startDate"></ngx-datepicker>
+              </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-6">
+              <div class="form-group date-picker mb-0">
+                <label class="lbl-input">{{ 'shared.endDate' | translate }} </label>
+                <ngx-datepicker [options]="endDate" formControlName="endDate"></ngx-datepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row internal_list">
+        <div class="col-12 col-md-6 col-lg-3 col-xxl-3 my-3">
+          <ul class="filter_main">
+            <li>
+              <h3>{{ dashboardKpi.count_users_registered }} <small>{{ 'internalDashboard.users' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.retention_users }} <small>{{ 'internalDashboard.retention' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.sessions_per_user }} <small>{{ 'internalDashboard.session/user' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.ltv_days }} <small>{{ 'internalDashboard.ltvDays' | translate }}</small></h3>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 col-xxl-3 my-3">
+          <ul class="filter_main">
+            <li>
+              <h3>{{ dashboardKpi.campaigns_approved }} <small>{{ 'internalDashboard.campaigns' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.tasks }}<small>{{ 'internalDashboard.tasks' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.estimated_revenue }} <small>{{ 'internalDashboard.estimatedRevenue' | translate }}{{ 'internalDashboard.withoutTax' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.campaign_unspent_funds }} <small>{{ 'internalDashboard.notRewarded' | translate }}</small></h3>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 col-xxl-3 my-3">
+          <ul class="filter_main">
+            <li>
+              <h3>{{ dashboardKpi.rewards_count_in_period }} <small>{{ 'internalDashboard.rewards' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.final_conversion_rate }} <small>{{ 'internalDashboard.conversionRate' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.rewards_cost }} <small>{{ 'internalDashboard.rewardsCost' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.rewards_per_users }} <small>{{ 'internalDashboard.rewards/user' | translate }}</small></h3>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 col-xxl-3 my-3">
+          <ul class="filter_main">
+            <li>
+              <h3>{{ dashboardKpi.rewards_coins_in_period }} <small>{{ 'internalDashboard.rewardedCoins' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.rewards_cost_in_period_euro }} <small>{{ 'internalDashboard.rewardedEuros' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.redeemed_rewards_cost_in_period_euro }}  <small>{{ 'internalDashboard.spentEuros' | translate }}</small></h3>
+            </li>
+            <li>
+              <h3>{{ dashboardKpi.spent_euros_per_user }}<small>{{ 'internalDashboard.spentEurosPerUser' | translate }}</small></h3>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

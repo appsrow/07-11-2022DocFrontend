@@ -1,0 +1,22 @@
+@import "../../../../assets/css/core/mixins";
+@import "../../../../assets/css/core/variables/colors";
+
+.brand_edit_profile {
+  padding: 2rem;
+  .profile_img {
+    @include profile_img;
+  }
+}
+.fileInput{
+  display: none;
+}
+
+.img-upload{
+  border-radius: 50%;
+}
+
+@media only screen and (max-width: 767px) {
+    .brand_edit_profile {
+        padding: 1rem;
+    }
+}

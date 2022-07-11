@@ -1,0 +1,210 @@
+@import "../../../../assets/css/core/variables/colors";
+@import "../../../../assets/css/core/mixins";
+@import "../../../../assets/css/core/tables";
+.campaign_list {
+    .user-image {
+        width: 100px;
+    }
+    .campaign_text {
+        h3 {
+            font-weight: 600;
+        }
+        p {
+            span {
+                color: $teal-a200;
+                svg {
+                    width: 18px;
+                }
+            }
+        }
+    }
+}
+
+.datatabe_main {
+    ::ng-deep {
+        .dataTables_length {
+            margin-bottom: 1rem;
+            label {
+                color: #ffffff;
+                text-transform: capitalize;
+                select {
+                    border-radius: 60px;
+                    padding: 2px 10px 2px 5px;
+                    background: #6577ad;
+                    color: #fff;
+                    margin: 0 5px;
+                    border: 1px solid #6577ad;
+                }
+            }
+        }
+        .dataTables_filter {
+            margin-bottom: 1rem;
+            label {
+                font-size: 0;
+                input {
+                    font-size: 1rem;
+                    border-radius: 100px;
+                    border: 1px solid #6577ad;
+                    color: #fff;
+                    padding: 2px 5px 2px 30px;
+                    position: relative;
+                    background: url(../../../../assets/images/search.png) no-repeat left 10px center / auto 55%;
+                }
+            }
+        }
+        .dataTables_info {
+            color: #fff;
+            padding-top: 1rem;
+        }
+        .dataTables_paginate {
+            color: #fff;
+            padding-top: 1rem;
+            a {
+                padding: 0.3rem 0.8rem;
+                color: #fff !important;
+                margin: 0;
+                border: none;
+                &:hover, &:focus {
+                    color: $teal-a200 !important;
+                    background: transparent;
+                    border: none;
+                }
+            }
+            span {
+                a {
+                    border: 1px solid #6577ad;
+                    color: #fff !important;
+                    transition: all 0.3s ease;
+                    border-radius: 100px;
+                    width: 30px;
+                    height: 30px;
+                    display: inline-flex;
+                    align-items: center;
+                    line-height: normal;
+                    margin: 0 4px;
+                    justify-content: center;
+                    &.current,&:hover {
+                        background-color:$teal-a200;
+                        background: $teal-a200;
+                        color: #252f5a !important;
+                        transition: all 0.3s ease;
+                    }
+                }
+            }
+        }
+    }
+    table {
+        border-radius: 10px;
+        overflow: hidden;
+        border-spacing: 0;
+        border-collapse: inherit;
+        border: 1px solid rgba(161, 174, 212, 0.4);
+        width: calc(100% - 2px);
+        // &.dataTable.no-footer {
+        //     //border: 1px solid #5B6792 !important;
+        // }
+        thead {
+            border-top: 1px solid #5b6792;
+            border-bottom: 1px solid #5b6792;
+            tr {
+                th {
+                    background-color: #3E4B82;
+                    border-bottom: 1px solid #57628B !important;
+                    color: #fff; 
+                    font-weight: 500;
+                    text-transform: none;
+                    font-size: 0.9rem;       
+                }
+            }
+        }
+        tbody {
+            > tr {
+                background-color: #2D3766;
+                &:nth-of-type(odd) {
+                    background-color: #252F5A;
+                }
+                &:hover {
+                    background-color: #3E4B82;
+                }
+                &:last-child {
+                    td {
+                        border-bottom: none !important;
+                    }
+                }
+                td {
+                    padding: 0.5rem 0.4rem;
+                    border-bottom: 1px solid #57628B !important;
+                    color: #fff;
+                    font-size: 0.85rem;
+                    font-weight: normal;
+                    //box-shadow:none;
+                    border-top: 0;
+                    white-space: nowrap;
+                    .user-image {
+                        width: 40px;
+                        height: 40px;   
+                        margin-right: .5rem;
+                    }
+                    &.d-flex {
+                        align-items: center;
+                    }
+                    &.name_text {
+                        max-width: 150px;
+                        white-space: pre;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    span.badge {
+                        min-width: 70px;
+                        font-size: 0.7rem;
+                        border: 1px solid;
+                    }
+                    a {
+                        &.quick_acton {
+                            span {
+                                margin: 0 0.5rem;
+                                font-size: 1.4rem;
+                                line-height: normal;
+                                transition: all 0.3s ease;
+                                &:hover {
+                                    color: #A1AED4 !important;
+                                    transition: all 0.3s ease;
+                                }
+                            }
+                            &:hover,&:focus {
+                                cursor: pointer;
+                            }
+                        }
+                        &.view_statics {
+                            background: #A1AED4;
+                            border: 1px solid #A1AED4;
+                            color: #252f5a;
+                            white-space: pre;
+                            padding: 0rem 0.5rem;
+                            border-radius: 100px;
+                            font-weight: 500;
+                            line-height: normal;
+                            transition: all 0.3s ease;
+                            svg {
+                                fill: #252F5A;
+                                color: #252F5A;
+                                width: 18px;
+                            }
+                            &:hover {
+                                cursor: pointer;
+                                background: none;
+                                color: #A1AED4;
+                                border-color: #A1AED4;
+                                transition: all 0.3s ease;
+                                svg {
+                                    fill: #A1AED4;
+                                    color: #A1AED4;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

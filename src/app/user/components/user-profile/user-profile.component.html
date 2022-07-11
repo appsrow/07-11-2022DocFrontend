@@ -1,0 +1,85 @@
+<div class="container user-profile mb-4">
+  <div class="row">
+    <div class="col-xl-12">
+      <h1 class="section-head my-4">{{ 'user.userProfile' | translate }}</h1>
+      <div class="background-primary text-center w-100 br-10 p-3 p-md-4 userinformation">
+        <div class="user-image me-4">
+          <img [src]="profilePicture ? profilePicture : '/assets/images/img_avatar.png'">
+        </div>
+        <div class="user-content text-start" *ngIf="showProfile">
+          <h3 class="heading-white mb-2 fw-500"> {{userInfo.first_name}} {{userInfo.last_name}}</h3>
+          <div class="info">
+            <i class="fa fa-envelope-o heading-green f-20 me-2" aria-hidden="true"></i>
+            <span class="heading-white">{{userInfo.email}}</span>
+          </div>
+          <div class="info" *ngIf="userInfo.city != null && userInfo.state != null && userInfo.country != null">
+            <i class="fa fa-map-marker heading-green f-20 me-2" aria-hidden="true"></i>
+            <span class="heading-white">{{userInfo.city}}, {{state}}, {{country}}</span>
+          </div>
+          <div class="info" *ngIf="userInfo.phone != null ">
+            <i class="fa fa fa-phone heading-green f-20 me-2" aria-hidden="true"></i>
+            <span class="heading-white">{{userInfo.phone}}</span>
+          </div>
+          <div class="info" *ngIf="userInfo.dob != null ">
+            <i class="fa fa-calendar heading-green f-20 me-2" aria-hidden="true"></i>
+            <span class="heading-white">{{userInfo.dob | date: 'dd/MM/YYYY' }}</span>
+          </div>
+          <div class="info" *ngIf="userInfo.gender != null ">
+            <i class="fa fa-venus-mars heading-green f-20 me-2" aria-hidden="true"></i>
+            <span class="heading-white" *ngIf="userInfo.gender == '1'">{{ 'shared.male' | translate }}</span>
+            <span class="heading-white" *ngIf="userInfo.gender == '2'">{{ 'shared.female' | translate }}</span>
+            <span class="heading-white" *ngIf="userInfo.gender == '3'">{{ 'shared.others' | translate }}</span>
+          </div>
+          <div class="text-start"><button class="btn btn-green" routerLink="../editProfile" type="button">{{
+              'user.editProfile' | translate }}</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12 mb-4" *ngIf="alreadyRedeemed">
+      <div class="col-md-12 d-flex justify-content-between  my-4">
+        <h1 class="section-head">{{ 'user.alreadyRedeemed' | translate }}</h1>
+        <button *ngIf="showLoadMoreButton" (click)="loadMoreReword()" class="btn btn-green btn-task">{{ 'user.viewAll' |
+          translate }}</button>
+      </div>
+      <div class="background-primary w-100 br-10 p-3 p-md-4 allready_redeem">
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4"
+            *ngFor="let userReward of userAlreadyRedeemRewards.slice(0, showAllRewards)">
+            <div class="task-progress-main d-flex mb-4" *ngIf="userReward.name == 'paypal'">
+              <div class="task-progress-image">
+                <img src="/assets/images/paypal.png" alt="task image">
+              </div>
+              <div class="task-progress-content">
+                <h4 class="heading">{{ 'user.paypal' | translate }}</h4>
+                <div class="task-info d-flex mb-2">
+                  <img src="/assets/images/calendar.png" class="me-2" alt="calender-icon">
+                  <h5 class="heading-secoundry mb-0">{{ userReward.converted_transaction_date }}</h5>
+                </div>
+                <div class="task-info d-flex">
+                  <img src="/assets/images/coin-icon.png" class="me-2" alt="calender-icon">
+                  <h5 class="heading-secoundry mb-0">{{ userReward.coins }} </h5>
+                </div>
+              </div>
+            </div>
+            <div class="task-progress-main d-flex mb-4" *ngIf="userReward.name == 'twitch'">
+              <div class="task-progress-image">
+                <img src="/assets/images/twitch_big.png" alt="task image">
+              </div>
+              <div class="task-progress-content">
+                <h4 class="heading">{{ userReward.description }}</h4>
+                <div class="task-info d-flex mb-2">
+                  <img src="/assets/images/calendar.png" class="me-2" alt="calender-icon">
+                  <h5 class="heading-secoundry mb-0">{{ userReward.converted_transaction_date }}</h5>
+                </div>
+                <div class="task-info d-flex">
+                  <img src="/assets/images/coin-icon.png" class="me-2" alt="calender-icon">
+                  <h5 class="heading-secoundry mb-0">{{ userReward.coins }} </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

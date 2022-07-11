@@ -1,0 +1,170 @@
+@import "../../../../assets/css/core/mixins";
+@import "../../../../assets/css/core/variables/colors";
+
+.brand_edit_profile {
+  padding: 2rem;
+  .profile_img {
+    @include profile_img;
+  }
+}
+.fileInput{
+  display: none;
+}
+
+.img-upload{
+  border-radius: 50%;
+}
+
+::ng-deep {
+  angular2-multiselect {
+    position: relative;
+    .cuppa-dropdown {
+      .selected-list {
+        .c-btn {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          font-size: 15px;
+          letter-spacing: 1px;
+          font-weight: 400;
+          line-height: 1.5;
+          padding: 7px 10PX;
+          border-radius: 5px;
+          color: rgba(255, 255, 255, 0.8);
+          border: 2px solid #676e8c;
+          height: calc(1.5em + .75rem + 9px);
+          &.disabled {
+            background: #686f8d1a;
+          }
+          > span {
+            font-size: 0.8em;
+          }
+          .c-list {
+            display: flex;
+            align-items: center;
+            white-space: pre;
+            overflow-x: hidden;
+            width: calc(100% - 3rem);
+            max-width: 500px;
+            .c-token {
+              color: #070b28;
+              margin-right: 4px;
+              margin-top: 0;
+              padding: 1px 18px 2px 6px;
+              background: #74faaa;
+              font-size: 0.8rem;
+              font-weight: 500;
+              font-family: 'Poppins';
+              border-radius: 20px;
+              .c-remove{
+                right: 6px;
+                svg {
+                  fill: #000;
+                  width: 8px;
+                  height: 8px;
+                }
+              }
+            }
+          }
+          .c-remove.clear-all {
+            svg {
+              fill: #fff;
+            }
+          }
+          .c-angle-down,.c-angle-up {
+            top: 40%;
+              svg {
+                fill: #fff;
+              }
+          }
+        }
+      }
+      .dropdown-list {
+        bottom: 50px !important;
+        left: 0px !important;
+        top: auto !important;
+        position: absolute !important;
+        .list-area {
+          .select-all {
+            label {
+              color: #252f5a;
+              &::before {
+                background-color: #eeeff2;
+                border: 1px solid #bdc3d0;
+              }
+            }
+          }
+          ul {
+            li {
+              padding: 3px 10px;
+              label {
+                color: #252f5a;
+                &::after {
+                  color: #000;
+                }
+                &::before {
+                  background-color: #eeeff2;
+                  border: 1px solid #bdc3d0;
+                }
+              }
+            }
+          }
+          div {
+            &:last-child {
+              max-height: 170px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.verification_input {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0;
+  width: 100%;
+  label.lbl-popup-input {
+    position: inherit;
+    width: 100%;
+    text-align: center;
+    margin: 0 !important;
+    font-size: 1rem;
+  }
+  input.form-control {
+    margin: 0 0.4rem;
+    width: 2.5rem !important;
+    min-width: auto !important;
+    text-align: center;
+    padding: 0 0.5rem;
+    &:hover, &:focus {
+      border-color: #74faaa;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+    .brand_edit_profile {
+        padding: 1rem;
+    }
+    
+  ::ng-deep {
+    angular2-multiselect {
+      position: relative;
+      .cuppa-dropdown {
+        .dropdown-list {
+          .list-area {
+            div {
+              &:last-child {
+                max-height: 72px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    }
+}

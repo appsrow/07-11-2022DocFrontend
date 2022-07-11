@@ -1,0 +1,290 @@
+<div class="container">
+  <div class="row my-4 align-items-center header_withbtn">
+    <h1 class="section-head mb-0 col-7 col-sm-6 col-md-7 col-lg-8"> {{ 'user.completedTasks' | translate }}</h1>
+    <div class="col-5 col-sm-6 col-md-5 col-lg-4 text-end ">
+      <button (click)="goToTasks()" type="button" class="btn btn-green btn-task"> {{ 'user.goToTasks' | translate }}</button>
+    </div>
+  </div>
+  <div class="tasks_tabs">
+    <ul class="nav nav-pills nav-task mb-3" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#all" type="button" role="tab"
+          aria-selected="true"><img src="/assets/images/icon_all.png" alt="All"> {{ 'user.all' | translate }}</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#lead" type="button" role="tab"
+          aria-selected="false"><img src="/assets/images/lead.png" alt="Lead">
+          {{ 'user.lead' | translate }}</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#download" type="button" role="tab"
+          aria-selected="false"><img src="/assets/images/icon_download.png" alt="Download">
+          {{ 'user.download' | translate }}</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#follow" type="button" role="tab"
+          aria-selected="false"><img src="/assets/images/icon_follow.png" alt="Follow">
+          {{ 'user.follow' | translate }}</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#video" type="button" role="tab"
+          aria-selected="false"><img src="/assets/images/icon_video.png" alt="Video">
+          {{ 'user.video' | translate }}</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#visit" type="button" role="tab"
+          aria-selected="false"><img src="/assets/images/icon_visit.png" alt="Visit">
+          {{ 'user.visit' | translate }}</button>
+      </li>
+    </ul>
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 mb-4">
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4" *ngFor="let task of allTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div>
+                    <div class="task-type" title="{{ 'user.lead' | translate }}"
+                      *ngIf="task.campaign_type === 'lead_target'">
+                      <img src="/assets/images/lead.png" class="image-type" alt="task type">
+                      {{ 'user.lead' | translate }}
+                    </div>
+                    <div class="task-type" title="{{ 'user.download' | translate }}"
+                      *ngIf="task.campaign_type === 'apps_download'">
+                      <img src="/assets/images/icon_download.png" class="image-type" alt="task type">
+                      {{ 'user.download' | translate }}
+                    </div>
+                    <div class="task-type" title="{{ 'user.follow' | translate }}"
+                      *ngIf="task.campaign_type === 'follow'">
+                      <img src="/assets/images/icon_follow.png" class="image-type" alt="task type">
+                      {{ 'user.follow' | translate }}
+                    </div>
+                    <div class="task-type" title="{{ 'user.video' | translate }}"
+                      *ngIf="task.campaign_type === 'video_plays'">
+                      <img src="/assets/images/icon_video.png" class="image-type" alt="task type">
+                      {{ 'user.video' | translate }}
+                    </div>
+                    <div class="task-type" title="{{ 'user.visit' | translate }}"
+                      *ngIf="task.campaign_type === 'click_websites'">
+                      <img src="/assets/images/icon_visit.png" class="image-type" alt="task type">
+                      {{ 'user.visit' | translate }}
+                    </div>
+                    <h5>{{ task.company_info[0].company_name }}</h5>
+                    <div>
+                      <button type="button" *ngIf="task.campaign_type != 'follow'"
+                        (click)="triggerModal(modalData, task)" class="btn-outline btn-task">
+                        {{task.credit | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                          alt="coin"></button>
+                      <button type="button" *ngIf="task.campaign_type === 'follow'"
+                        (click)="triggerModalFollow(modalDataFollow, task)" class="btn-outline btn-task">
+                        {{task.credit | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                          alt="coin"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="lead" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4" *ngFor="let task of leadTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="task-type">
+                    <img src="/assets/images/lead.png" class="image-type" alt="task type">
+                    {{ 'user.lead' | translate }}
+                  </div>
+                  <h5>{{ task.company_info[0].company_name }}</h5>
+                  <button type="button" (click)="triggerModal(modalData, task)" class="btn-outline btn-task">
+                    {{task.credit | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                      alt="coin"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="download" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4" *ngFor="let task of downloadTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="task-type">
+                    <img src="/assets/images/icon_download.png" class="image-type" alt="task type">
+                    {{ 'user.download' | translate }}
+                  </div>
+                  <h5>{{ task.company_info[0].company_name }}</h5>
+                  <button (click)="triggerModal(modalData, task)" type="button" class="btn-outline btn-task">
+                    {{task.credit | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                      alt="coin"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="follow" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4" *ngFor="let task of followTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="task-type">
+                    <img src="/assets/images/icon_follow.png" class="image-type" alt="task type">
+                    {{ 'user.follow' | translate }}
+                  </div>
+                  <h5>{{ task.company_info[0].company_name }}</h5>
+                  <button type="button" (click)="triggerModalFollow(modalDataFollow, task)"
+                    class="btn-outline btn-task"> {{task.credit | number : '1.2-2'}} <img src="/assets/images/coin.png"
+                      class="coin-image" alt="coin"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4" *ngFor="let task of videoTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="task-type">
+                    <img src="/assets/images/icon_video.png" class="image-type" alt="task type">
+                    {{ 'user.video' | translate }}
+                  </div>
+                  <h5>{{ task.company_info[0].company_name }}</h5>
+                  <button type="button" class="btn-outline btn-task" (click)="triggerModal(modalData, task)">
+                    {{task.credit | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                      alt="coin"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="visit" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-4" *ngFor="let task of visitTasks;">
+                <div class="background-primary text-center w-100 br-10 task_item">
+                  <div class="div-image-task">
+                    <img [src]="task.campaign_image" alt="image of {{task.campaign_name}}">
+                  </div>
+                  <div class="task-type">
+                    <img src="/assets/images/icon_visit.png" class="image-type" alt="task type">
+                    {{ 'user.visit' | translate }}
+                  </div>
+                  <h5>{{ task.company_info[0].company_name }}</h5>
+                  <button type="button" (click)="triggerModal(modalData, task)" class="btn-outline btn-task">
+                    {{task.credit | number : '1.2-2'}} <img src="/assets/images/coin.png" class="coin-image"
+                      alt="coin"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 mb-4">
+        <div class="background-primary w-100 br-10 p-3 reward_list">
+          <div class="task-progress-main d-flex" [ngClass]="{'cursor': twitchSubscription == 100}"
+            [title]="twitchSubscription == 100 ? 'Click here for redeem coins' : '' "
+            [routerLink]="twitchSubscription == 100 ? '../userRewards/'+'twitch' : []">
+            <div class="task-progress-image">
+              <img src="/assets/images/twitch.png" alt="task image">
+            </div>
+            <div class="task-progress-content">
+              <h4 class="heading">{{ 'user.twitchSubscription' | translate }}</h4>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" [style.width]="twitchSubscription+'%'" aria-valuemin="0"
+                  aria-valuemax="100"></div>
+              </div>
+            </div>
+          </div>
+          <div class="task-progress-main d-flex" [ngClass]="{'cursor': paypal == 100}"
+            [title]="paypal == 100 ? 'Click here for redeem coins' : '' "
+            [routerLink]="paypal == 100 ? '../userRewards/'+'paypal' : []">
+            <div class="task-progress-image">
+              <img src="/assets/images/paypal.png" alt="task image">
+            </div>
+            <div class="task-progress-content">
+              <h4 class="heading">{{ 'user.paypal' | translate }}</h4>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" [style.width]="paypal+'%'" aria-valuemin="0"
+                  aria-valuemax="100"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #modalData let-modal let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <button type="button" class="close without_head" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+    <div class="row">
+      <div class="col-md-12 f-20 text-center">
+        <h5 class="heading-green without_title">{{modalContent.campaign_name}}</h5>
+      </div>
+      <div class="text-center img-task-div p-3">
+        <img [src]="modalContent.campaign_image" class="img-fluid icon-campaign">
+      </div>
+      <div class="col-md-12 text-center">
+        <p>{{modalContent.product_information}}</p>
+      </div>
+      <div class="col-md-12 mb-2 text-center" *ngIf="modalContent.campaign_type === 'lead_target'">
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+<ng-template #modalDataFollow let-modal let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <button type="button" class="close without_head" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+    <div class="row">
+      <div class="col-md-12 f-20 text-center">
+        <h5 class="heading-green without_title">{{modalContent.campaign_name}}</h5>
+      </div>
+      <div class="text-center img-task-div p-3">
+        <img [src]="modalContent.campaign_image" class="img-fluid icon-campaign">
+      </div>
+      <div class="col-md-12 text-center">
+        <p>{{ 'user.clickFollowText' | translate }}</p>
+      </div>
+      <div class="text-center text-break col-md-12 mb-3">{{modalContent.selected_social_media_url}}</div>
+
+    </div>
+  </div>
+</ng-template>
+<ng-template #modalDataVideo let-modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <div class="video_head">
+      <h5 class="heading-green without_title video_title">{{modalContent.campaign_name}}</h5>
+      <div class="with_coins">
+        <h5 class="heading-green without_title"><img src="../../../assets/images/coin.png" alt="Coins">
+          {{modalContent.coins}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body p-0">
+    <div class="row">
+      <div class="col-md-12 text-start">
+        <div class="video">
+          <video autoplay id="watch-task-video">
+            <source [src]="modalContent.uploaded_video_url" type="video/mp4" />
+            {{ 'brand.browserNotSupported' | translate }}
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

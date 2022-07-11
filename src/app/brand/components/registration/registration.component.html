@@ -1,0 +1,130 @@
+<div class="container">
+  <h1 class="section-head my-4">{{ 'shared.brand' | translate }} {{ 'shared.registration' | translate }}</h1>
+  <div class="background-primary p-4 br-5 mb-5">
+    <div class="row">
+      <div class="offset-md-3 col-md-6">
+        <a class="btn btn-primary py-3 w-100 registration_btn" type="button" routerLink="../login">
+          <span class="heading-white">{{ 'shared.alreadyAccount' | translate }} </span>
+          <span class="heading-green">&nbsp;{{ 'shared.signin' | translate }}</span>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-12 mb-3 px-0">
+      <h2 class="line f-16"><span>or</span></h2>
+    </div>
+    <form [formGroup]="brandRegistrationForm">
+      <div class="row">
+        <div class="col-md-6 mb-4 mb-sm-4 mb-md-0">
+          <div class="form-group">
+            <label class="lbl-input">{{ 'shared.email' | translate }} <span
+                class="text-danger error-msg">*</span></label>
+            <input type="text" formControlName="email" class="form-control">
+            <div
+              *ngIf="brandRegistrationForm.controls['email'].errors && (brandRegistrationForm.controls['email'].dirty || brandRegistrationForm.controls['email'].touched) || submitted">
+              <div *ngIf="brandRegistrationForm.controls['email'].errors?.required" class="text-danger error-msg">
+                {{ 'shared.emailRequired' | translate }} </div>
+              <div
+                *ngIf="brandRegistrationForm.controls['email'].value !== '' && brandRegistrationForm.controls['email'].invalid"
+                class="text-danger error-msg">{{ 'shared.emailWrongFormat' | translate }} </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="lbl-input">{{ 'shared.phoneNumber' | translate }} <span
+                class="text-danger error-msg">*</span></label>
+            <input type="text" formControlName="phone" class="form-control" maxlength="15"
+              (keypress)="utilityService.phoneNumberValidation($event)">
+            <div
+              *ngIf="brandRegistrationForm.controls['phone'].errors && (brandRegistrationForm.controls['phone'].dirty || brandRegistrationForm.controls['phone'].touched) || submitted">
+              <div *ngIf="brandRegistrationForm.controls['phone'].errors?.required" class="text-danger error-msg">
+                {{ 'shared.phoneNumberRequired' | translate }} </div>
+              <div *ngIf="brandRegistrationForm.controls['phone'].errors?.minlength" class="text-danger error-msg">
+                {{ 'shared.phoneMinLength' | translate }} </div>
+              <div *ngIf="brandRegistrationForm.controls['phone'].errors?.maxlength" class="text-danger error-msg">
+                {{ 'shared.phoneMaxLength' | translate }} </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="lbl-input">{{ 'shared.companyName' | translate }} <span
+                class="text-danger error-msg">*</span></label>
+            <input type="text" formControlName="companyName" class="form-control">
+            <div
+              *ngIf="brandRegistrationForm.controls['companyName'].errors && (brandRegistrationForm.controls['companyName'].dirty || brandRegistrationForm.controls['companyName'].touched) || submitted">
+              <div *ngIf="brandRegistrationForm.controls['companyName'].errors?.required" class="text-danger error-msg">
+                {{ 'shared.companyNameRequired' | translate }}</div>
+            </div>
+          </div>
+          <div class="row form-row">
+            <div class="form-group col-12 col-md-6">
+              <label class="lbl-input">{{ 'shared.password' | translate }} <span
+                  class="text-danger error-msg">*</span></label>
+                  <input name="password"  maxlength="16"  [type]="showPassword ? 'text' : 'password'" class="form-control pwd-control"
+                  formControlName="password">
+                <div class="btn-eye">
+                  <i alt="show" class="fa fa-eye eye-show" (click)="showPassword = !showPassword"
+                    [class.hide]="showPassword"></i>
+                  <i alt="hide" class="fa fa-eye-slash eye-hide" (click)="showPassword = !showPassword"
+                    [class.hide]="!showPassword"></i>
+                </div>
+              <div
+                *ngIf="brandRegistrationForm.controls['password'].errors && (brandRegistrationForm.controls['password'].dirty || brandRegistrationForm.controls['password'].touched) || submitted">
+                <div *ngIf="brandRegistrationForm.controls['password'].errors?.required" class="text-danger error-msg">
+                  {{ 'shared.passwordRequired' | translate }}</div>
+                <div *ngIf="brandRegistrationForm.controls['password'].errors?.pattern" class="text-danger error-msg">
+                  {{ 'shared.passwordPattern' | translate }}</div>
+              </div>
+            </div>
+            <div class="form-group col-12 col-md-6">
+              <label class="lbl-input">{{ 'shared.confirmPassword' | translate }} <span
+                  class="text-danger error-msg">*</span></label>
+              <input name="password"  maxlength="16" [type]="showConfPassword ? 'text' : 'password'" class="form-control pwd-control"
+                formControlName="confirmPassword">
+              <div class="btn-eye">
+                <i alt="show" class="fa fa-eye eye-show" (click)="showConfPassword = !showConfPassword"
+                  [class.hide]="showConfPassword"></i>
+                <i alt="hide" class="fa fa-eye-slash eye-hide" (click)="showConfPassword = !showConfPassword"
+                  [class.hide]="!showConfPassword"></i>
+              </div>
+              <div
+                *ngIf="brandRegistrationForm.controls['confirmPassword'].errors && (brandRegistrationForm.controls['confirmPassword'].dirty || brandRegistrationForm.controls['password'].touched) || submitted">
+                <div *ngIf="brandRegistrationForm.controls['confirmPassword'].errors?.required"
+                  class="text-danger error-msg">{{ 'shared.confirmPasswordRequired' | translate }}</div>
+                <div *ngIf="brandRegistrationForm.controls['confirmPassword'].errors?.pattern"
+                  class="text-danger error-msg">{{ 'shared.passwordPattern' | translate }} </div>
+                <div *ngIf="brandRegistrationForm.controls['confirmPassword'].errors?.mustMatch"
+                  class="text-danger error-msg">{{ 'shared.confirmPasswordSame' | translate }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha">
+            </ngx-recaptcha2>
+            <div
+              *ngIf="brandRegistrationForm.controls['recaptcha'].errors && (brandRegistrationForm.controls['recaptcha'].dirty || brandRegistrationForm.controls['recaptcha'].touched) || submitted">
+              <div *ngIf="brandRegistrationForm.controls['recaptcha'].errors?.required" class="text-danger error-msg">
+                {{ 'shared.recaptchaRequired' | translate }}</div>
+            </div>
+          </div>
+          <div class="col-md-12 text-center text-md-start">
+            <div *ngIf="errorMessage" class="text-danger mb-2 text-center">
+              {{ 'shared.emailExist' | translate }}
+            </div>
+            <button type="submit" (click)="doRegister()" class="btn btn-green">{{ 'shared.signup' | translate }}</button>
+          </div>
+        </div>
+     
+        <div class="col-md-6">
+          <div class="video-div">
+            <video controls width="100%" height="100%" poster="/assets/images/video_thumbnail.jpg">
+              <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                type="video/mp4">
+            </video>
+          </div>
+          <p class="heading-secoundry text-center mt-3 mb-0">{{ 'landingPage.stepAway' | translate }}</p>
+          <p class="heading-secoundry text-center mt-2 mb-0">{{ 'landingPage.fillDetail' | translate }}</p>
+        </div>
+      
+        </div>       
+    </form>
+  </div>
+</div>

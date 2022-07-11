@@ -1,0 +1,858 @@
+<div class="container">
+  <h1 class="section-head my-4">{{ 'brandMyCampaign.myCampaign' | translate }}</h1>
+  <div class="my_campaign_tabs">
+    <ul class="nav nav-tabs nav-task" id="my_campaign" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" [ngClass]="{'active': selectedCampaignTab === 'current'}"
+          (click)="tabClick('current_campaigns')" id="current_campaigns" data-bs-toggle="tab"
+          data-bs-target="#current_camp" type="button" role="tab" aria-controls="current_camp" aria-selected="true">
+          {{ 'brandMyCampaign.current' | translate }} <span>{{ 'brandMyCampaign.campaigns' | translate }}</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" [ngClass]="{'active': selectedCampaignTab === 'programmed'}"
+          (click)="tabClick('programmed_campaigns')" id="form_campaign_tab" data-bs-toggle="tab"
+          data-bs-target="#programmed_camp" type="button" role="tab" aria-controls="programmed_camp"
+          aria-selected="false">
+          {{ 'brandMyCampaign.programmed' | translate }} <span>{{ 'brandMyCampaign.campaigns' | translate }}</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" [ngClass]="{'active': selectedCampaignTab === 'finished'}"
+          (click)="tabClick('finished_campaigns')" id="finish_campaigns" data-bs-toggle="tab"
+          data-bs-target="#finish_camp" type="button" role="tab" aria-controls="finish_camp" aria-selected="false">
+          {{ 'brandMyCampaign.finished' | translate }} <span>{{ 'brandMyCampaign.campaigns' | translate }}</span>
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="background-primary mb-4 br-10 w-100 p-2 p-md-4 my_campaign_data">
+        <div class="tab-pane fade" [ngClass]="{'show active': selectedCampaignTab === 'current'}" id="current_camp"
+          role="tabpanel" aria-labelledby="current_campaigns">
+          <div class="table-responsive datatabe_main">
+            <table class="table table-striped row-border hover" id="datatableexample1">
+              <thead>
+                <tr>
+                  <th class="text-start">{{ 'brandMyCampaign.name' | translate }}</th>
+                  <th class="text-start">{{ 'shared.campaign' | translate }}<br>{{ 'shared.objectives' | translate }}
+                  </th>
+                  <th class="text-start">{{ 'brandMyCampaign.category' | translate }}</th>
+                  <th class="text-start">{{ 'brandMyCampaign.used' | translate }} / {{ 'brandMyCampaign.budget' |
+                    translate }}</th>
+                  <th class="text-start">{{ 'brandMyCampaign.balance' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.validity' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.created' | translate }}<br>{{ 'brandMyCampaign.date' |
+                    translate }}</th>
+                  <th>{{ 'brandMyCampaign.payment' | translate }}<br> {{ 'brandMyCampaign.mode' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.status' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.actions' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody class="table_action text-start">
+                <tr *ngFor="let data of currentCampaignDatas">
+                  <td class="name_text">{{ data.campaign_name | titlecase }}</td>
+                  <td class="text-center">{{ data.user_target }}</td>
+                  <td class="name_text" *ngIf="data.campaign_type_name === 'uploadvideo'">{{'shared.videoplays' |
+                    translate}}</td>
+                  <td class="name_text" *ngIf="data.campaign_type_name === 'Lead'">{{'shared.lead' | translate}}<a
+                      *ngIf="data.is_approved == 'APPROVED'" href="javascript:void(0);" class="lead_btn px-1"
+                      title="Lead details" (click)="goToBrandUsers(data.id)"><i class="fa fa-paper-plane"></i></a>
+                  </td>
+                  <td class="name_text" *ngIf="data.campaign_type_name === 'Follow'">{{'shared.follow' | translate}}
+                  </td>
+                  <td class="name_text" *ngIf="data.campaign_type_name === 'Appsdownload'">{{'shared.appsDownload' |
+                    translate}}</td>
+                  <td class="name_text" *ngIf="data.campaign_type_name === 'clicksonthewebsite'">
+                    {{'shared.clicksonthewebsite' | translate}}</td>
+                  <td class="name_text" *ngIf="data.campaign_type_name === 'questions_form'">{{'shared.questionsForm' |
+                    translate}}<a *ngIf="data.is_approved == 'APPROVED'" href="javascript:void(0);" class=" px-1 lead_btn"
+                      title="Form details" (click)="goToFormCampaignUsers(data.id)"><i
+                        class="fa fa-paper-plane"></i></a></td>
+                  <td class="name_text">
+                    <span class="text-danger"> {{ data.campaign_details.spend_euro | currency: 'EUR' }}</span>
+                    <span>/{{ data.campaign_details.total_budget | currency: 'EUR' }} </span>
+                    <span class="heading-green" title="Budget is increased" *ngIf="data.is_budget_revised === 'YES'"><i
+                        class="fa fa-arrow-up" aria-hidden="true"></i></span>
+                  </td>
+                  <td class="heading-green">{{ data.campaign_details.left_euro | currency: 'EUR' }}</td>
+                  <td class="text-nowrap">{{ data.start_date | date: 'dd-MM-YYYY' }} to {{ data.end_date | date:
+                    'dd-MM-YYYY'}}</td>
+                  <td class="text-center">{{ data.converted_created_at }}</td>
+                  <td class="text-center">
+                    <span class="text-center rounded-pill purpleColor" *ngIf="data.transaction_type === 'BANK_TANSFER'"
+                      title="Bank transfer"><i class="fa fa-bank" style="font-size:20px"></i></span>
+                    <span class="text-center rounded-pill text-success" *ngIf="data.transaction_type === 'paypal'"
+                      title="Paypal"><i class="fa fa-paypal" style="font-size:20px"></i></span>
+                  </td>
+                  <td>
+                    <div class="text-center" *ngIf="data.is_approved">
+                      <span class="text-center rounded-pill text-warning"
+                        *ngIf="data.is_approved == 'PENDING' && data.campaign_status == 'APPROVED'">{{
+                        'brandMyCampaign.approvalPending' | translate }}</span>
+                      <span class="text-center rounded-pill text-success" *ngIf="data.is_approved == 'APPROVED'">{{
+                        'brandMyCampaign.approved' | translate }}</span>
+                      <span class="text-center rounded-pill text-danger" *ngIf="data.is_approved == 'REJECTED'">{{
+                        'brandMyCampaign.rejected' | translate }}</span>
+                      <span class="text-center rounded-pill text-warning" *ngIf="data.campaign_status == 'DRAFT'">{{
+                        'brandMyCampaign.paymentPending' | translate }}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-item-center justify-content-center">
+                      <a (click)="getCampaignFormData(data.id,'currentCampaigns')" href="javascript:void(0);"
+                        title="{{ 'brandMyCampaign.editCampaign' | translate }}">
+                        <span class="text-success"><i class="fa fa-pencil f-16" aria-hidden="true"></i></span>
+                      </a>
+                      <a *ngIf="data.is_start == '1' && data.is_approved == 'APPROVED'"
+                        (click)="startStopCampaign('stopCampaign',data.id)" title="Stop campaign" class="quick_acton">
+                        <span (click)="startStopCampaign('stopCampaign',data.id)" class="text-danger"><i
+                            class="fa fa-pause-circle-o" aria-hidden="true"></i></span>
+                      </a>
+                      <a *ngIf="data.is_start == '0' && data.is_approved == 'APPROVED'"
+                        (click)="startStopCampaign('startCampaign',data.id)" title="Start campaign" class="quick_acton">
+                        <span (click)="startStopCampaign('startCampaign',data.id)" class="text-success"><i
+                            class="fa fa-play-circle-o" aria-hidden="true"></i></span>
+                      </a>
+                      <a *ngIf="data.is_approved == 'APPROVED'"
+                        (click)="goToCampaignStatistics(data.id,'currentCampaigns')" title="View Statistics"
+                        class="quick_acton">
+                        <span><i class="fa fa-line-chart f-16" aria-hidden="true"></i> </span>
+                      </a>
+                      <span class="dropdown cac_info" *ngIf="data.is_approved == 'REJECTED'">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="cac_dropdown"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                          <img src="/assets/images/ban.png" style="width:16px" />
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="cac_dropdown">
+                          <div class="cac_inner">
+                            <h6>{{ 'admin.rejectionReason' | translate }}:</h6>
+                            <span>{{ data.note }}</span>
+                          </div>
+                        </ul>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="w-100 text-center mt-3">
+            <button (click)="goToMyCampaigns()" type="button" class="btn btn-green btn-task">{{ 'brand.createCampaigns'
+              | translate }} </button>
+          </div>
+        </div>
+        <div class="tab-pane fade" [ngClass]="{'show active': selectedCampaignTab === 'programmed'}"
+          id="programmed_camp" role="tabpanel" aria-labelledby="programmed_campaign">
+          <div class="table-responsive datatabe_main">
+            <table class="table table-striped row-border hover" id="datatableexample2">
+              <thead>
+                <tr>
+                  <th class="text-start">{{ 'brandMyCampaign.name' | translate }}</th>
+                  <th class="text-start">{{ 'shared.campaign' | translate }}<br>{{ 'shared.objectives' | translate }}
+                  </th>
+                  <th class="text-center">{{ 'brandMyCampaign.category' | translate }}</th>
+                  <th class="text-center"> {{ 'brandMyCampaign.budget' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.validity' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.createdDate' | translate }}</th>
+                  <th>{{ 'brandMyCampaign.payment' | translate }}<br> {{ 'brandMyCampaign.mode' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.status' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.actions' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody class="text-start">
+                <tr *ngFor="let data of programmedCampaignDatas">
+                  <td class="name_text">{{ data.campaign_name | titlecase }}</td>
+                  <td class="text-center">{{ data.user_target }}</td>
+                  <td class="text-center" *ngIf="data.campaign_type_name === 'uploadvideo'">{{'shared.videoplays' |
+                    translate}}</td>
+                  <td class="text-center" *ngIf="data.campaign_type_name === 'Lead'">{{'shared.lead' | translate}}<a
+                      *ngIf="data.is_approved == 'APPROVED'" href="javascript:void(0);" class="lead_btn px-1"
+                      title="Lead details" (click)="goToBrandUsers(data.id)"><i class="fa fa-paper-plane"></i></a>
+                  </td>
+                  <td class="text-center" *ngIf="data.campaign_type_name === 'Follow'">{{'shared.follow' | translate}}
+                  </td>
+                  <td class="text-center" *ngIf="data.campaign_type_name === 'Appsdownload'">{{'shared.appsDownload' |
+                    translate}}</td>
+                  <td class="text-center" *ngIf="data.campaign_type_name === 'clicksonthewebsite'">
+                    {{'shared.clicksonthewebsite' | translate}}</td>
+                  <td class="text-center">
+                    <span>{{ data.sub_total | currency: 'EUR' }}</span>
+                  </td>
+                  <td class="text-center">{{ data.start_date | date: 'dd-MM-YYYY' }} to {{ data.end_date | date:
+                    'dd-MM-YYYY'}}</td>
+                  <td class="text-center">{{ data.converted_programmed_created_at }}</td>
+                  <td class="text-center">
+                    <span class="text-center rounded-pill purpleColor" *ngIf="data.transaction_type === 'BANK_TANSFER'"
+                      title="Bank transfer"><i class="fa fa-bank" style="font-size:20px"></i></span>
+                    <span class="text-center rounded-pill text-success" *ngIf="data.transaction_type === 'paypal'"
+                      title="Paypal"><i class="fa fa-paypal" style="font-size:20px"></i></span>
+                  </td>
+                  <td>
+                    <div class="table_action text-center" *ngIf="data.is_approved">
+                      <span class="text-center rounded-pill text-warning"
+                        *ngIf="data.is_approved == 'PENDING'  && data.campaign_status == 'APPROVED'">{{
+                        'brandMyCampaign.approvalPending' | translate }}</span>
+                      <span class="text-center rounded-pill text-success" *ngIf="data.is_approved == 'APPROVED'">{{
+                        'brandMyCampaign.approved' | translate }}</span>
+                      <span class="text-center rounded-pill text-danger" *ngIf="data.is_approved == 'REJECTED'">{{
+                        'brandMyCampaign.rejected' | translate }}</span>
+                      <span class="text-center rounded-pill text-warning" *ngIf="data.campaign_status == 'DRAFT'">{{
+                        'brandMyCampaign.paymentPending' | translate }}g</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="table_action text-center">
+                      <div class="dropdown cac_info" *ngIf="data.is_approved == 'REJECTED'">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="cac_dropdown"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                          <img src="/assets/images/ban.png" style="width:16px" />
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="cac_dropdown">
+                          <div class="cac_inner">
+                            <h6>{{ 'admin.rejectionReason' | translate }}:</h6>
+                            <span>{{ data.note }}</span>
+                          </div>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="table_action text-start justify-content-center">
+                      <a (click)="getCampaignFormData(data.id,'programmedCampaigns')" data-bs-toggle="modal"
+                        data-bs-target="#campaign_details" href="javascript:void(0);"
+                        href="brand/campaignTarget?campaignType={{data.campaign_type_name}}&campaignId={{data.id}}&campaignCategory=programmed"
+                        title="{{ 'brandMyCampaign.editCampaign' | translate }}n">
+                        <span class="text-success"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-pane fade" [ngClass]="{'show active': selectedCampaignTab === 'finished'}" id="finish_camp"
+          role="tabpanel" aria-labelledby="finish_campaigns">
+          <div class="table-responsive datatabe_main">
+            <table class="table table-striped row-border hover" id="datatableexample3">
+              <thead>
+                <tr>
+                  <th class="text-start">{{ 'brandMyCampaign.name' | translate }}</th>
+                  <th class="text-start">{{ 'shared.campaign' | translate }}<br>{{ 'shared.objectives' | translate }}
+                  </th>
+                  <th class="text-center">{{ 'brandMyCampaign.category' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.used' | translate }} / {{ 'brandMyCampaign.budget' |
+                    translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.balance' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.validity' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.createdDate' | translate }}</th>
+                  <th>{{ 'brandMyCampaign.payment' | translate }}<br> {{ 'brandMyCampaign.mode' | translate }}</th>
+                  <th class="text-center">{{ 'brandMyCampaign.status' | translate }}</th>
+                  <th class="text-end">{{ 'brandMyCampaign.actions' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody class="text-start">
+                <tr *ngFor="let data of finishedCampaignDatas">
+                  <td class="name_text">{{ data.campaign_name | titlecase }}</td>
+                  <td class="text-center">{{ data.user_target }}</td>
+                  <td class="text-center" *ngIf="data.campaign_type_name === 'uploadvideo'">{{'shared.videoplays' |
+                    translate}}</td>
+                  <td class="text-center" *ngIf="data.campaign_type_name === 'Lead'">{{'shared.lead' | translate}}<a
+                      *ngIf="data.is_approved == 'APPROVED'" href="javascript:void(0);" class="lead_btn px-1"
+                      title="Lead details" (click)="goToBrandUsers(data.id)"><i class="fa fa-paper-plane"></i></a>
+                  </td>
+                  <td class="text-center" *ngIf="data.campaign_type_name === 'Follow'">{{'shared.follow' | translate}}
+                  </td>
+                  <td class="text-center" *ngIf="data.campaign_type_name === 'Appsdownload'">{{'shared.appsDownload' |
+                    translate}}</td>
+                  <td class="text-center" *ngIf="data.campaign_type_name === 'clicksonthewebsite'">
+                    {{'shared.clicksonthewebsite' | translate}}</td>
+                  <td class="text-center">
+                    <span class="text-danger">{{ data.campaign_details.spend_euro | currency: 'EUR' }}</span>
+                    <span>/{{ data.campaign_details.total_budget | currency: 'EUR' }}</span>
+                  </td>
+                  <td class="text-center heading-green">{{ data.campaign_details.left_euro | currency: 'EUR' }}</td>
+                  <td class="text-center">{{ data.start_date | date: 'dd-MM-YYYY' }} to {{ data.end_date | date:
+                    'dd-MM-YYYY'}}</td>
+                  <td class="text-center">{{ data.converted_finished_created_at }}</td>
+                  <td class="text-center">
+                    <span class="text-center rounded-pill purpleColor" *ngIf="data.transaction_type === 'BANK_TANSFER'"
+                      title="Bank transfer"><i class="fa fa-bank" style="font-size:20px"></i></span>
+                    <span class="text-center rounded-pill text-success" *ngIf="data.transaction_type === 'paypal'"
+                      title="Paypal"><i class="fa fa-paypal" style="font-size:20px"></i></span>
+                  </td>
+                  <td>
+                    <div class="table_action text-center" *ngIf="data.is_approved">
+                      <span class="text-center rounded-pill text-warning"
+                        *ngIf="data.is_approved == 'PENDING' && data.campaign_status == 'APPROVED'">{{
+                        'brandMyCampaign.approvalPending' | translate }}</span>
+                      <span class="text-center rounded-pill text-success" *ngIf="data.is_approved == 'APPROVED'">{{
+                        'brandMyCampaign.approved' | translate }}</span>
+                      <span class="text-center rounded-pill text-danger" *ngIf="data.is_approved == 'REJECTED'">{{
+                        'brandMyCampaign.rejected' | translate }}</span>
+                      <span class="text-center rounded-pill text-warning" *ngIf="data.campaign_status == 'DRAFT'">{{
+                        'brandMyCampaign.paymentPending' | translate }}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="table_action text-center">
+                      <a (click)="getCampaignFormData(data.id,'finishedCampaigns')" href="javascript:void(0);"
+                        title="{{ 'brandMyCampaign.editCampaign' | translate }}">
+                        <span class="text-success"><i class="fa fa-pencil f-16" aria-hidden="true"></i></span>
+                      </a>
+                      <a *ngIf="data.is_approved == 'APPROVED'"
+                        (click)="goToCampaignStatistics(data.id,'finishedCampaigns')" title="View Statistics"
+                        class="quick_acton">
+                        <span><i class="fa fa-line-chart f-16" aria-hidden="true"></i> </span>
+                      </a>
+                    </div>
+                    <div class="table_action text-center">
+                      <div class="dropdown cac_info" *ngIf="data.is_approved == 'REJECTED'">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pt-0"
+                          id="cac_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                          <img src="/assets/images/ban.png" style="width:16px" />
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="cac_dropdown">
+                          <div class="cac_inner">
+                            <h6>{{ 'admin.rejectionReason' | translate }}:</h6>
+                            <span>{{ data.note }}</span>
+                          </div>
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="campaign_details" tabindex="-1" aria-hidden="true" aria-labelledby="campaign_detailsLabel">
+  <div class="modal-dialog modal modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <button type="button" class="close without_head" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="modal-body">
+        <div class="campaign_details">
+          <form [formGroup]="createCampaignForm">
+            <div class="row">
+              <div class="text-center profile_img mb-4 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="profile_main" (click)="fileInput.click()">
+                  <div class="profile-img">
+                    <span>
+                      <img class="img-upload"
+                        [src]="createCampaignForm.controls.campaignImage.value ? createCampaignForm.controls.campaignImage.value: '/assets/images/brand-1.png'">
+                    </span>
+                    <div class="upload-img">
+                      <i class="fa fa-camera" aria-hidden="true"></i>
+                    </div>
+                    <div class="delete_profile" *ngIf="campaignImage" (click)="delete()">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <h5>{{ 'brand.uploadCampaignImage' | translate }}</h5>
+                  <span>{{ 'brand.imageSize' | translate }}</span>
+                </div>
+                <input type="file" #fileInput accept="image/jpeg, image/png" (change)="onSelectCampaignImage($event)"
+                  (click)="fileInput.value = ''" value="" class="fileInput">
+                <div
+                  *ngIf="createCampaignForm.controls['campaignImage'].errors && (createCampaignForm.controls['campaignImage'].dirty || createCampaignForm.controls['campaignImage'].touched) || submitted">
+                  <div *ngIf="createCampaignForm.controls['campaignImage'].errors?.required"
+                    class="text-danger error-msg"> {{ 'shared.photoRequired' | translate }} </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                    <div class="form-group">
+                      <label class="lbl-input">{{ 'shared.totalBudget' | translate }} (&euro;) <span
+                          class="text-danger error-msg">*</span></label>
+                      <input type="text" readonly formControlName="totalBudget" maxlength="7" class="form-control"
+                        (keypress)="utilityService.onlyNumberAndDecimal($event)"
+                        (keyup)="onChangeEvent($event,'totalBudget')">
+                      <div
+                        *ngIf="createCampaignForm.controls['totalBudget'].errors && (createCampaignForm.controls['totalBudget'].dirty || createCampaignForm.controls['totalBudget'].touched) || submitted">
+                        <div *ngIf="createCampaignForm.controls['totalBudget'].errors?.required"
+                          class="text-danger error-msg">
+                          {{ 'shared.totalBudgetRequired' | translate }}</div>
+                        <div *ngIf="createCampaignForm.controls['totalBudget'].errors?.min"
+                          class="text-danger error-msg">
+                          Total budget could not be less than {{minTotalBudget}}</div>
+                        <div *ngIf="createCampaignForm.controls['totalBudget'].errors?.max"
+                          class="text-danger error-msg">
+                          {{ 'brand.totalBudgetCountNotGreaterThan' | translate }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                    <div class="form-group">
+                      <label class="lbl-input">{{ 'shared.CAC' | translate }} (&euro;) <span
+                          class="text-danger error-msg">*</span></label>
+                      <input type="text" formControlName="CAC" class="form-control" (keyup)="onChangeEvent($event)"
+                        (keypress)="utilityService.onlyNumberAndDecimal($event)">
+                      <div class="dropdown cac_info">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="cac_dropdown"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa fa-question" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="cac_dropdown">
+                          <div class="cac_inner">
+                            <h6>{{ 'shared.whatDoesItMean' | translate }}</h6>
+                            <span>{{ 'shared.cacInfo' | translate }}</span>
+                          </div>
+                        </ul>
+                      </div>
+                      <div
+                        *ngIf="createCampaignForm.controls['CAC'].errors && (createCampaignForm.controls['CAC'].dirty || createCampaignForm.controls['CAC'].touched) || submitted">
+                        <div *ngIf="createCampaignForm.controls['CAC'].errors?.required" class="text-danger error-msg">
+                          {{ 'shared.CACRequired' | translate }} </div>
+                        <div *ngIf="createCampaignForm.controls['CAC'].errors?.min" class="text-danger error-msg">
+                          {{'brand.minValueIs' | translate}} {{ minCAC }} </div>
+                      </div>
+                      <div class="text-success error-msg" *ngIf="maximumCac != ''"> {{ 'brand.highestCacForCampaignType'
+                        | translate}} {{ maximumCac }}</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                    <div class="form-group">
+                      <label class="lbl-input">{{ 'shared.usersTarget' | translate }} <span
+                          class="text-danger error-msg">*</span></label>
+                      <input type="text" formControlName="usersTarget" class="form-control"
+                        (keypress)="utilityService.onlyNumberAndDecimal($event)" readonly>
+                      <div *ngIf="createCampaignForm.controls['usersTarget'].errors?.min" class="text-danger error-msg">
+                        {{'brand.userTargetCoundNotZero' | translate}}</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                    <div class="form-group">
+                      <label class="lbl-input">{{ 'shared.campaignPosition' | translate }}<span
+                          class="text-danger error-msg">*</span></label>
+                      <input type="number" formControlName="campaignPosition" class="form-control" readonly>
+                      <div
+                        *ngIf="createCampaignForm.controls['campaignPosition'].errors && (createCampaignForm.controls['campaignPosition'].dirty || createCampaignForm.controls['campaignPosition'].touched) || submitted">
+                        <div *ngIf="createCampaignForm.controls['campaignPosition'].errors?.required"
+                          class="text-danger error-msg">
+                          {{ 'shared.coinsRequired' | translate }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group date-picker">
+                          <label class="lbl-input">{{ 'shared.startDate' | translate }} <span
+                              class="text-danger error-msg">*</span></label>
+                          <ngx-datepicker [options]="startDate" formControlName="startDate"></ngx-datepicker>
+                          <div
+                            *ngIf="createCampaignForm.controls['startDate'].errors && (createCampaignForm.controls['startDate'].dirty || createCampaignForm.controls['startDate'].touched) || submitted">
+                            <div *ngIf="createCampaignForm.controls['startDate'].errors?.required"
+                              class="text-danger error-msg">
+                              {{ 'shared.startDateRequired' | translate }}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group date-picker">
+                          <label class="lbl-input">{{ 'shared.endDate' | translate }} <span
+                              class="text-danger error-msg">*</span></label>
+                          <ngx-datepicker [options]="endDate" formControlName="endDate"></ngx-datepicker>
+                          <div
+                            *ngIf="createCampaignForm.controls['endDate'].errors && (createCampaignForm.controls['endDate'].dirty || createCampaignForm.controls['endDate'].touched) || submitted">
+                            <div *ngIf="createCampaignForm.controls['endDate'].errors?.required"
+                              class="text-danger error-msg">
+                              {{ 'shared.endDateRequired' | translate }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
+                    <div class="form-group">
+                      <label class="lbl-input">{{ 'shared.campaignName' | translate }} <span
+                          class="text-danger error-msg">*</span></label>
+                      <input type="text" formControlName="campaignName" maxlength="50" class="form-control">
+                      <div
+                        *ngIf="createCampaignForm.controls['campaignName'].errors && (createCampaignForm.controls['campaignName'].dirty || createCampaignForm.controls['campaignName'].touched) || submitted">
+                        <div *ngIf="createCampaignForm.controls['campaignName'].errors?.required"
+                          class="text-danger error-msg"> {{ 'shared.campaignNameRequired' | translate }} </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="form-group">
+                      <label class="lbl-input">{{ 'shared.productInformation' | translate }} <span
+                          class="text-danger error-msg">*</span></label>
+                      <textarea [readonly]="isProductInformationReadOnly" class="form-control"
+                        formControlName="productInformation" rows="4" maxlength="200"></textarea>
+                      <div
+                        *ngIf="createCampaignForm.controls['productInformation'].errors && (createCampaignForm.controls['productInformation'].dirty || createCampaignForm.controls['productInformation'].touched) || submitted">
+                        <div *ngIf="createCampaignForm.controls['productInformation'].errors?.required"
+                          class="text-danger error-msg">{{ 'shared.productInformationRequired' | translate }} </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="form-group">
+                      <label class="lbl-input">{{ 'shared.goalOfCampaign' | translate }}</label>
+                      <input type="text" formControlName="goalOfCampaign" maxlength="50" class="form-control">
+                      <div
+                        *ngIf="createCampaignForm.controls['goalOfCampaign'].errors && (createCampaignForm.controls['goalOfCampaign'].dirty || createCampaignForm.controls['goalOfCampaign'].touched) || submitted">
+                        <div *ngIf="createCampaignForm.controls['goalOfCampaign'].errors?.required"
+                          class="text-danger error-msg">
+                          {{ 'shared.goalOfCampaignRequired' | translate }} </div>
+                      </div>
+                    </div>
+                    <div class="form-group" *ngIf="this.selectedTarget == 'Follow'">
+                      <label class="lbl-input">{{ 'brand.socialMedia' | translate}} <span
+                          class="text-danger error-msg">*</span></label>
+                      <select [attr.disabled]="isSocialSelectDisable ? '' : null" class="form-select"
+                        formControlName="socialMedia" id="socialMedia" (change)="changeCacValue($event)">
+                        <option *ngFor="let socialMediaOption of socialMedia; let i = index"
+                          [value]="socialMedia[i].id">
+                          {{socialMedia[i].name}}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="createCampaignForm.controls['socialMedia'].errors && (createCampaignForm.controls['socialMedia'].dirty || createCampaignForm.controls['socialMedia'].touched) || submitted">
+                        <div *ngIf="createCampaignForm.controls['socialMedia'].errors?.required"
+                          class="text-danger error-msg">
+                          {{ 'brand.socialMediaRequired' | translate}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group" *ngIf="this.selectedTarget == 'Appsdownload'">
+                      <label class="lbl-input">{{ 'shared.downloadLink' | translate }} <span
+                          class="text-danger error-msg">*</span></label>
+                      <input type="text" [readonly]="isAppDownloadLinkReadOnly" formControlName="downloadLink"
+                        class="form-control">
+                      <div
+                        *ngIf="createCampaignForm.controls['downloadLink'].errors && (createCampaignForm.controls['downloadLink'].dirty || createCampaignForm.controls['downloadLink'].touched) || submitted">
+                        <div *ngIf="createCampaignForm.controls['downloadLink'].errors?.required"
+                          class="text-danger error-msg">
+                          {{ 'shared.downloadLinkRequired' | translate }} </div>
+                        <div *ngIf="createCampaignForm.controls['downloadLink'].errors?.pattern"
+                          class="text-danger error-msg">
+                          {{'shared.linkIsNotValid' | translate}}</div>
+                      </div>
+                    </div>
+                    <div class="form-group pt-2 px-3 videoCenter" *ngIf="uploadedVideoShow || youtubeVideoShow">
+                      <label class="lbl-input">{{ 'shared.uploadVideo' | translate }} {{ 'shared.uploadVideoMaxSize' |
+                        translate }}<span class="text-danger error-msg">*</span></label>
+                      <a type="submit" (click)="triggerVideoModal(modalDataVideo, modalContent)">
+                        <img src="/assets/images/icon_video.png" class="image-type" alt="task type"> {{
+                        'user.watchVideo' | translate }}
+                      </a>
+                      <div *ngIf="!isVideoReadOnly" class="delete_profile" (click)="deleteVideo()">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6" [ngClass]="{'hide': !showVideoOptionSelect}">
+                    <div class="form-group file_upload" *ngIf="this.selectedTarget == 'uploadvideo'">
+                      <label class="lbl-input">{{ 'shared.uploadVideo' | translate }} {{ 'shared.uploadVideoMaxSize' |
+                        translate }}<span class="text-danger error-msg">*</span></label>
+                      <angular2-multiselect [data]="videoTypeSelection" [settings]="dropdownVideoSettings"
+                        (onSelect)="onVideoTypeSelect($event)" formControlName="selectedVideoType">
+                      </angular2-multiselect>
+                      <div
+                        *ngIf="createCampaignForm.controls['selectedVideoType'].errors && (createCampaignForm.controls['selectedVideoType'].dirty || createCampaignForm.controls['selectedVideoType'].touched) || submitted">
+                        <div *ngIf="createCampaignForm.controls['selectedVideoType'].errors?.required"
+                          class="text-danger error-msg">
+                          {{ 'brand.videoTypeRequired' | translate }} </div>
+                      </div>
+                      <div *ngIf="videoSizeError" class="text-danger mb-2">
+                        {{videoSizeError}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6"
+                    *ngIf="this.selectedTarget == 'uploadvideo' && showYoutubeVideoInput">
+                    <div class="form-group file_upload">
+                      <label class="lbl-input">{{ 'brand.enterYoutubeVideoLink' | translate }} <span
+                          class="text-danger error-msg">*</span></label>
+                      <input type="text" formControlName="youtubeVideoUrl" maxlength="50" class="form-control">
+                      <div
+                        *ngIf="createCampaignForm.controls['youtubeVideoUrl'].errors && (createCampaignForm.controls['youtubeVideoUrl'].dirty || createCampaignForm.controls['youtubeVideoUrl'].touched) || submitted">
+                        <div *ngIf="createCampaignForm.controls['youtubeVideoUrl'].errors?.required"
+                          class="text-danger error-msg"> {{ 'brand.youtubeVideoLinkRequired' | translate }} </div>
+                        <div *ngIf="createCampaignForm.controls['youtubeVideoUrl'].errors?.pattern"
+                          class="text-danger error-msg"> {{ 'brand.enterValidYoutubeVideoLink' | translate }} </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
+                    <div class="form-group file_upload" *ngIf="this.selectedTarget == 'uploadvideo' && showVideoInput">
+                      <label class="lbl-input">{{ 'shared.uploadVideo' | translate }} {{ 'shared.uploadVideoMaxSize' |
+                        translate }}<span class="text-danger error-msg">*</span></label>
+                      <div class="file-input" *ngIf="!uploadedVideoShow && !youtubeVideoShow">
+                        <input type="file" accept="video/*" class="form-control" (change)="onSelectVideo($event)"
+                          (click)="isClicked()">
+                        <span class="button"><img src="../../../assets/images/upload_file.png"
+                            alt="Upload file">Upload</span>
+                        <div
+                          *ngIf="createCampaignForm.controls['videoUpload'].errors && (createCampaignForm.controls['videoUpload'].dirty || createCampaignForm.controls['videoUpload'].touched) || submitted">
+                          <div *ngIf="createCampaignForm.controls['videoUpload'].errors?.required"
+                            class="text-danger error-msg"> {{ 'shared.uploadVideoRequired' | translate }} </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group" *ngIf="this.selectedTarget == 'clicksonthewebsite'">
+                    <label class="lbl-input">{{ 'brand.websiteUrl' | translate}} <span
+                        class="text-danger error-msg">*</span></label>
+                    <input type="text" [readonly]="isWebisteVisitLinkReadOnly" formControlName="websiteLink"
+                      class="form-control">
+                    <div
+                      *ngIf="createCampaignForm.controls['websiteLink'].errors && (createCampaignForm.controls['websiteLink'].dirty || createCampaignForm.controls['websiteLink'].touched) || submitted">
+                      <div *ngIf="createCampaignForm.controls['websiteLink'].errors?.required"
+                        class="text-danger error-msg"> Website link is required </div>
+                      <div *ngIf="createCampaignForm.controls['websiteLink'].errors?.pattern"
+                        class="text-danger error-msg">{{'shared.linkIsNotValid' | translate}}</div>
+                    </div>
+                  </div>
+                  <input type="hidden" formControlName="coins" class="" readonly>
+                  <input type="hidden" formControlName="totalAmount" readonly>
+                  <input type="hidden" formControlName="campaignId" readonly>
+                  <div class="col-sm-12 col-md-12 col-lg-6" *ngIf="this.selectedTarget == 'Follow'">
+                    <div class="form-group">
+                      <label class="lbl-input">{{ selectedSocialMediaLinkLabel }} <span
+                          class="text-danger error-msg">*</span></label>
+                      <input type="text" [readonly]="isSocialMediaLinkReadOnly" formControlName="socialLink"
+                        class="form-control pe-5">
+                      <div class="social_media_icon">
+                        <i *ngIf="selectedSocialMediaLinkLabel === 'Instagram link'" class="fa fa-instagram"
+                          aria-hidden="true"></i>
+                        <i *ngIf="selectedSocialMediaLinkLabel === 'Youtube link'" class="fa fa-youtube"
+                          aria-hidden="true"></i>
+                        <i *ngIf="selectedSocialMediaLinkLabel === 'Twitter link'" class="fa fa-twitter"
+                          aria-hidden="true"></i>
+                        <i *ngIf="selectedSocialMediaLinkLabel === 'Twitch link'" class="fa fa-twitch"
+                          aria-hidden="true"></i>
+                        <i *ngIf="selectedSocialMediaLinkLabel === 'Facebook link'" class="fa fa-facebook-square"
+                          aria-hidden="true"></i>
+                      </div>
+                      <div
+                        *ngIf="createCampaignForm.controls['socialLink'].errors && (createCampaignForm.controls['socialLink'].dirty || createCampaignForm.controls['socialLink'].touched) || submitted">
+                        <div *ngIf="createCampaignForm.controls['socialLink'].errors?.required"
+                          class="text-danger error-msg">
+                          <span *ngIf="selectedSocialMediaLinkLabel === 'Instagram link'">{{
+                            'brand.instagramLinkRequired' | translate }}</span>
+                          <span *ngIf="selectedSocialMediaLinkLabel === 'Youtube link'">{{ 'brand.youtubeLinkRequired' |
+                            translate }}</span>
+                          <span *ngIf="selectedSocialMediaLinkLabel === 'Twitter link'">{{ 'brand.twitterLinkRequired' |
+                            translate }}</span>
+                          <span *ngIf="selectedSocialMediaLinkLabel === 'Twitch link'">{{ 'brand.twitchLinkRequired' |
+                            translate }}</span>
+                          <span *ngIf="selectedSocialMediaLinkLabel === 'Facebook link'">{{ 'brand.facebookLinkRequired'
+                            | translate }}</span>
+                        </div>
+                        <div *ngIf="createCampaignForm.controls['socialLink'].errors?.pattern"
+                          class="text-danger error-msg">
+                          <span *ngIf="selectedSocialMediaLinkLabel === 'Instagram link'">{{ 'brand.instaLinkNotValid' |
+                            translate }}</span>
+                          <span *ngIf="selectedSocialMediaLinkLabel === 'Youtube link'">{{ 'brand.youtubeLinkNotvalid' |
+                            translate }}</span>
+                          <span *ngIf="selectedSocialMediaLinkLabel === 'Twitter link'">{{ 'brand.twitterLinkNotValid' |
+                            translate }} </span>
+                          <span *ngIf="selectedSocialMediaLinkLabel === 'Twitch link'">{{ 'brand.twitchLinkNotValid' |
+                            translate }} </span>
+                          <span *ngIf="selectedSocialMediaLinkLabel === 'Facebook link'">{{ 'brand.facebookLinkNotValid'
+                            | translate }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 segmentation_main total_budget_main">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group">
+                          <label class="lbl-input">{{ 'shared.existingBudget' | translate }} (&euro;) <span
+                              class="text-danger error-msg">*</span></label>
+                          <input type="text" readonly formControlName="existingBudget" maxlength="8"
+                            class="form-control" (keypress)="utilityService.onlyNumberAndDecimal($event)"
+                            (keyup)="onChangeEvent($event,'existingBudget')">
+                          <div
+                            *ngIf="createCampaignForm.controls['existingBudget'].errors && (createCampaignForm.controls['existingBudget'].dirty || createCampaignForm.controls['existingBudget'].touched) || submitted">
+                            <div *ngIf="createCampaignForm.controls['existingBudget'].errors?.required"
+                              class="text-danger error-msg">
+                              {{ 'shared.existingBudgetRequired' | translate }}</div>
+                            <div *ngIf="createCampaignForm.controls['existingBudget'].errors?.min"
+                              class="text-danger error-msg">
+                              {{ 'brand.existingBudgetCouldNotLessThan' | translate }} {{minTotalBudget}}</div>
+                            <div *ngIf="createCampaignForm.controls['existingBudget'].errors?.max"
+                              class="text-danger error-msg">
+                              {{ 'brand.existingBudgetCountNotGreaterThan' | translate }} </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group mb-sm-1">
+                          <label class="lbl-input">{{ 'brandMyCampaign.addNewBudget' | translate }} (&euro;) <span
+                              class="text-danger error-msg">*</span></label>
+                          <input type="text" [readonly]="!isBudgetIncreaseChecked" formControlName="newBudget"
+                            maxlength="7" class="form-control"
+                            (keypress)="utilityService.onlyNumberAndDecimalAllow2Points($event)"
+                            (keyup)="onChangeEvent($event,'newBudget')">
+                          <div
+                            *ngIf="createCampaignForm.controls['newBudget'].errors && (createCampaignForm.controls['newBudget'].dirty || createCampaignForm.controls['newBudget'].touched) || submitted">
+                            <div *ngIf="createCampaignForm.controls['newBudget'].errors?.required"
+                              class="text-danger error-msg">
+                              {{ 'shared.newBudgetRequired' | translate }}</div>
+                            <div *ngIf="createCampaignForm.controls['newBudget'].errors?.min"
+                              class="text-danger error-msg">
+                              {{ 'brand.newBudgetCouldNotBeLessThan' | translate }}</div>
+                            <div *ngIf="createCampaignForm.controls['newBudget'].errors?.max"
+                              class="text-danger error-msg">
+                              {{ 'brand.newBudgetCouldNotBeGreaterThan' | translate }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <h4 class="total_budget">{{ 'shared.totalBudget' | translate }}: <span>{{totalBudget}} €</span>
+                        </h4>
+                        <h4 class="total_budget text-success" *ngIf="amountToPay != '0'">Amount to pay: {{ amountToPay
+                          }}(With tax 21%)</h4>
+                      </div>
+                      <div class="col-sm-12 col-lg-12">
+                        <div class="form-check form-group mb-2">
+                          <input class="form-check-input" type="checkbox" value="" [checked]="isBudgetIncreaseChecked"
+                            (change)="checkCheckBoxvalue(ch)" #ch id="want_increase" checked>
+                          <label class="form-check-label" for="want_increase">{{
+                            'brandMyCampaign.clickHereIncreaseBudget' | translate }} </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 segmentation_main">
+                    <h5>{{ 'brand.fillFieldsForSegmentation' | translate }}</h5>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4">
+                        <div class="form-group">
+                          <label class="lbl-input">{{ 'brand.ageLimit' | translate }}</label>
+                          <div class="d-flex">
+                            <div>
+                              <input type="text" formControlName="fromAge" (keyup)="ValidateAge()"
+                                (keypress)="utilityService.onlyNumber($event)" class="form-control" placeholder="From">
+                              <div
+                                *ngIf="createCampaignForm.controls['fromAge'].errors && (createCampaignForm.controls['fromAge'].dirty || createCampaignForm.controls['fromAge'].touched) || submitted">
+                                <div *ngIf="createCampaignForm.controls['fromAge'].errors?.required"
+                                  class="text-danger error-msg"> {{ 'brand.fromAgeReuired' | translate }} </div>
+                                <div *ngIf="createCampaignForm.controls['fromAge'].errors?.min"
+                                  class="text-danger error-msg"> {{ 'brand.fromAgeCannotZero' | translate }}</div>
+                                <div *ngIf="createCampaignForm.controls['fromAge'].errors?.max"
+                                  class="text-danger error-msg"> {{ 'brand.fromAgeCannotGreater' | translate }} </div>
+                              </div>
+                            </div>
+                            <span>{{ 'brand.to' | translate }}</span>
+                            <div>
+                              <input type="text" (keyup)="ValidateAge()" (keypress)="utilityService.onlyNumber($event)"
+                                formControlName="toAge" class="form-control" placeholder="To">
+                              <div
+                                *ngIf="createCampaignForm.controls['toAge'].errors && (createCampaignForm.controls['toAge'].dirty || createCampaignForm.controls['toAge'].touched) || submitted">
+                                <div *ngIf="createCampaignForm.controls['toAge'].errors?.required"
+                                  class="text-danger error-msg"> {{ 'brand.toAgeRequired' | translate }} </div>
+                                <div *ngIf="createCampaignForm.controls['toAge'].errors?.min"
+                                  class="text-danger error-msg"> {{ 'brand.toAgeShouldGreaterFrom' | translate }}</div>
+                                <div *ngIf="createCampaignForm.controls['toAge'].errors?.max"
+                                  class="text-danger error-msg">{{ 'brand.toAgeGreaterThan' | translate }}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4">
+                        <div class="form-group">
+                          <label class="lbl-input">{{ 'brand.selectCountry' | translate }}</label>
+                          <angular2-multiselect *ngIf="countries" [data]="countries" [settings]="dropdownSettings"
+                            (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                            (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                            formControlName="selectedCountries">
+                          </angular2-multiselect>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4">
+                        <div class="form-group">
+                          <label class="lbl-input">{{ 'brand.selectGender' | translate }}</label>
+                          <angular2-multiselect [data]="genderList" [settings]="dropdownSettings"
+                            (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                            (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                            formControlName="selectedGenders">
+                          </angular2-multiselect>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task_btn">
+                  <div class="payment_mode" *ngIf="!showUpdateButton">
+                    <div class="campaign_details">
+                      <label>{{ 'brand.paymentMode' | translate }}: </label>
+                      <div class="can-toggle">
+                        <input id="campaign_status" type="checkbox">
+                        <label for="campaign_status">
+                          <input id="paymentStatus" type="checkbox" (change)="selectPaymentMode(paymentStatus)"
+                            [checked]="true" #paymentStatus>
+                          <label for="paymentStatus">
+                            <div class="can-toggle__switch" data-checked="Paypal" data-unchecked="Bank transfer"></div>
+                          </label>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" *ngIf="showUpdateButton" (click)="brandUpdateCampaign()"
+                    class="btn btn-green pull-right">{{ 'shared.btnUpdate' | translate }}</button>
+                  <div #paypalRef class="paypal_btn"></div>
+                  <button *ngIf="showSubmitButton" class="btn btn-green"
+                    (click)="doBankTransferPayment()">{{'brand.submit' | translate}}</button>
+                  <ul class="bank_info col-12" *ngIf="showSubmitButton">
+                    <li>
+                      <h6>{{'brand.bankName' | translate}}:</h6>
+                      <span>Banco Sabadell</span>
+                    </li>
+                    <li>
+                      <h6>{{'brand.accountNumber' | translate}}:</h6>
+                      <span>ES09 0081 1020 1100 0157 3965</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #modalDataVideo let-modal let-c="close" let-d="dismiss" id="videotask_modal">
+  <div class="modal-header">
+    <div class="w-100 d-flex justify-content-between align-center">
+      <h5 class="heading-green without_title video_title mt-2">video</h5>
+      <div class="with_coins">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body p-0">
+    <div class="row">
+      <div class="col-md-12 text-start">
+        <div class="video" [ngClass]="{'hide': youtubeVideoShow}">
+          <video id="watch-task-video" controls style="height: 500px;width: 100%;">
+            <source [src]="uploadedVideoShow" type="video/mp4" />
+            {{ 'brand.browserNotSupported' | translate }}
+          </video>
+        </div>
+        <div class="video_properties" id="player"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>

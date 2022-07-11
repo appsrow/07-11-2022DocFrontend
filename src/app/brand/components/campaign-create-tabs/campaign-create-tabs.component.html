@@ -1,0 +1,110 @@
+<div class="container pb-4">
+  <h1 class="section-head my-4">{{ 'brand.chooseCampaignTarget' | translate }}
+  </h1>
+  <div class="campaign_tab">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link"
+          [ngClass]="{'active show': selectedTab === 'campaignTarget', 'complate': selectedTab === 'createCampaign' || selectedTab === 'campaignPreview' || selectedTab === 'questionsFormComponent'}"
+          id="nav-target-tab" data-bs-toggle="tab" data-bs-target="#nav-target" type="button" role="tab"
+          aria-controls="nav-target" aria-selected="true">
+          <span
+            *ngIf="selectedTab === 'createCampaign' || selectedTab === 'campaignPreview' || selectedTab === 'questionsFormComponent'">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </span>
+          <span *ngIf="selectedTab === 'campaignTarget'">1</span>
+          {{ 'brandMyCampaign.campaignTarget' | translate }}
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link"
+          [ngClass]="{'active show': selectedTab === 'createCampaign', 'complate': selectedTab === 'campaignPreview' || selectedTab === 'questionsFormComponent'}"
+          id="nav-create-campaign-tab" data-bs-toggle="tab" data-bs-target="#nav-create-campaign" type="button"
+          role="tab" aria-controls="nav-create-campaign" aria-selected="false">
+          <span *ngIf="selectedTab === 'campaignPreview' || selectedTab === 'questionsFormComponent'">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </span>
+          <span *ngIf="selectedTab === 'createCampaign' || selectedTab === 'campaignTarget'">2</span>
+          {{ 'brandMyCampaign.createCampaign' | translate }}
+        </button>
+      </li>
+      <li class="nav-item" role="presentation"
+        *ngIf="this.campaignTargetComponent?.selectedTarget?.apiCampaignName === 'questions_form'">
+        <button class="nav-link"
+          [ngClass]="{'active show': selectedTab === 'questionsFormComponent', 'complate': selectedTab === 'campaignPreview'}"
+          id="nav-create-campaign-tab" data-bs-toggle="tab" data-bs-target="#nav-create-campaign" type="button"
+          role="tab" aria-controls="nav-create-campaign" aria-selected="false">
+          <span *ngIf="selectedTab === 'campaignPreview'">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </span>
+          <span
+            *ngIf="this.campaignTargetComponent?.selectedTarget?.apiCampaignName != 'questions_form' && selectedTab === 'questionsFormComponent'">2</span>
+          <span
+            *ngIf="this.campaignTargetComponent?.selectedTarget?.apiCampaignName === 'questions_form'  && selectedTab != 'campaignPreview' ">3</span>
+          {{'shared.questionsForm' | translate}}
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" [ngClass]="{'active show': selectedTab === 'campaignPreview'}" id="nav-preview-tab"
+          data-bs-toggle="tab" data-bs-target="#nav-preview" type="button" role="tab" aria-controls="nav-preview"
+          aria-selected="false">
+          <span *ngIf="this.campaignTargetComponent?.selectedTarget?.apiCampaignName != 'questions_form'">3</span>
+          <span *ngIf="this.campaignTargetComponent?.selectedTarget?.apiCampaignName == 'questions_form'">4</span>
+          {{ 'brandMyCampaign.createPreview' | translate }}
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+      <!-- 1st tab -->
+      <div class="tab-pane fade" [ngClass]="{'active show': selectedTab === 'campaignTarget'}" id="nav-target"
+        role="tabpanel" aria-labelledby="nav-target-tab">
+        <app-campaign-target #campaignTargetComponent></app-campaign-target>
+      </div>
+      <!-- 2nd tab -->
+      <div class="tab-pane fade" [ngClass]="{'active show': selectedTab === 'createCampaign'}" id="nav-create-campaign"
+        role="tabpanel" aria-labelledby="nav-create-campaign-tab">
+        <app-create-campaign *ngIf="selectedTab === 'createCampaign'" #createCampaignComponent [selectedTarget]="target"
+          [questionsFormData]="questionsFormData"></app-create-campaign>
+      </div>
+      <!-- Questions tab -->
+      <div class="tab-pane fade" [ngClass]="{'active show': selectedTab === 'questionsFormComponent'}" id="nav-preview"
+        role="tabpanel" aria-labelledby="nav-preview-tab">
+        <app-questions-form *ngIf="selectedTab === 'questionsFormComponent'" [campaignInfo]="campaignInformation"
+          [IsfromPrevious]="IsfromPreviousTab" #questionsFormComponent>
+        </app-questions-form>
+      </div>
+      <!-- 3rd tab -->
+      <div class="tab-pane fade" [ngClass]="{'active show': selectedTab === 'campaignPreview'}" id="nav-preview"
+        role="tabpanel" aria-labelledby="nav-preview-tab">
+        <app-campaign-preview *ngIf="selectedTab === 'campaignPreview'" [campaignInfo]="campaignInformation"
+          [questionsFormData]="questionsFormData" #campaignPreviewComponent>
+        </app-campaign-preview>
+      </div>
+
+      <div class="text-center target_btn"
+        [ngClass]="{'position-initial justify-content-center': selectedTab === 'campaignTarget'}">
+        <button class="btn btn-green btn-prev"
+          *ngIf="selectedTab === 'createCampaign'  || selectedTab === 'questionsFormComponent' || selectedTab === 'campaignPreview'"
+          (click)="navigatePrevious()">
+          <svg width="30" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0.93934 10.9393C0.353553 11.5251 0.353553 12.4749 0.93934 13.0607L10.4853 22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97918 12.6066 1.3934C12.0208 0.807612 11.0711 0.807612 10.4853 1.3934L0.93934 10.9393ZM30 10.5L2 10.5V13.5L30 13.5V10.5Z" />
+          </svg> {{'brand.previous' | translate}}
+        </button>&nbsp;&nbsp;
+        <button *ngIf="selectedTab != 'campaignPreview'" class="btn btn-green btn-next"
+          [disabled]="!campaignTargetComponent.selectedTarget?.id" (click)="navigateNext()">{{'brand.next' | translate}}
+          <svg width="30" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0.93934 10.9393C0.353553 11.5251 0.353553 12.4749 0.93934 13.0607L10.4853 22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97918 12.6066 1.3934C12.0208 0.807612 11.0711 0.807612 10.4853 1.3934L0.93934 10.9393ZM30 10.5L2 10.5V13.5L30 13.5V10.5Z" />
+          </svg>
+        </button>
+        <div #paypalRef [ngClass]="{'paypal_btn': selectedTab === 'campaignPreview'}"></div>
+
+        <button
+          *ngIf="selectedTab === 'campaignPreview' && isPreview && campaignPreviewComponent.paymentType === 'Bank Transfer'"
+          class="btn btn-green" (click)="bankTransferPayment()">{{'brand.submit' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

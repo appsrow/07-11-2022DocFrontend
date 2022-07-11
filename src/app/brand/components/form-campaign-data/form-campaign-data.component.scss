@@ -1,0 +1,48 @@
+.form_campign_data{
+    .task-progress-main{
+        display: flex;
+        flex-direction: column;
+        background: #252F5A !important;
+        color: #fff !important;
+        padding: 0.8rem;
+        border-radius: 10px;
+        box-shadow: 0 0 8px rgb(0 0 0 / 18%), 0 8px 16px rgb(0 0 0 / 36%);
+        .form_question{
+            font-size: 1.2rem;
+            color: #ffff;
+            margin: 0.4rem 0.2rem;
+        }
+        .campign_data_option{
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            .q_option{
+                padding: 0.2rem 0.5rem;
+                text-align: center;
+                width: 25%;
+                .opation_lable{
+                    font-size: 1rem;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:576px) {
+    .form_campign_data{
+        .task-progress-main{
+            .campign_data_option{
+                .q_option{
+                    width: 50%;
+                    margin-bottom: 0.5rem;
+                }
+            }
+        }
+    }
+    .download_question_btn{
+        padding: 1rem 0.3rem !important;
+        font-size: 1.3rem;
+    }
+}
+

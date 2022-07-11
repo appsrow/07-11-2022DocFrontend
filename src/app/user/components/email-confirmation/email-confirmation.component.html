@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="text-center">
+    <img src="/assets/images/Emails-confirm.png" alt="email" class="img-email" />
+  </div>
+  <div class="text-center mb-4">
+    <p class="heading-secoundry">
+      {{ 'user.emailVerifyText' | translate }}
+    </p>
+    <p class="heading-secoundry">
+      {{ 'user.receiveEmail' | translate }}&nbsp;
+      <a (click)="triggerModal(modalData)" class="heading-green pointer">{{ 'user.clickHere' | translate
+                }}</a>&nbsp;
+      {{ 'user.shakes' | translate }}
+    </p>
+
+  </div>
+  <div class="col-md-12 py-3" style="display: inline-flex; justify-content: center;">
+    <div class="row-md-6 text-center" style="margin: 0 10px;">
+      <button (click)="goToHome()" class="btn-outline"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{
+                'shared.backToHome' | translate }}</button>
+    </div>
+    <div class="row-md-6 text-center" style="margin: 0 10px;">
+      <button (click)="goToLogin()" class="btn btn-green">{{ 'shared.continue' | translate }}</button>
+    </div>
+  </div>
+  <ng-template #modalData let-modal>
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body pt-0">
+      <form [formGroup]="emailconfirmationForm">
+        <div class="row">
+
+          <div class="col-md-12">
+            <p class="text-center mb-4">{{ 'user.WeareSorry' | translate }}</p>
+            <div class="form-group">
+              <label class="lbl-popup-input">{{ 'shared.email' | translate }}<span
+                  class="text-danger error-msg">*</span></label>
+              <input type="text" formControlName="email" class="form-control">
+              <div
+                *ngIf="emailconfirmationForm.controls['email'].errors && (emailconfirmationForm.controls['email'].dirty || emailconfirmationForm.controls['email'].touched) || submitted">
+                <div *ngIf="emailconfirmationForm.controls['email'].errors?.required" class="text-danger error-msg">
+                  {{ 'shared.emailRequired' | translate }}</div>
+                <div
+                  *ngIf="emailconfirmationForm.controls['email'].value !== '' && emailconfirmationForm.controls['email'].invalid"
+                  class="text-danger error-msg">{{ 'shared.emailWrongFormat' | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <div class="form-group mb-0">
+              <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha">
+              </ngx-recaptcha2>
+              <div class="w-100 d-flex"
+                *ngIf="emailconfirmationForm.controls['recaptcha'].errors && (emailconfirmationForm.controls['recaptcha'].dirty || emailconfirmationForm.controls['recaptcha'].touched) || submitted">
+                <div *ngIf="emailconfirmationForm.controls['recaptcha'].errors?.required" class="text-danger error-msg">
+                  {{ 'shared.recaptchaRequired' | translate }}</div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="error" class="text-danger mb-2 text-center">
+            {{error}}
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="submit" (click)="resendEmail()" class="btn btn-green">{{ 'shared.btnSend' |
+                            translate }}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row account_type">
+        <div class="col-md-6 text-center">
+            <div class="background-primary img-btn-main">
+                <div class="account_type_inner">
+                    <div class="account_type_img">
+                        <img src="/assets/images/user-1.png" class="img-fluid icon-campaign"/>
+                    </div>
+                    <h2 class="heading-green mt-4">{{ 'landingPage.iamUser' | translate }}</h2>
+                    <p class="heading-white f-16 p-text">
+                        {{ 'landingPage.redeem' | translate }}
+                    </p>
+                </div>
+                <div class="d-flex mt-4">
+                <button type="button" class="btn btn-green me-3 "  routerLink ="../user/login"> {{ 'shared.signin' | translate }}</button>
+                <button type="button" class="btn btn-green"  routerLink ="../user/registration"> {{ 'shared.signup' | translate }}</button>
+                 </div>
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <div class="background-primary img-btn-main">
+                <div class="account_type_inner">
+                    <div class="account_type_img  mt-4">
+                        <img src="/assets/images/brand-1.png" class="img-fluid icon-campaign"/>
+                    </div>        
+                    <h2 class="heading-green mt-4">{{ 'landingPage.iamBrand' | translate }}</h2>
+                    <!-- <p class="heading-white f-16 p-text">
+                        {{ 'landingPage.createCampaign' | translate }}
+                    </p> -->
+                    <p class="heading-white f-16 p-text">
+                        {{ 'landingPage.wouldYouLikeToText' | translate }}
+                        <a href="mailto:sales@dropforcoin.com" title="Brand Email">sales@dropforcoin.com</a>
+                    </p>
+                </div>
+                <!-- <div class="d-flex mt-4">
+                    <button type="button" class="btn btn-green me-3" routerLink ="../brand/login"> {{ 'shared.signin' | translate }}</button>
+                    <button type="button" class="btn btn-green"  routerLink ="../brand/registration"> {{ 'shared.signup' | translate }}</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

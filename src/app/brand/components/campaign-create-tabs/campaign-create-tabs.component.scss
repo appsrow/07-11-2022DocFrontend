@@ -1,0 +1,366 @@
+@import "../../../../assets/css/core/variables/colors";
+@import "../../../../assets/css/core/mixins";
+
+.campaign_tab {
+    .nav-tabs {
+        margin: 1.5rem 0;
+        background: #13193B;
+        border-radius: 10px;
+        border: 1px solid #3E4669;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        overflow-x: hidden;
+        top: 93px;
+        z-index: 9999;
+        li {
+            .nav-link {
+                color: #ffffff;
+                border: none;
+                background: #232E5A;
+                border-radius: 5px;
+                padding: 0.8rem 1.5rem;
+                position: relative;
+                transition: all 0.3s ease;
+                cursor: default;
+                &:hover,&:focus {
+                    cursor: auto !important;
+                    pointer-events: none;
+                }
+                &::after {
+                    content: "";
+                    height: 3px;
+                    width: 207%;
+                    position: absolute;
+                    top: 50%;
+                    left: 100%;
+                    transform: translateY(-50%);
+                    background: #232E5A;
+                }
+                span {
+                    background: $teal-a200;
+                    width: 25px;
+                    height: 25px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 18px;
+                    line-height: normal;
+                    font-weight: 600;
+                    color: #252F5A;
+                    margin-right: 0.3rem;
+                }
+                &.active, &.complate {
+                    background: #6577AD;
+                    transition: all 0.3s ease;
+                }
+                &.complate {
+                    span {
+                        color: #ffffff;
+                    }
+                    &::after {
+                        background: #6577AD;
+                    }
+                }
+            }
+            &:last-child {
+                .nav-link {
+                    &::after {
+                        content: none;
+                    }
+                }
+            }
+        }
+    }
+    .preview_info {
+        .profile_img {
+            @include profile_img;
+        }
+        .preview_highlight {
+            text-align: center;
+            ul {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                width: 100%;
+                display: inline-block;
+                text-align: left;
+                li {
+                    width: 50%;
+                    float: left;
+                    margin: 0.5rem 0;
+                    padding: 0 0.5rem;
+                    h6 {
+                        color: $teal-a200;
+                        font-weight: 500;
+                        font-size: 1.3rem;
+                        margin: 0;
+                    }
+                    span {
+                        color: $white;
+                        word-break: break-all;
+                        a {
+                            color: $white;
+                            &:hover {
+                                color: #a1aed4;
+                            }
+                        }
+                    }
+                    .date_info {
+                        width: 50%;
+                        display: inline-block;
+                    }
+                }
+                &.heighlight {
+                    display: flex;
+                    margin: 0 -15px;
+                    li {
+                        background: #A1AED4;
+                        display: flex;
+                        align-items: flex-end;
+                        flex-direction: column;
+                        border-radius: 10px;
+                        padding: 0.75rem 1rem;
+                        justify-content: flex-start;
+                        margin: 0 15px;
+                        h5 {
+                            color: $teal-a200;
+                            font-weight: 600;
+                            margin: 0 0 0.2rem;
+                            font-size: 1.5rem;
+                            letter-spacing: 0.5px;
+                        }
+                        span {
+                            color: #252F5A;
+                            font-weight: 500;
+                            font-size: 1.1rem;
+                        }
+                    }
+                }
+            }
+            button {
+                transition: all 0.3s ease;
+                svg {
+                    margin-left: 0.4rem;
+                    stroke: #252F5A;
+                    transform: translateX(0%);
+                    transition: all 0.3s ease;
+                }
+                &:hover {
+                    svg {
+                        stroke: $teal-a200;
+                        transform: translateX(15%);
+                        transition: all 0.3s ease;
+                    }
+                }
+            }
+        }
+    }
+}
+.tab-content {
+    position: relative;
+    .target_btn {
+        position: absolute;
+        bottom: 2.3rem;
+        width: 100%;
+        left: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 0 1.8rem;
+        .paypal_btn {
+            // order: 1;
+            min-width: 16%;
+        }
+        .btn-next {
+            order: 2;
+        }
+    }
+}
+.position-initial {
+    position: initial !important;
+}
+.target_camp {
+    padding: 1.3rem 1.3rem 0.7rem;
+    h5 {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin: 0 0 1rem;
+        font-size: 1.3rem;
+    }
+    .row {
+        > div {
+            margin-bottom: 1rem;
+            button {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 1rem;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                h6 {
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                    margin-bottom: 0.5rem;
+                    letter-spacing: 0.5px;
+                    text-align: left;
+                    span {
+                        max-width: 22px;
+                        max-height: 22px;
+                        display: inline-block;
+                        margin-right: 0.2rem;
+                    }
+                }
+                p {
+                    text-align: left;
+                }
+                &:hover,&:focus,&:active {
+                    background: $teal-a200 !important;
+                    box-shadow: 2px 2px 15px #070b28;
+                    transition: all 0.3s ease;
+                    h6, p {
+                        color: #252F5A !important;
+                        img {
+                            filter: brightness(0.2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.bank_btn {
+ > div {
+    opacity: 0;
+ }   
+}
+
+@media only screen and (max-width: 1024px) {
+    .campaign_tab {
+        .nav-tabs {
+            li {
+                .nav-link::after {
+                    width: 190%;
+                }
+                button.nav-link {
+                    padding: 0.8rem 1rem;
+                    font-size: 0.8rem;
+                    span {
+                        width: 20px;
+                        height: 20px;
+                        margin-right: 0.1rem;
+                    }
+                }
+            }
+        }
+        .preview_info {
+            .preview_highlight {
+                ul {
+                    li {
+                        width: 100%;
+                        .date_info {
+                            width: 100%;
+                            &:first-child {
+                                margin: 0 0 1rem 0;
+                            }
+                        }
+                    }
+                    &.heighlight {
+                        flex-wrap: wrap;
+                        margin: 0 0 0 -0.6rem !important;
+                        width: calc(100% + 1.2rem);
+                        li {
+                            margin: 0 0.3rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .campaign_tab {
+        .nav-tabs {
+            top: calc(93px - 1rem);
+            li {
+                .nav-link::after {
+                    width: 210px;
+                }
+                button {
+                    font-size: 0 !important;
+                    span {
+                        font-size: 1rem;
+                        margin: 0 !important;
+                    }
+                }
+            }
+        }
+        .preview_info {
+            .preview_highlight {
+                ul {
+                    li {
+                        width: 100%;
+                        .date_info {
+                            width: 100%;
+                            &:first-child {
+                                margin: 0 0 1rem 0;
+                            }
+                        }
+                    }
+                    &.heighlight {
+                        flex-wrap: wrap;
+                        margin: 0 0 0 -2% !important;
+                        width: calc(100% + 4%);
+                        li {
+                            margin: 3% 2%;
+                            width: 50% !important;
+                            float: left;
+                            flex: 0 0 46%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 480px) {
+    .target_btn button.btn.btn-green {
+      min-width: 100%;
+    }
+    .tab-content .target_btn {
+        position: unset;
+        width: 100%;
+        display: block;
+    }
+    .campaign_tab {
+        .nav-tabs {
+            li {
+                .nav-link::after {
+                    width: 150px;
+                }
+            }
+        }
+    }
+}
+
+.selectError{
+    font-size: large;
+    color: red;
+    text-align: center;
+    margin-bottom: 1%;
+}
+@media only screen and (max-width: 480px) {
+    .campaign_tab {
+        .nav-tabs {
+            li {
+                .nav-link::after {
+                    width: 150px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,104 @@
+<div class="container">
+  <h1 class="section-head text-center my-4">{{ 'shared.brand' | translate }} {{ 'shared.signin' | translate }}</h1>
+  <form [formGroup]="brandLoginForm">
+    <div class="row">
+      <div class="offset-md-1 col-md-10 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <div class="background-primary login-frm br-10 mb-1">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="lbl-input">{{ 'shared.email' | translate }} <span
+                    class="text-danger error-msg">*</span></label>
+                <input type="text" formControlName="email" class="form-control" >
+                <div
+                  *ngIf="brandLoginForm.controls['email'].errors && (brandLoginForm.controls['email'].dirty) || submitted">
+                  <div *ngIf="brandLoginForm.controls['email'].errors?.required" class="text-danger error-msg">
+                    {{ 'shared.emailRequired' | translate }}</div>
+                  <div *ngIf="brandLoginForm.controls['email'].value !== '' && brandLoginForm.controls['email'].invalid"
+                    class="text-danger error-msg"> {{ 'shared.emailWrongFormat' | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group mb-md-2">
+                <label class="lbl-input">{{ 'shared.password' | translate }} <span
+                    class="text-danger error-msg">*</span></label>
+
+                <input name="password" maxlength="16"  [type]="showPassword ? 'text' : 'password'" class="form-control pwd-control"
+                  formControlName="password">
+                <div class="btn-eye">
+                  <i alt="show" class="fa fa-eye eye-show" (click)="showPassword = !showPassword"
+                    [class.hide]="showPassword"></i>
+                  <i alt="hide" class="fa fa-eye-slash eye-hide" (click)="showPassword = !showPassword"
+                    [class.hide]="!showPassword"></i>
+                </div>
+                <div
+                  *ngIf="brandLoginForm.controls['password'].errors && (brandLoginForm.controls['password'].dirty) || submitted">
+                  <div *ngIf="brandLoginForm.controls['password'].errors?.required" class="text-danger error-msg">
+                    {{ 'shared.passwordRequired' | translate }}</div>
+                  <div *ngIf="brandLoginForm.controls['password'].errors?.pattern" class="text-danger error-msg">
+                    {{ 'shared.passwordPattern' | translate }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-4">
+              <div class="row">
+                <div class="col">
+                  <div class="form-check mb-0">
+                    <input class="form-check-input"  [checked]="isChecked"  (change)="checkCheckBoxvalue(ch)" #ch type="checkbox" id="flexCheckDefault">
+                    <label class="form-check-label pt-1" for="flexCheckDefault">
+                      {{ 'shared.rememberMe' | translate }}
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <a routerLink="../forgotpassword" class="forgot-password">{{ 'shared.forgotPassword'
+                                        | translate }}</a>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="error" class="text-danger mb-2 text-center">
+              {{error}}
+            </div>
+            <div class="col-md-12">
+              <div class="form-group text-center">
+                <button (click)="doLogin()"
+                class="btn btn-green">{{ 'shared.signin' | translate }}</button>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="back_login text-center mb-0">
+                <span class="heading-secoundry">{{ 'shared.dontAccount' | translate }}</span>&nbsp;
+                <a routerLink="../registration" class="heading-green">{{ 'shared.signup' | translate }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="model-completed modal fade" [ngClass]="{'show': showModal == true}" id="task_modal" tabindex="-1" aria-labelledby="task_modalLabel" aria-hidden="true" >
+  <div class="modal-backdrop fade"  [ngClass]="{'show': showModal == true}"></div>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="btn-close close without_head" data-bs-dismiss="modal" aria-label="Close" (click)="closeModelAfterCompletedTask()"><span aria-hidden="true">×</span></button>
+        <div class="text-center mb-4">
+          <h1 class="section-head my-3">{{'emailConfirmation.yourEmaiLIsNotConfirmed' | translate}}</h1>
+          <h6 class="heading-secoundry mb-4">{{'emailConfirmation.emailInfo' | translate}}</h6>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center align-item-center">
+          <button type="button" class="btn btn-outline-green" data-bs-dismiss="modal"
+            (click)="sendConfirmationMail()">{{'emailConfirmation.getEmail' | translate}}</button>
+            <button type="button" class="ms-3 btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close"
+            (click)="closeModelAfterCompletedTask()">{{'shared.close' | translate}}
+          </button>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+ 

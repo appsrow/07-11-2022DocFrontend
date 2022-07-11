@@ -1,0 +1,127 @@
+<div class="container-fluid p-4">
+    <h1 class="section-head my-4"> {{ 'admin.generateReport' | translate }}</h1>
+    
+    <div class="col-md-12 filter_main ">
+        <form [formGroup]="reportForm">
+        <div class="row mt-4">
+          <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 mb-4">
+            <div class="form-group">
+                <label class="lbl-input">{{ 'admin.brand' | translate }}</label>
+                <angular2-multiselect *ngIf="arrayBrand.length > 0" [data]="arrayBrand"
+                  [settings]="dropdownSettings" 
+                  (onSelect)="onChangeBrand()"
+                  (onDeSelect)="onChangeBrand()"
+                  (onSelectAll)="onChangeBrand()"
+                  (onDeSelectAll)="onChangeBrand()"
+                  formControlName="brand">
+                </angular2-multiselect>
+              </div>
+          </div>
+          
+          <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-4">
+            <div class="form-group">
+                <label class="lbl-input">{{ 'admin.campaign' | translate }}</label>
+                <angular2-multiselect [data]="arraycampaign"
+                  *ngIf="showCampaignList"
+                  [settings]="dropdownSettings"
+                  (onSelect)="onChangeCampaign()"
+                  (onDeSelect)="onChangeCampaign()"
+                  (onSelectAll)="onChangeCampaign()" 
+                  (onDeSelectAll)="onChangeCampaign()"
+                  formControlName="campaignname"
+                >
+                </angular2-multiselect>
+              </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-4">
+            <div class="form-group">
+                <label class="lbl-input">{{ 'admin.campaingType' | translate }}</label>
+                <angular2-multiselect *ngIf="arraycampaignType.length > 0" [data]="arraycampaignType"
+                  [settings]="dropdownSettings" 
+                  (onSelect)="onChangeCampaignType()" 
+                  (onDeSelect)="onChangeCampaignType()" 
+                  (onSelectAll)="onChangeCampaignType()" 
+                  (onDeSelectAll)="onChangeCampaignType()" formControlName="campaigntype">
+                </angular2-multiselect>
+              </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 mb-4">
+            
+                <div class="date-picker form-group mb-0">
+                  <label class="lbl-input">{{ 'invoice.date' | translate }}</label>
+                  <ng2-flatpickr id="statistics-date" [config]="weekPickerOptions"></ng2-flatpickr>
+                </div>
+             
+        </div>
+          <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-4">
+            <div class="form-group">
+                <label class="lbl-input">{{ 'admin.status' | translate }}</label>
+                <angular2-multiselect   *ngIf="arraystatus.length > 0"  [data]="arraystatus"
+                  [settings]="dropdownSettings" 
+                  (onSelect)="onChangeStatus()"
+                  (onDeSelect)="onChangeStatus()" 
+                  (onSelectAll)="onChangeStatus()" 
+                  (onDeSelectAll)="onChangeStatus()" formControlName="status">
+                </angular2-multiselect>
+              </div>
+          </div>
+          <div class="col-sm-12 text-center">
+            <button type="button" class="btn btn-green" (click)="getReportData()">{{ 'admin.generate' | translate }}</button>
+          </div>
+        </div>
+    </form>
+      </div> 
+    <div class="background-primary mb-4 br-10 w-100 p-2 p-md-4 my_campaign_data"  >
+        <div class="table-responsive datatabe_main">
+            <table class="table table-striped row-border hover" id="reportTable">
+                <thead>
+                    <tr>
+                        <th class="text-start">{{ 'invoice.camapignName' | translate }}</th>
+                        <th class="text-center">{{ 'invoice.category' | translate }}</th>
+                        <th class="text-center">{{ 'admin.brand' | translate }}</th>
+                        <th class="text-center">{{ 'invoice.date' | translate }}</th> 
+                        <th class="text-start">{{ 'admin.status' | translate }}</th> 
+                        <th class="text-center">{{ 'admin.campaign'| translate }} <br/>{{ 'admin.objectives' | translate }}</th>
+                        <th class="text-center">{{ 'admin.completed' | translate }}<br/>{{ 'admin.user' | translate }}</th>
+                        <th class="text-start">{{ 'admin.shortfall' | translate }}</th>
+                        <th class="text-start">{{ 'admin.funding' | translate }}</th>
+                        <th class="text-start">{{ 'admin.allocated' | translate }}</th>
+                        <th class="text-start">{{ 'admin.credit' | translate }}</th>
+                        <th class="text-center">{{ 'admin.estimated' | translate }}<br/>{{ 'admin.profit' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody class="text-start">
+                    <tr *ngFor="let data of reportData">
+                        <td>{{ data.CampaignName }}</td>
+                        <td  class="text-center">
+                          <span *ngIf="data.Type === 'uploadvideo'">{{'shared.videoplays' | translate}}</span>
+                          <span *ngIf="data.Type === 'Lead'">{{'shared.lead' | translate}}</span>
+                          <span *ngIf="data.Type === 'Follow'">{{'shared.follow' | translate}}</span>
+                          <span *ngIf="data.Type === 'Appsdownload'">{{'shared.appsDownload' | translate}}</span>
+                          <span *ngIf="data.Type === 'clicksonthewebsite'">{{'shared.clicksonthewebsite' | translate}}</span>
+                        </td>
+                        <td  class="text-center">{{ data.BrandName }}</td>
+                        <td>{{ data.StartDate | date: 'dd/MM/YYYY' }} - {{ data.EndDate | date: 'dd/MM/YYYY'}}</td>
+                        <td> 
+                          <span class="text-success"  *ngIf="data.CampaignStatus === 1">{{'shared.programmed' | translate}}</span>
+                          <span class="text-warning"  *ngIf="data.CampaignStatus === 2">{{'shared.inProgress' | translate}}</span>
+                          <span class="text-danger"  *ngIf="data.CampaignStatus === 3">{{'shared.closed' | translate}}</span>
+                        </td>
+                        <td  class="text-center">{{ data.TargetedUsers }}</td>
+                        <td  class="text-center">{{ data.CompletedUsers }}</td>
+                        <td>{{ data.ShortFall }}</td>
+                        <td><i class="fa fa-eur"></i> {{ data.CampaignFunding }}</td>
+                        <td><i class="fa fa-eur"></i> {{ data.AllocatedFund }}</td>
+                        <td><i class="fa fa-eur"></i> {{ data.CreditFund }}</td>
+                        <td class="text-center"><span class="text-success"><i class="fa fa-eur"></i> {{ data.EstimatedProfit }}</span></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm-12 my-4 text-center">
+            <a  class="btn btn-green" (click)="exportToExcel()" ><i class="f-18 fa fa-file-excel-o me-2"></i>{{ 'admin.exportToExcel' | translate }} </a> 
+          </div>
+    </div>
+</div>

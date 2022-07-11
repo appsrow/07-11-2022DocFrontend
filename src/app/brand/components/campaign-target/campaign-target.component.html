@@ -1,0 +1,64 @@
+<div class="background-secoundry mb-4 br-10 w-100 target_camp">
+    <h5 class="heading-white">{{ 'brand.appreciation' | translate }}</h5>
+    <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <button (click)="getSelectedCampaignTypeName(campaignTargetList[0])" id="Lead"
+                class="btn btn-secondary btn-target text-start  w-100"
+                [ngClass]="{'selected': selectedTarget?.id === '1'}">
+                <h6 class="heading-green"><span><img src="/assets/images/lead.png" alt="Target icon"></span> {{
+                    'shared.lead' | translate }}</h6>
+                <p class="heading-white mb-0">{{ 'brand.maximiSereachad' | translate }}</p>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="background-secoundry mb-4 br-10 w-100 target_camp">
+    <h5 class="heading-white">{{ 'brand.consideration' | translate }}</h5>
+    <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <button (click)="getSelectedCampaignTypeName(campaignTargetList[1])" id="uploadvideo"
+                class="btn btn-secondary btn-target text-start  w-100"
+                [ngClass]="{'selected': selectedTarget?.id === '2'}">
+                <h6 class="heading-green"><span><img src="/assets/images/icon_video.png" alt="Target icon"></span> {{
+                    'shared.videoplays' | translate }}</h6>
+                <p class="heading-white mb-0">{{ 'brand.getvideoplays' | translate }}</p>
+            </button>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <button (click)="getSelectedCampaignTypeName(campaignTargetList[2])" id="Follow"
+                class="btn btn-secondary btn-target text-start  w-100"
+                [ngClass]="{'selected': selectedTarget?.id === '3'}">
+                <h6 class="heading-green"><span><img src="/assets/images/icon_follow.png" alt="Target icon"></span> {{
+                    'shared.follow' | translate }}</h6>
+                <p class="heading-white mb-0">{{ 'brand.LinkYourAd' | translate }}</p>
+            </button>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <button (click)="getSelectedCampaignTypeName(campaignTargetList[3])" id="Appsdownload"
+                class="btn btn-secondary btn-target text-start  w-100"
+                [ngClass]="{'selected': selectedTarget?.id === '4'}">
+                <h6 class="heading-green"><span><img src="/assets/images/icon_download.png" alt="Target icon"></span> {{
+                    'shared.appsDownload' | translate }}</h6>
+                <p class="heading-white mb-0">{{ 'brand.incentiveAppDownloads' | translate }}</p>
+            </button>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <button (click)="getSelectedCampaignTypeName(campaignTargetList[4])" id="clicksonthewebsite"
+                class="btn btn-secondary btn-target text-start  w-100"
+                [ngClass]="{'selected': selectedTarget?.id === '5'}">
+                <h6 class="heading-green"><span><img src="/assets/images/icon_visit.png" alt="Target icon"></span> {{
+                    'shared.clicksonthewebsite' | translate }}</h6>
+                <p class="heading-white mb-0">{{ 'brand.increaseTraffic' | translate }}</p>
+            </button>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <button (click)="getSelectedCampaignTypeName(campaignTargetList[5])" id="questionsForm"
+                class="btn btn-secondary btn-target text-start  w-100"
+                [ngClass]="{'selected': selectedTarget?.id === '6'}">
+                <h6 class="heading-green"><span><img src="/assets/images/question-form.png" alt="Target icon"></span>
+                    {{'shared.questionsForm' | translate}}</h6>
+                <p class="heading-white mb-0">{{ 'brand.getDataFromUsers' | translate }}</p>
+            </button>
+        </div>
+    </div>
+</div>

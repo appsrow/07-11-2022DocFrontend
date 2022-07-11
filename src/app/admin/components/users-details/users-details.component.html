@@ -1,0 +1,61 @@
+<div class="container user-profile mb-4">
+  <div class="row">
+    <div class="col-xl-12">
+      <h1 class="section-head my-4">{{ 'admin.userProfile' | translate }}</h1>
+      <div class="background-primary text-center w-100 br-10 p-3 p-md-4 userinformation">
+        <div class="user-image me-md-4">
+          <img [src]="profilePicture ? profilePicture : '/assets/images/userprofile.png'">
+        </div>
+        <div class="user-content text-start">
+          <div class="row">
+            <div class="col-md-12 col-lg-8 col-xl-6">
+              <h3 class="heading-white mb-2 fw-500">{{ userData.first_name }} {{ userData.last_name }}</h3>
+              <div class="info">
+                <i class="fa fa-envelope-o heading-green f-20 me-2" aria-hidden="true"></i>
+                <span class="heading-white">{{ userData.email }}</span>
+              </div>
+              <div class="info" *ngIf="userData.dob != null">
+                <i class="fa fa-birthday-cake heading-green f-20 me-2" aria-hidden="true"></i>
+                <span class="heading-white">{{ userData.dob | date: 'dd/MM/YYYY' }}</span>
+              </div>
+              <div class="info"
+                *ngIf="userData.city != null && userData.state_name != null && userData.country_name != null">
+                <i class="fa fa-map-marker heading-green f-20 me-2" aria-hidden="true"></i>
+                <span class="heading-white">{{ userData.city }} {{ userData.state_name }} {{ userData.country_name
+                  }}</span>
+              </div>
+              <div class="info" *ngIf="userData.phone != null">
+                <i class="fa fa fa-phone heading-green f-20 me-2" aria-hidden="true"></i>
+                <span class="heading-white">{{ userData.phone }}</span>
+              </div>
+              <div class="info" *ngIf="userData.gender">
+                <i class="fa fa-venus-mars heading-green f-20 me-2" aria-hidden="true"></i>
+                <span class="heading-white" *ngIf="userData.gender === null">{{ 'shared.notDefined' | translate
+                  }}</span>
+                <span class="heading-white" *ngIf="userData.gender === '1'">{{ 'shared.male' | translate }}</span>
+                <span class="heading-white" *ngIf="userData.gender === '2'">{{ 'shared.female' | translate }}</span>
+                <span class="heading-white" *ngIf="userData.gender === '3'">{{ 'shared.others' | translate }}</span>
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-4 col-xl-6">
+              <div class="profile_status">
+                <div class="can-toggle">
+                  <input id="chkStatus" type="checkbox" [checked]="isChecked" (change)="checkStatusValue(chkStatus)"
+                    #chkStatus>
+                  <label for="chkStatus">
+                    <div class="can-toggle__switch" [attr.data-checked]="'shared.active' | translate "
+                      [attr.data-unchecked]="'shared.inActive' | translate "></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 py-4 bootom_btn" style="display: inline-flex; justify-content: center;">
+        <a class="btn-outline mx-2" routerLink="../../users"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{
+          'shared.back' | translate }}</a>
+      </div>
+    </div>
+  </div>
+</div>

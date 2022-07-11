@@ -1,0 +1,178 @@
+<div class="container">
+  <div class="row my-4 align-items-center header_withbtn">
+    <h1 class="section-head mb-3 mb-md-0 col-12 col-sm-12 col-md-6 col-lg-7">{{ 'giftCards.giftCardDetails' | translate }}</h1>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-5 text-sm-start text-md-end">
+      <button class="btn btn-green px-1 px-sm-2 px-md-3 me-3" (click)="triggerModal(modalData)">{{ 'giftCards.addNewGiftCard' | translate }}</button>
+      <button class="btn btn-green px-1 px-sm-2 px-md-3" (click)="triggerMultipleUploadModal(multipleUploadModal)">{{ 'giftCards.downloadPdf' | translate }}</button>
+    </div>
+  </div>
+    <div class="background-primary mb-4 br-10 w-100 p-2 p-md-4 my_campaign_data">
+      <div class="table-responsive datatabe_main">
+        <table class="table table-striped row-border hover" id="giftCarDatatable">
+          <thead>
+            <tr>
+              <th class="text-start"><span>{{ 'giftCards.cardType' | translate }}</span></th>
+              <th class="text-start"> <span>{{ 'giftCards.cardCode' | translate }}</span></th>
+              <th class="text-start"> <span>{{ 'giftCards.giftCardCoins' | translate }}</span></th>
+              <th class="text-start"> <span>{{ 'giftCards.priceWorth' | translate }}</span></th>
+              <th class="name_text"><span>{{ 'admin.createdDate' | translate }}</span></th>
+              <th class="name_text"><span>{{ 'giftCards.expiryDate' | translate }}</span></th>
+              <th class="name_text text-center"><span>{{ 'admin.status' | translate }}</span></th>
+              <th class="text-end"><span>{{ 'admin.actions' | translate }}</span></th>
+            </tr>
+          </thead>
+          <tbody class="text-start">
+            <tr *ngFor="let data of giftCarData; let i= index;">
+              <td class="name_text">{{ data.type }}</td>
+              <td><span class="card_code">{{ data.card_code }}</span></td>
+              <td>{{ data.price }}</td>
+              <td>{{ data.amount }}</td>
+              <td>{{ data.converted_created_at ? data.converted_created_at : '-'}}</td>
+              <td>{{ data.converted_expiry_date ? data.converted_expiry_date : '-'}}</td>
+              <td class="name_text text-center">
+                <div *ngIf="data.status">
+                  <span class="badge rounded-pill text-success" *ngIf="data.status === 'AVAILABLE'">{{ 'giftCards.availableStatus' | translate }}</span>
+                  <span class="badge rounded-pill text-warning" *ngIf="data.status === 'USED'">{{ 'giftCards.used' | translate }}</span>
+                  <span class="badge rounded-pill text-warning" *ngIf="data.status === 'NOT_AVAILABLE'">{{ 'giftCards.notAvaialble' | translate }}</span>
+                  <span class="badge rounded-pill text-warning" *ngIf="data.status === 'EXPIRED'">{{ 'giftCards.expired' | translate }}</span>
+                </div>
+              </td>
+              <td class="text-center">
+                <div class="profile_status">
+                  <div class="can-toggle" *ngIf="data.status === 'AVAILABLE' || data.status === 'NOT_AVAILABLE'">
+                    <input [id]="i" type="checkbox" [checked]="(data.status === 'AVAILABLE') ? true : false" (change)="toggleGiftCardStatus($event,data.id)" #chkActive>
+                    <label [for]="i">
+                      <div class="can-toggle__switch" [attr.data-checked]="'giftCards.available' | translate " [attr.data-unchecked]="'giftCards.notAvailable' | translate "></div>
+                    </label>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <ng-template #modalData let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header head_with_name">
+      <h5 class="modal-title" id="modal-basic-title">{{ 'giftCards.addGiftReward' | translate }}</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="giftCardRewardForm">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group m-0 border">
+             <label class="lbl-popup-input mb-2">{{ 'giftCards.giftCardType' | translate }}<span class="text-danger error-msg">*</span></label>
+                <angular2-multiselect class="giftcard_type"  *ngIf="giftCardTypes" [data]="giftCardTypes"
+                  [settings]="dropdownSettings" formControlName="cardType">
+                </angular2-multiselect>
+              <div
+                *ngIf="giftCardRewardForm.controls['cardType'].errors && (giftCardRewardForm.controls['cardType'].dirty || giftCardRewardForm.controls['cardType'].touched) || submitted">
+                <div *ngIf="giftCardRewardForm.controls['cardType'].errors?.required" class="text-danger">{{ 'giftCards.giftCardTypeRequired' | translate }}</div>
+              </div>
+            </div>
+          </div>&nbsp;&nbsp;
+          <div class="col-md-12">
+            <div class="form-group m-0">
+             <label class="lbl-popup-input mb-2">{{ 'giftCards.giftCardCode' | translate }}<span class="text-danger error-msg">*</span></label>
+              <input type="text" formControlName="cardCode" class="form-control"
+                placeholder="{{ 'giftCards.enterGiftCardCode' | translate }}" maxlength="50">
+              <div
+                *ngIf="giftCardRewardForm.controls['cardCode'].errors && (giftCardRewardForm.controls['cardCode'].dirty || giftCardRewardForm.controls['cardCode'].touched) || submitted">
+                <div *ngIf="giftCardRewardForm.controls['cardCode'].errors?.required" class="text-danger">{{ 'giftCards.giftCardCodeRequired' | translate }}</div>
+              </div>
+            </div>
+          </div>&nbsp;&nbsp;
+          <div class="col-md-12">
+            <div class="form-group m-0">
+              <label class="lbl-popup-input mb-2">{{ 'giftCards.giftCardCoins' | translate }}<span class="text-danger error-msg">*</span></label>
+              <input type="text" formControlName="coins" class="form-control"
+                placeholder="{{ 'giftCards.enterGiftCardCoins' | translate }}" maxlength="7" (keypress)="utilityService.onlyNumberAndDecimal($event)">
+              <div
+                *ngIf="giftCardRewardForm.controls['coins'].errors && (giftCardRewardForm.controls['coins'].dirty || giftCardRewardForm.controls['coins'].touched) || submitted">
+                <div *ngIf="giftCardRewardForm.controls['coins'].errors?.required" class="text-danger">{{ 'giftCards.giftCardCoinsRequired' | translate }}</div>
+              </div>
+            </div>
+          </div>&nbsp;&nbsp;
+          <div class="col-md-12">
+            <div class="form-group m-0">
+             <label class="lbl-popup-input mb-2">{{ 'giftCards.giftCardAmount' | translate }}<span class="text-danger error-msg">*</span></label>
+              <input type="text" formControlName="amount" maxlength="7" class="form-control"
+                placeholder="{{ 'giftCards.enterGiftCardAmount' | translate }}" (keypress)="utilityService.onlyNumberAndDecimal($event)">
+              <div
+                *ngIf="giftCardRewardForm.controls['amount'].errors && (giftCardRewardForm.controls['amount'].dirty || giftCardRewardForm.controls['amount'].touched) || submitted">
+                <div *ngIf="giftCardRewardForm.controls['amount'].errors?.required" class="text-danger">{{ 'giftCards.giftCardAmountRequired' | translate }}</div>
+              </div>
+            </div>
+          </div>&nbsp;&nbsp;
+          <div class="col-md-12">
+            <div class="form-group m-0 date-picker">
+             <label class="lbl-popup-input mb-2">{{ 'giftCards.expiryDate' | translate }}<span class="text-danger error-msg">*</span></label>
+                <ngx-datepicker [options]="expiryDate" formControlName="expiryDate"></ngx-datepicker>
+            </div>
+            <div
+                  *ngIf="giftCardRewardForm.controls['expiryDate'].errors && (giftCardRewardForm.controls['expiryDate'].dirty || giftCardRewardForm.controls['expiryDate'].touched) || submitted">
+                  <div *ngIf="giftCardRewardForm.controls['expiryDate'].errors?.required" class="text-danger error-msg" placeholder="Enter gift card expiry date">
+                    {{ 'giftCards.expiryDateRequired' | translate }}
+                  </div>
+                </div>
+          </div>&nbsp;&nbsp;
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-green" (click)="insertIntoGiftCards()">{{ 'giftCards.save' | translate }}</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+  <ng-template #multipleUploadModal let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header head_with_name">
+      <h5 class="modal-title" id="modal-basic-title">{{ 'giftCards.addMultipleGiftCards' | translate }}</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body pt-2">
+      <form [formGroup]="uploadMultipleGiftCardsForm">
+        <div class="row">
+          <div class="col-9 col-sm-10 col-md-10">
+            <!-- <div class="form-group m-0 upload_input">
+              <label for="formFileMultiple" class="form-label">{{ 'giftCards.uploadCsvFile' | translate }} <span class="text-danger error-msg">*</span></label>
+              <input class="form-control" type="file" id="formFileMultiple" formControlName="giftCardsFile" #fileInput accept=".xlsx, .xls, .csv" (change)="onSelectCampaignFile($event)" multiple>
+              <div *ngIf="uploadMultipleGiftCardsForm.controls['giftCardsFile'].errors && (uploadMultipleGiftCardsForm.controls['giftCardsFile'].dirty || uploadMultipleGiftCardsForm.controls['giftCardsFile'].touched) || submitted">
+                <div *ngIf="uploadMultipleGiftCardsForm.controls['giftCardsFile'].errors?.required" class="text-danger error-msg"> {{ 'giftCards.csvFileReuired' | translate }} </div>
+              </div>
+            </div> -->
+            <div class="custom-file upload_input">
+              <label *ngIf="!fileName" class="custom-file-label" for="formFileMultiple">{{ 'giftCards.uploadCsvFile' | translate }} <span class="text-danger error-msg">*</span></label>
+              <label *ngIf="fileName" class="custom-file-label" for="formFileMultiple">{{ fileName }} <span class="text-danger error-msg">*</span></label>
+              <input type="file" class="custom-file-input" id="formFileMultiple" formControlName="giftCardsFile" #fileInput accept=".xlsx, .xls, .csv" (change)="onSelectCampaignFile($event)" multiple>
+              <div *ngIf="uploadMultipleGiftCardsForm.controls['giftCardsFile'].errors && (uploadMultipleGiftCardsForm.controls['giftCardsFile'].dirty || uploadMultipleGiftCardsForm.controls['giftCardsFile'].touched) || submitted">
+                <div *ngIf="uploadMultipleGiftCardsForm.controls['giftCardsFile'].errors?.required" class="text-danger error-msg"> {{ 'giftCards.csvFileReuired' | translate }} </div>
+              </div>
+              <div *ngIf="fileError" class="text-danger">
+                {{fileError}}
+              </div>
+            </div>
+          </div>
+          <div class="col-3 col-sm-2 col-md-2 ps-0">
+            <button type="button" class="btn btn-green import_btn" (click)="importMultipleData()">{{ 'giftCards.import' | translate }}</button>
+          </div>
+          <div class="col-lg-12 mt-4">
+            <div class="d-flex justify-content-center demo_excel">
+              <button type="button" class="btn btn-green btn-sm" (click)="downloadExcel()">
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
+                  <g><path d="M245,0c-9.5,0-17.2,7.7-17.2,17.2v331.2L169,289.6c-6.7-6.7-17.6-6.7-24.3,0s-6.7,17.6,0,24.3l88.1,88.1
+                        c3.3,3.3,7.7,5,12.1,5c4.4,0,8.8-1.7,12.1-5l88.1-88.1c6.7-6.7,6.7-17.6,0-24.3c-6.7-6.7-17.6-6.7-24.3,0L262,348.4V17.1
+                        C262.1,7.6,254.5,0,245,0z"/><path d="M462.1,472.9v-99.7c0-9.5-7.7-17.2-17.2-17.2s-17.2,7.7-17.2,17.2v82.6H62.2v-82.6c0-9.5-7.7-17.2-17.1-17.2
+                        s-17.2,7.7-17.2,17.2v99.7c0,9.5,7.7,17.1,17.2,17.1h399.8C454.4,490,462.1,482.4,462.1,472.9z"/></g>
+                </svg>
+                 {{ 'giftCards.downloadExcel' | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>

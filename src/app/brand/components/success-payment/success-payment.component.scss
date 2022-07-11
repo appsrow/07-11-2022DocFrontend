@@ -1,0 +1,18 @@
+.max-img {
+    max-height: 300px;
+}
+.section-subhead {
+    color: #fff;
+    font-weight: 500;
+}
+@media only screen and (max-width: 620px) {
+    .bootom_btn {
+        flex-direction: column;
+        width: 100%;
+        padding-top: 0 !important;
+        .row-md-6.text-center {
+            width: 100%;
+            margin: 1rem 0 0 !important;
+        }
+    }
+}

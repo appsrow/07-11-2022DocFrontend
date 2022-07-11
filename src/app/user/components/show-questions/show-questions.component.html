@@ -1,0 +1,54 @@
+<div class="container question_form">
+    <div *ngIf="questionsFormData && userAnswerForm">
+        <h1 class="section-head mt-4 px-4">Form name: {{ questionsFormData.form_name }}</h1>
+        <form [formGroup]="userAnswerForm" *ngIf="userAnswerForm" class="p-3 mb-3 w-100">
+            <h4 class="mb-4">Form description: {{ questionsFormData.description }}</h4>
+            <div class="question_section">
+                <div *ngFor="let question of questionsFormData.questions; let i=index" class="question">
+                    <label class="lbl-input question_label">
+                        Q: {{ question.question_text }}
+                    </label>
+                    <!-- short answer -->
+                    <input class="form-control" *ngIf="question.question_type_id == 2" type="text"
+                        placeholder="Enter your answer" maxlength="100" formControlName="questions{{question.id}}">
+                    <!-- numeric answer -->
+                    <input class="form-control" *ngIf="question.question_type_id == 4" type="text"
+                        placeholder="Enter your answer" maxlength="10"
+                        (keypress)="utilityService.onlyNumberAndDecimal($event)"
+                        formControlName="questions{{question.id}}">
+                    <!-- long answer -->
+                    <textarea class="form-control" rows="1" *ngIf="question.question_type_id == 3"
+                        formControlName="questions{{question.id}}" maxlength="1000"></textarea>
+                    <!-- multiple choice answer -->
+                    <div class="radio-input" *ngIf="question.question_type_id == 1">
+                        <div class="form-check form-check-inline"
+                            *ngFor="let answerOption of question.options; let j=index">
+                            <input *ngIf="answerOption" mdbRadio class="form-check-input" type="radio"
+                                formControlName="questions{{question.id}}" id="inlineRadio1" value="{{answerOption}}" />
+                            <label *ngIf="answerOption" class="form-check-label"
+                                for="inlineRadio1">{{answerOption}}</label>
+                        </div>
+                    </div>
+                    <div class="radio-input" *ngIf="question.question_type_id == 5">
+                        <div class="form-check form-check-inline">
+                            <input mdbRadio class="form-check-input" type="radio"
+                                formControlName="questions{{question.id}}" id="inlineRadio1" value="true" />
+                            <label class="form-check-label" for="inlineRadio1">True</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input mdbRadio class="form-check-input" type="radio"
+                                formControlName="questions{{question.id}}" id="inlineRadio1" value="false" />
+                            <label class="form-check-label" for="inlineRadio1">False</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="userAnswerForm.invalid && submitted">
+                <div class="text-danger error-msg error_text">Please answer all the questions </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <button class="btn btn-green" (click)="submitQuestions()">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

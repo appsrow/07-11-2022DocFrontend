@@ -1,0 +1,140 @@
+@import "../../assets/css/core/tables";
+
+::ng-deep {
+    body {
+        background: #0b0f1b;
+        .navbar {
+            .container {
+                .navbar-collapse {
+                    .navbar-nav {
+                        .nav-item {
+                            .nav-link {
+                                &.active, &:hover, &:focus {
+                                    color:#3f8cff;
+                                }
+                            }
+                            .dropdown {
+                                a {
+                                    h6 {
+                                        color:#3f8cff !important;
+                                    }
+                                    &::after {
+                                        color:#3f8cff !important;
+                                    }
+                                }
+                            }
+                            &.language-main {
+                                a {
+                                    &::before {
+                                        background:#3f8cff !important;
+                                    }
+                                    &.active {
+                                        color:#3f8cff !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .btn.btn-green {
+            background: #3f8cff;
+            color: #fff;
+            border-color: #3f8cff;
+            &:hover, &:focus {
+                color: #3f8cff;
+            }
+        }
+        .btn-outline {
+            color: #3f8cff !important;
+            border-color: #3f8cff;
+            text-align: center;
+            &:hover, &:focus {
+                background: #3f8cff !important;
+                color: #fff !important;
+            }
+        }
+        .bootom_btn {
+            .btn-outline {
+                color: #3f8cff !important;
+                border-color: #3f8cff;
+                min-width: 150px;
+                text-align: center;
+                &:hover, &:focus {
+                    background: #3f8cff !important;
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+    nav.navbar.navbar-inverse, .background-primary {
+        background: #2d374f !important;
+    }
+    .section-head {
+        color:#3f8cff;
+    }    
+    .main-content {
+        .background-primary{
+            .table-responsive.datatabe_main {
+                .dataTables_length {
+                    label {
+                        color: #ffffff;
+                        select {
+                            background-color: #2d374f;
+                        }
+                    }
+                }
+                .dataTables_paginate {
+                    a {
+                        &:hover, &:focus {
+                            color:#3f8cff !important;
+                        }
+                    }
+                    span {
+                        a {
+                            &.current,&:hover {
+                                background-color:#fc2b93;
+                                background:#3f8cff;
+                                color: #fff !important;
+                            }
+                        }
+                    }
+                }
+                table {
+                    border: 1px solid #57628B;
+                    overflow: visible;
+                    thead {
+                        tr {
+                            th {
+                                background-color: #111c33 !important;
+                                border-bottom: 1px solid #0b0f1b !important;
+                            }
+                        }
+                    }
+                    tbody {
+                        > tr {
+                            background-color: #232d44 !important;
+                            &:nth-of-type(odd) {
+                                background-color: #2d374f !important;
+                            }
+                            &:hover {
+                                background-color: #354059 !important;
+                            }
+                            td {
+                                border-bottom: 1px solid #0b0f1b !important;
+                                a {
+                                    &.quick_acton {
+                                        span {
+                                            color:#3f8cff !important;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

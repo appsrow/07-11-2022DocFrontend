@@ -1,0 +1,35 @@
+<ng-template #content let-modal>
+    <div class="modal-header head_with_name">
+      <h5 class="modal-title" id="modal-basic-title">{{ 'shared.phoneNoVerification' | translate }}</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body pt-0" >
+      <form [formGroup]="userPhoneVerificationForm">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="mb-2">
+              <p class="mb-3 heading-white text">{{ 'shared.forSecurityText' | translate }} </p>
+              <h5 class="text-uppercase text-center">{{ 'shared.yourPhone' | translate }}: <b>{{ country_dialing_code }}{{ phone_number }}</b></h5>
+            </div>
+            <div class="form-group m-0 verification_input">
+             
+             <div *ngIf="isVerifyCodeRequested" class="text-center">
+               <label *ngIf="isVerifyCodeRequested" class="lbl-popup-input pb-2">{{ 'shared.pleaseEnterYourVerificationCode' | translate }}<span class="text-danger error-msg">*</span></label>
+               <ng-otp-input  (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+              <div [ngClass]="{'hide': !showOtpRequiredText }">
+                <div class="text-danger">{{ 'shared.verificationCodeRequired' | translate }}</div>
+              </div>
+            </div><br>
+              <div class="d-flex justify-content-center align-items-center flex-column mt-3">
+                <button type="button" class="btn btn-green" *ngIf="!isVerifyCodeRequested" (click)="requestCode()">{{ 'shared.requestCode' | translate }}</button>
+                <button type="button" class="btn btn-green" *ngIf="isVerifyCodeRequested" (click)="verifyCode()">{{ 'shared.verify' | translate }}</button>
+                <button type="button" class="btn btn-link mt-2 btn-skip" (click)="skipVerification()">{{ 'shared.skipVerification' | translate }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>

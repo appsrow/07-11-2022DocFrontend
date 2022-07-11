@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="d-flex justify-content-between align-item-center">
+        <h1 class="section-head my-4">{{ brandCampaignData.campaign_name }} - {{ 'brandLeadCampaign.leadUsers' |
+            translate }}</h1>
+        <a style="cursor: pointer" class="btn btn-green" (click)="exportToExcel()">
+            <i class="f-18 fa fa-file-excel-o" aria-hidden="true"></i> {{ 'shared.download' | translate}}
+        </a>
+    </div>
+    <div class="table-responsive datatabe_main">
+        <table class="table table-striped row-border hover" id="leadUserDataTable">
+            <thead>
+                <tr>
+                    <th class="text-start">{{ 'brandMyCampaign.name' | translate}}</th>
+                    <th class="text-start">{{ 'brandLeadCampaign.email' | translate}}</th>
+                    <th class="text-start">{{ 'brandLeadCampaign.dob' | translate}}</th>
+                    <th class="text-start">{{ 'brandLeadCampaign.mobile' | translate}}</th>
+                    <th class="text-start">{{ 'brandLeadCampaign.gender' | translate}}</th>
+                    <th class="text-start">{{ 'brandLeadCampaign.country' | translate}}</th>
+                    <th class="text-start">{{ 'brandLeadCampaign.state' | translate}}</th>
+                    <th class="text-start">{{ 'brandLeadCampaign.city' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody class="text-start">
+                <tr *ngFor="let userData of brandUsersList">
+                    <td class="text-start d-flex"><span>{{ userData.first_name }} {{ userData.last_name }}</span></td>
+                    <td class="text-start"><span>{{ userData.email }}</span></td>
+                    <td class="text-start"><span>{{ userData.dob | date: 'dd-MM-YYYY' }}</span></td>
+                    <td class="text-start"><span>{{ userData.phone }}</span></td>
+                    <td class="text-start">
+                        <span *ngIf="userData.gender == null">-</span>
+                        <span *ngIf="userData.gender == '1'">{{ 'shared.male' | translate }}</span>
+                        <span *ngIf="userData.gender == '2'">{{ 'shared.female' | translate }}</span>
+                        <span *ngIf="userData.gender == '3'">{{ 'shared.others' | translate }}</span>
+                    </td>
+                    <td>{{ userData.country_name }}</td>
+                    <td>{{ userData.state_name }}</td>
+                    <td>{{ userData.city }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

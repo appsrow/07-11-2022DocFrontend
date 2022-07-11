@@ -1,0 +1,85 @@
+<div class="container">
+    <h1 class="section-head my-4">{{ 'brandProfile.brandProfile' | translate }}</h1>
+    <form [formGroup]="myProfileForm">
+        <div class="background-primary mb-4 br-10 w-100 brand_edit_profile">
+            <div class="text-center profile_img mb-4">
+                <div class="profile_main">
+                    <div class="profile-img" (click)="fileInput.click()">
+                        <span>
+                            <img class="img-upload" (change)="onSelectProfileImage($event)"
+                                [src]="myProfileForm.controls.photo.value ? myProfileForm.controls.photo.value : '/assets/images/brand-1.png'"
+                                alt="Brand Profile">
+                        </span>
+                        <div class="upload-img">
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                        </div>
+                        <div class="delete_profile" *ngIf="myProfileForm.controls.photo.value" (click)="deletePhoto()">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        
+                    </div>
+                    <h5>{{ 'shared.uploadBrandLogo' | translate }}</h5>
+                    <span>{{ 'shared.photoMaxSize' | translate }}</span>
+                </div>
+                <input type="file" #fileInput accept="image/jpeg, image/png"
+                    (change)="onSelectProfileImage($event)" (click)="fileInput.value = ''" class="fileInput">
+                    <div *ngIf="imageError" class="text-danger mb-2 text-center">
+                        {{imageError}}
+                      </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="lbl-input">{{ 'shared.companyName' | translate }}</label>
+                        <input type="text" formControlName="companyName" class="form-control">
+                        <div
+                            *ngIf="myProfileForm.controls['companyName'].errors && (myProfileForm.controls['companyName'].dirty || myProfileForm.controls['companyName'].touched) || submitted">
+                            <div *ngIf="myProfileForm.controls['companyName'].errors?.required" class="text-danger">{{
+                                'shared.companyNameRequired' | translate }} </div>
+                            <div *ngIf="myProfileForm.controls['companyName'].errors?.minlength" class="text-danger">{{
+                                'shared.companyNameMinTwoChar' | translate }}
+                            </div>
+                            <div *ngIf="myProfileForm.controls['companyName'].errors?.maxlength" class="text-danger">{{
+                                'shared.companyNameMaxThirtyChar' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="lbl-input">{{ 'shared.email' | translate }} </label>
+                        <input type="email" formControlName="companyEmail" class="form-control" readonly>
+                        <div
+                        *ngIf="myProfileForm.controls['companyEmail'].errors && (myProfileForm.controls['companyEmail'].dirty || myProfileForm.controls['companyEmail'].touched) || submitted">
+                        <div *ngIf="myProfileForm.controls['companyEmail'].errors?.required" class="text-danger">{{
+                            'shared.emailRequired' | translate }}</div>
+                        <div *ngIf="myProfileForm.controls['companyEmail'].value !== '' && myProfileForm.controls['companyEmail'].invalid"
+                            class="text-danger">{{ 'shared.emailWrongFormat' | translate }}
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="lbl-input">{{ 'shared.phoneNumber' | translate }}</label>
+                        <input type="text" formControlName="companyMobile" class="form-control" maxlength="15" (keypress)="utilityService.phoneNumberValidation($event)">
+                        <div
+                            *ngIf="myProfileForm.controls['companyMobile'].errors && (myProfileForm.controls['companyMobile'].dirty || myProfileForm.controls['companyMobile'].touched) || submitted">
+                            <div *ngIf="myProfileForm.controls['companyMobile'].errors?.required" class="text-danger">
+                                {{ 'shared.phoneNumberRequired' | translate }}</div>
+                            <div *ngIf="myProfileForm.controls['companyMobile'].errors?.minlength" class="text-danger">
+                                {{ 'shared.phoneMinLength' | translate }} </div>
+                            <div *ngIf="myProfileForm.controls['companyMobile'].errors?.maxlength" class="text-danger">
+                                {{ 'shared.phoneMaxLength' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center ">
+                    <button type="submit" (click)="updateProfile()" class="btn btn-green"> {{ 'shared.btnUpdate' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

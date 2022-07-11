@@ -1,0 +1,50 @@
+<div class="container">
+    <h1 class="section-head my-4">{{ 'brandMyCampaign.billlingHistory' | translate }}</h1>
+  <div class="table-responsive datatabe_main">
+    <table class="table table-striped row-border hover" id="datatableexample2">
+      <thead>
+        <tr>
+          <th class="text-start">{{'invoice.invoiceNo' | translate }}</th>
+          <th class="text-start">{{'invoice.invoiceDate' | translate }}</th> 
+          <th class="text-start">{{'invoice.campaignName' | translate }}</th>
+          <th class="text-start">{{'invoice.campaignType' | translate }}</th>
+          <th class="text-start">{{'invoice.amountPaid' | translate }}</th>
+          <th class="text-end">{{'invoice.download' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody class="text-start">
+        <tr *ngFor="let data of invoiceData.data">
+            <td class="text-start">{{ data.invoice_id }}</td>
+            <td class="text-start">{{ data.converted_InvoiceDate }}</td> 
+            <td class="text-start">{{ data.campaign_name }}</td>
+            <td class="text-start" >
+              <div  *ngIf="data.campaign_type === 'lead_target'">{{ 'user.lead' | translate }}</div>
+              <div  *ngIf="data.campaign_type === 'apps_download'">{{ 'user.download' | translate }}</div>
+              <div  *ngIf="data.campaign_type === 'follow'">{{ 'user.follow' | translate }}</div>
+              <div  *ngIf="data.campaign_type === 'video_plays'">{{ 'user.video' | translate }}</div>
+              <div  *ngIf="data.campaign_type === 'click_websites'">{{ 'user.visit' | translate }}</div>
+            </td>
+            <td class="text-start">{{ data.grand_total | currency: 'EUR' }}</td>
+            <td class="text-end">
+                <div class="table_action">
+                  <a (click)="downloadInvoice(data.id, data.invoice_id)"  title="Invoice" class="view_statics">
+                    <span><svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 8V14V8ZM8 14L5 11L8 14ZM8 14L11 11L8 14ZM13 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V3C1 2.46957 1.21071 1.96086 1.58579 1.58579C1.96086 1.21071 2.46957 1 3 1H8.586C8.8512 1.00006 9.10551 1.10545 9.293 1.293L14.707 6.707C14.8946 6.89449 14.9999 7.1488 15 7.414V17C15 17.5304 14.7893 18.0391 14.4142 18.4142C14.0391 18.7893 13.5304 19 13 19Z" stroke="#252F5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg> {{ 'brand.invoice' | translate }}
+                    </span>
+                  </a>
+                </div>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-12 py-3 bootom_btn" style="display: inline-flex; justify-content: center;">
+    <div class="row-md-6 text-center" style="margin: 0 10px;">
+        <a class="btn-outline" routerLink="/home"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ 'shared.backToHome' | translate }}</a>
+    </div>
+    <div class="row-md-6 text-center">
+        <a class="btn btn-green"  routerLink="../campaignTarget">{{ 'brandMyCampaign.createCampaign' | translate }}</a>
+    </div>
+  </div>
+</div>

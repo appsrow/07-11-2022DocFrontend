@@ -1,0 +1,339 @@
+<div class="container user-profile mb-4">
+  <div class="row">
+    <div class="col-xl-12">
+      <h1 class="section-head my-4">{{ 'admin.brand' | translate }} {{ 'admin.detail' | translate }}</h1>
+      <div class="background-primary text-center w-100 br-10 p-3 p-md-4 userinformation brand_profile">
+        <div class=" profile-img me-md-4">
+          <span>
+            <img [src]="profilePicture ? profilePicture : 'https://www.w3schools.com/howto/img_avatar.png'">
+          </span>
+        </div>
+        <div class="user-content text-start">
+          <div class="row">
+            <div class="col-md-12 col-lg-8 col-xl-6" *ngIf="companyInfo">
+              <h3 class="heading-white mb-2 fw-500">{{ companyInfo.company_name }}</h3>
+              <div class="info">
+                <i class="fa fa-envelope-o heading-green f-20 me-2" aria-hidden="true"></i>
+                <span class="heading-white">{{ brandData.email }}</span>
+              </div>
+              <div class="info">
+                <i class="fa fa fa-phone heading-green f-20 me-2" aria-hidden="true"></i>
+                <span class="heading-white">{{ companyInfo.phone }}</span>
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-4 col-xl-6">
+              <div class="profile_status">
+                <div class="can-toggle">
+                  <input id="chkActive" type="checkbox" [checked]="isActiveChecked"
+                    (change)="checkBrandActiveInactive(chkActive)" #chkActive>
+                  <label for="chkActive">
+                    <div class="can-toggle__switch" [attr.data-checked]="'shared.active' | translate " [attr.data-unchecked]="'shared.inActive' | translate "></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="paymentDetail">
+        <h1 class="section-head my-4">{{ 'admin.paymentdetail' | translate }}</h1>
+        <div class="background-primary mb-4 br-10 w-100 p-2 p-md-4 my_campaign_data">
+          <div class="table-responsive datatabe_main mainContainer">
+            <table class="table table-striped row-border hover m-0" id="paymentdetail_table">
+              <thead>
+                <tr>
+                  <th class="text-start">{{ 'admin.campaingName' | translate }}</th>
+                  <th class="text-start">{{ 'admin.campaingType' | translate }}</th>
+                  <th class="text-start">{{ 'admin.date' | translate }}</th>
+                  <th class="text-start">{{ 'admin.amount' | translate }}</th>
+                  <th class="text-center">{{ 'admin.paypalReferenceId' | translate }}</th>
+                  <th class="text-center">{{ 'admin.invoiceDownload' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody class="text-start">
+                <tr *ngFor="let paymentData of paymentdetailData">
+                  <td class="name_text">{{ paymentData.campaign_info.campaign_name }}</td>
+                  <td *ngIf="paymentData.campaign_info.campaign_type === 'lead_target'">{{ 'user.lead' | translate }}
+                  </td>
+                  <td *ngIf="paymentData.campaign_info.campaign_type === 'apps_download'">
+                    {{ 'user.download' | translate }}</td>
+                  <td *ngIf="paymentData.campaign_info.campaign_type === 'follow'">{{ 'user.follow' | translate }}</td>
+                  <td *ngIf="paymentData.campaign_info.campaign_type === 'video_plays'">{{ 'user.video' | translate }}
+                  </td>
+                  <td *ngIf="paymentData.campaign_info.campaign_type === 'click_websites'">
+                    {{ 'user.visit' | translate }}</td>
+                  <td>{{ paymentData.transaction_date | date: 'dd/MM/YYYY' }}</td>
+                  <td>€ {{ paymentData.grand_total }}</td>
+
+                  <td class="text-center">{{ paymentData.transaction_id }}</td>
+                  <td class="text-center">
+                    <a (click)="downloadInvoice(paymentData.invoice_details.id,paymentData.invoice_details.invoice_id)"
+                      title="Invoice" class="view_statics">
+                      <span><svg width="16" height="20" viewBox="0 0 16 20" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M8 8V14V8ZM8 14L5 11L8 14ZM8 14L11 11L8 14ZM13 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V3C1 2.46957 1.21071 1.96086 1.58579 1.58579C1.96086 1.21071 2.46957 1 3 1H8.586C8.8512 1.00006 9.10551 1.10545 9.293 1.293L14.707 6.707C14.8946 6.89449 14.9999 7.1488 15 7.414V17C15 17.5304 14.7893 18.0391 14.4142 18.4142C14.0391 18.7893 13.5304 19 13 19Z"
+                            stroke="#252F5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg> {{ 'brand.invoice' | translate }}</span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <h1 class="section-head my-4">{{ 'admin.campaignList' | translate }}</h1>
+      <div class="background-primary mb-4 br-10 w-100 p-2 p-md-4 my_campaign_data">
+        <div class="table-responsive datatabe_main mainContainer" id="mainContainer">
+          <table class="table table-striped row-border hover m-0" id="campaign_table_data">
+            <thead>
+              <tr>
+                <th class="text-start">{{ 'admin.name' | translate }}</th>
+                <th class="text-start">{{ 'admin.campaingType' | translate }}</th>
+                <th class="text-start">{{ 'admin.budget' | translate }}</th>
+                <th class="text-center">{{ 'admin.validity' | translate }}</th>
+                <th class="text-start">{{ 'admin.createdDate' | translate }}</th>
+                <th>{{ 'admin.paymentMode' | translate }}</th>
+                <th class="text-center">{{ 'admin.status' | translate }}</th>
+                <th class="text-center">{{ 'admin.actions' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody class="text-start">
+              <tr *ngFor="let campData of campaignDatas">
+                <td class="name_text">{{ campData.campaign_name }}</td>
+                <td>
+                <span *ngIf="campData.campaign_type === 'lead_target'">{{ 'user.lead' | translate }}</span>
+                <span *ngIf="campData.campaign_type === 'apps_download'">{{ 'user.download' | translate }}</span>
+                <span *ngIf="campData.campaign_type === 'follow'">{{ 'user.follow' | translate }}</span>
+                <span *ngIf="campData.campaign_type === 'video_plays'">{{ 'user.video' | translate }}</span>
+                <span *ngIf="campData.campaign_type === 'click_websites'">{{ 'user.visit' | translate }}</span>
+                </td>
+                <td>€ {{ campData.sub_total }}</td>
+                <td class="text-center">{{ campData.start_date | date: 'dd/MM/YYYY' }} -
+                  {{ campData.end_date | date: 'dd/MM/YYYY'}}</td>
+                <td>{{ campData.created_at | date: 'dd/MM/YYYY'}}</td>
+                <td class="text-center">
+                  <span class="text-center rounded-pill purpleColor" *ngIf="campData.transaction_type === 'BANK_TANSFER'"  title="Bank transfer"><i class="fa fa-bank" style="font-size:20px"></i></span>
+                  <span class="text-center rounded-pill text-success" *ngIf="campData.transaction_type === 'paypal'" title="Paypal"><i class="fa fa-paypal" style="font-size:20px"></i></span>
+                </td>
+                <td class="text-center">
+                  <span class="badge rounded-pill text-success"
+                    *ngIf="campData.is_approved === 'APPROVED'">APPROVED</span>
+                  <span class="badge rounded-pill text-danger"
+                    *ngIf="campData.is_approved === 'REJECTED'">REJECTED</span>
+                  <span class="badge rounded-pill text-warning"
+                    *ngIf="campData.is_approved === 'PENDING'">PENDING</span>
+                </td>
+                <td class="text-center">
+                  <div class="d-flex align-item-center justify-content-center">
+                    <a (click)="getCampaignDetailsById(campData.id)" href="javascript:void(0);" class="quick_acton" data-bs-toggle="modal" data-bs-target="#campaign_details">
+                      <span class="text-success"  *ngIf="campData.is_approved == 'PENDING'" title="Edit campaign"><i class="fa fa-pencil"></i></span>
+                      <span class="text-success"  *ngIf="campData.is_approved == 'REJECTED' || campData.is_approved == 'APPROVED' " title="View Details"><i class="fa fa-eye"></i></span>
+                    </a>
+                    <a *ngIf="campData.is_approved === 'APPROVED'" (click)="goToCampaignStatistics(campData.id)"
+                      title="View Statistics" class="quick_acton">
+                      <span class="text-success"><i class="fa fa-line-chart" aria-hidden="true"></i></span>
+                    </a>
+                    <span class="dropdown cac_info" *ngIf="campData.is_approved == 'REJECTED'">
+                      <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="cac_dropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/assets/images/ban.png" style="width:18px" />
+                      </a>
+                      <ul class="dropdown-menu text-small" aria-labelledby="cac_dropdown">
+                        <div class="cac_inner">
+                          <h6>{{ 'admin.rejectionReason' | translate }}:</h6>
+                          <span>{{ campData.note }}</span>
+                        </div>
+                      </ul>
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-12 py-4 bootom_btn" style="display: inline-flex; justify-content: center;">
+        <a class="btn-outline mx-2" routerLink="../../brands"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+          {{ 'shared.back' | translate }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="campaign_details" tabindex="-1" aria-hidden="true" aria-labelledby="campaign_detailsLabel">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <button type="button" class="close without_head" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="modal-body" *ngIf="campaignDetailData">
+        <div class="campaign_details">
+          <div class="text-center" style="font-size: large;">
+            {{ campaignDetailData.company_info[0].company_name }}
+          </div>
+          <div class="text-center profile_img mb-2">
+            <div class="profile_main">
+              <div class="profile-img my-0">
+                <span>
+                  <img class="img-upload"
+                    [src]="campaignDetailData.campaign_image ? campaignDetailData.campaign_image : '/assets/images/brand-1.png'">
+                </span>
+              </div>
+            </div>
+          </div>
+          <ul>
+            <li>
+              <h6>{{ 'admin.campaignName' | translate }} :</h6>
+              <span>{{ campaignDetailData.campaign_name }}</span>
+            </li>
+            <li>
+              <h6>{{ 'admin.campaignType'| translate }} :</h6>
+              <span *ngIf="campaignDetailData.campaign_type_name == 'Lead'">{{'shared.lead' | translate}}</span>
+              <span *ngIf="campaignDetailData.campaign_type_name == 'uploadvideo'">{{'shared.videoplays' | translate}}</span>
+              <span *ngIf="campaignDetailData.campaign_type_name == 'Appsdownload'">{{'shared.appsDownload' | translate}}</span>
+              <span *ngIf="campaignDetailData.campaign_type_name == 'Follow'">{{'shared.follow' | translate}}</span>
+              <span *ngIf="campaignDetailData.campaign_type_name == 'clicksonthewebsite'">{{'shared.clicksonthewebsite' | translate}}</span>
+            </li>
+            <li>
+              <h6>{{ 'admin.productInformation'| translate }} :</h6>
+              <span>{{ campaignDetailData.product_information }}</span>
+            </li>
+            <li>
+              <h6>{{ 'admin.goalOfTheCampaign'| translate}} :</h6>
+              <span>{{ campaignDetailData.goal_of_campaign }}</span>
+            </li>
+            <li *ngIf="campaignDetailData.app_download_link">
+              <h6>{{ 'admin.downloadLink'| translate }} :</h6>
+              <span><a href="#">{{ campaignDetailData.app_download_link}}</a></span>
+            </li>
+            <li *ngIf="campaignDetailData.website_url">
+              <h6>{{ 'admin.websiteLink' | translate }} :</h6>
+              <span><a href="{{campaignDetailData.website_url}}"
+                  target="_blank">{{ campaignDetailData.website_url}}</a></span>
+            </li>
+            <li>
+              <div class="date_info">
+                <h6>{{ 'admin.startingDate'| translate }} :</h6>
+                <span>{{ campaignDetailData.start_date | date: 'dd/MM/YYYY'  }}</span>
+              </div>
+              <div class="date_info">
+                <h6>{{ 'admin.endingDate'| translate }} :</h6>
+                <span>{{ campaignDetailData.end_date | date: 'dd/MM/YYYY' }}</span>
+              </div>
+            </li>
+            <li>
+              <div class="date_info">
+                <h6>{{ 'admin.userTarget'| translate }} :</h6>
+                <span>{{ campaignDetailData.user_target }}</span>
+              </div>
+              <div class="date_info">
+                <h6>{{ 'admin.cac'| translate }} :</h6>
+                <span>{{ campaignDetailData.cac }}</span>
+              </div>
+            </li>
+            <li *ngIf="campaignDetailData.selected_social_media_name">
+              <div class="date_info" *ngIf="campaignDetailData.selected_social_media_name">
+                <h6>{{ 'admin.socialMediaName'| translate }} :</h6>
+                <span>{{ campaignDetailData.selected_social_media_name }}</span>
+              </div>
+              <div class="date_info" *ngIf="campaignDetailData.selected_social_media_url">
+                <h6>{{ 'admin.socialMediaUrl'| translate }} :</h6>
+                <span><a href="{{campaignDetailData.selected_social_media_url}}"
+                    target="_blank">{{ campaignDetailData.selected_social_media_url }}</a></span>
+              </div>
+            </li>
+            <li *ngIf="countryNames">
+              <h6>{{ 'admin.selectedCountries'| translate }}:</h6>
+              <span
+                title="{{ countryNames }}">{{ countryNames | slice:0:100 }}{{countryNames.length > 100 ? '...' : ''}}</span>
+            </li>
+            <li *ngIf="genderNames">
+              <h6>{{ 'admin.selectedGenders'| translate }} :</h6>
+              <span>{{ genderNames }}</span>
+            </li>
+            <li *ngIf="campaignDetailData.start_age">
+              <h6>{{ 'admin.ageGroup'| translate }} :</h6>
+              <span>{{ campaignDetailData.start_age }} - {{ campaignDetailData.end_age }} </span>
+            </li>
+            <li>
+              <div class="date_info">
+                <h6>{{ 'admin.totalBudget'| translate }} :</h6>
+                <span>{{ campaignDetailData.sub_total | currency: 'EUR' }}</span>
+              </div>
+              <div class="date_info">
+                <h6>{{ 'invoice.paidAmount'| translate }} :</h6>
+                <span>{{ campaignDetailData.total_budget | currency: 'EUR' }}</span>
+              </div>
+            </li>
+            <li>
+              <a type="submit" *ngIf="campaignDetailData.uploaded_video_url || campaignDetailData.video_id"
+                (click)="triggerVideoModal(modalDataVideo, modalContent)">
+                <img src="/assets/images/icon_video.png" class="image-type" alt="task type">
+                {{ 'user.watchVideo' | translate }}
+              </a>
+            </li>
+            <li class="w-100 mb-0 text-center" *ngIf="campaignDetailData.is_approved === 'PENDING'">
+              <div class="campaign_details">
+                <div class="can-toggle">
+                  <input id="campaign_status" type="checkbox">
+                  <label for="campaign_status">
+                    <input id="approveReject" type="checkbox" (change)="toggleApproveReject(approveReject)"
+                      [checked]="showCampaignApproved" #approveReject>
+                    <label for="approveReject">
+                      <div class="can-toggle__switch" [attr.data-checked]="'shared.approve' | translate " [attr.data-unchecked]="'shared.reject' | translate "></div>
+                    </label>
+                  </label>
+                </div>
+              </div>
+              <div class="date_info w-100 pull-left" *ngIf="campaignDetailData.is_approved === 'PENDING'">
+                <form [formGroup]="brandRejectForm">
+                  <div *ngIf="approved == 'REJECTED'" class="mb-4 reject_resone">
+                    <h6 class="text-start">{{ 'admin.rejectNote' | translate }}</h6>
+                    <textarea class="form-control" formControlName="note" rows="2"></textarea>
+                    <div
+                      *ngIf="brandRejectForm.controls['note'].errors && (brandRejectForm.controls['note'].dirty || brandRejectForm.controls['note'].touched) || submitted">
+                      <div *ngIf="brandRejectForm.controls['note'].errors?.required" class="text-danger error-msg">
+                        {{ 'shared.rejectCampaignNoteRequired' | translate }} </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+          </ul>
+
+          <div class="d-flex justify-content-center task_btn" *ngIf="campaignDetailData.is_approved === 'PENDING'">
+            <button class="btn btn-green"
+              (click)="approveOrRejectCampaign(campaignDetailData.id,campaignDetailData.company_id)">{{ 'shared.btnSubmit' | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #modalDataVideo let-modal let-c="close" let-d="dismiss" id="videotask_modal">
+  <div class="modal-header">
+    <div class="w-100 d-flex justify-content-between align-center">
+      <h5 class="heading-green without_title video_title mt-2">video</h5>
+      <div class="with_coins">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body p-0">
+    <div class="row">
+      <div class="col-md-12 text-start">
+        <div class="video" [ngClass]="{'hide': !campaignDetailData.uploaded_video_url}">
+          <video id="watch-task-video" controls style="height: 500px;width: 100%;">
+            <source [src]="campaignDetailData.uploaded_video_url" type="video/mp4" />
+            {{ 'brand.browserNotSupported' | translate }}
+          </video>
+        </div>
+        <div class="video_properties" id="player"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>

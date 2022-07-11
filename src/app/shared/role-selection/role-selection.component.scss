@@ -1,0 +1,91 @@
+.account_type {
+    margin-top: 2rem;
+    > div {
+        .img-btn-main {   
+            border-radius: 2rem;
+            padding: 3rem;
+            box-shadow: 0 0 1.5rem rgb(0 0 0 / 40%);
+            height: calc(100% - 3rem);
+            margin: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            float: left;
+            width: calc(100% - 3rem);
+            .account_type_inner {
+                .account_type_img {
+                    height: 12rem;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                h2 {
+                    font-weight: bold;
+                    font-size: 2.2rem;
+                }
+                p {
+                    color: #A1AED4;
+                    margin: 0;
+                    a {
+                        color: #A1AED4;
+                        text-decoration: none;
+                        &:hover, &:focus {
+                            color: #74FAAA !important;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .account_type {
+        > div {
+            .img-btn-main {   
+                padding: 1.5rem;
+                height: calc(100% - 1rem);
+                margin: 0.5rem;
+                width: calc(100% - 1rem); 
+                .d-flex button {
+                    height: 35px;
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 991px) {
+    .account_type {
+        margin-top: 1.5rem;
+        > div {
+            margin-bottom: 1.5rem;
+            .img-btn-main {   
+                padding: 1.5rem;
+                height: calc(100% - 1.5rem);
+                margin: 0.5rem 0rem;
+                width: 100%;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 767px) {
+    .account_type {
+        margin-top: 1.5rem;
+        > div {
+            margin-bottom: 1.5rem;
+            .img-btn-main {   
+                padding: 1rem;
+                height: 100%;
+                margin: 0;
+                width: 100%;
+                .d-flex {
+                    width: 100%;
+                    button {
+                        min-width: calc(50% - 0.5rem);
+                    }
+                }
+            }
+        }
+    }
+}

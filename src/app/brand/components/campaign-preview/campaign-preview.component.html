@@ -1,0 +1,158 @@
+<div class="campaign_tab">
+    <div class="background-primary mb-4 br-10 w-100 p-3 pb-5 p-md-3 pb-md-5 pb-sm-5 preview_info">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 profile_img">
+                <div class="profile_main">
+                    <div class="profile-img">
+                    <span>
+                        <img class="img-upload" [src]="campaignImage ? campaignImage : '/assets/images/brand-1.png'">
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="preview_highlight col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+                <ul class="preview_text">
+                    <li>
+                        <h6>{{ 'brand.campaignName' | translate }} :</h6>
+                        <span>{{ campaignName }}</span>
+                    </li>
+                    <li>
+                        <div class="date_info">
+                            <h6>{{ 'brand.startingDate' | translate }} :</h6>
+                            <span>{{ startingDate | date: 'dd-MM-YYYY'  }}</span>
+                        </div>
+                        <div class="date_info">
+                            <h6>{{ 'brand.endingDate' | translate }} :</h6>
+                            <span>{{ endingDate | date: 'dd-MM-YYYY' }}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <h6>{{ 'brand.goalOfCampaign' | translate }} :</h6>
+                        <span>{{ goalOfTheCampaign }}</span>
+                    </li>
+                    <li>
+                        <h6>{{ 'brand.productInformation' | translate }} :</h6>
+                        <span>{{ productInformation }}</span>
+                    </li>
+                    <li  *ngIf="downloadLink">
+                        <h6>{{ 'brand.downloadLink' | translate }}:</h6>
+                        <span><a href="{{downloadLink}}" target="_blank">{{ downloadLink }}</a></span>
+                    </li>
+                    <li  *ngIf="websiteUrl">
+                        <h6>{{ 'brand.websiteUrl' | translate }}:</h6>
+                        <span><a href="{{websiteUrl}}" target="_blank">{{ websiteUrl }}</a></span>
+                    </li>
+                    <li  *ngIf="selectedSocialMediaName">
+                        <h6>{{ 'brand.socialMediaName' | translate }}:</h6>
+                        <span>{{ selectedSocialMediaName }}</span>
+                    </li>
+                    <li  *ngIf="videoUrl">
+                        <h6>{{ 'brand.videoUrl' | translate }}:</h6>
+                        <a type="submit" (click)="triggerVideoModal(modalDataVideo, modalContent)">
+                            <img src="/assets/images/icon_video.png" class="image-type" alt="task type"> {{ 'user.watchVideo' | translate }}
+                        </a>
+                    </li>
+                    <li *ngIf="youtube_video_url">
+                        <h6>{{ 'brand.enterYoutubeVideoLink' | translate }}:</h6>
+                        <a type="submit" (click)="triggerVideoModal(modalDataVideo, modalContent)">
+                            <img src="/assets/images/icon_video.png" class="image-type" alt="task type"> {{ 'user.watchVideo' | translate }}
+                        </a>
+                    </li>
+                    <li  *ngIf="socialMediaUrl">
+                        <h6>{{ 'brand.socialMediaLink' | translate }}:</h6>
+                        <span><a href="{{socialMediaUrl}}" target="_blank">{{ socialMediaUrl }}</a></span>
+                    </li>
+                    <li>
+                        <div class="date_info" *ngIf="startAge">
+                            <h6>{{ 'brand.ageGroup'| translate }} :</h6>
+                            <span>{{ startAge }} - {{ endAge }}</span>
+                        </div>
+                        <div class="date_info" *ngIf="genderNames">
+                            <h6>{{'brandLeadCampaign.gender' | translate}} :</h6>
+                            <span>{{ genderNames }}</span>
+                        </div>
+                    </li>
+                    <li *ngIf="countryNames">
+                        <h6>{{'brandLeadCampaign.country' | translate}} :</h6>
+                        <span title="{{ countryNames }}">{{ countryNames | slice:0:100 }}{{countryNames.length > 100 ? '...' : ''}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="preview_highlight">
+            <ul class="heighlight heighlight mt-4 mb-3">
+                <li class="col">
+                    <h5>{{ usersTarget }}</h5>
+                    <span>{{ 'shared.usersTarget' | translate }}</span>
+                </li>
+                <li class="col">
+                    <h5>{{ cac }} &euro;</h5>
+                    <span>CAC</span>
+                </li>
+                <li class="col">
+                    <h5>{{ totalBudget }} &euro;</h5>
+                    <span>{{ 'brand.totalBudget' | translate }}</span>
+                </li>
+                <li class="col">
+                    <h5>{{ taxAmount }} &euro;</h5>
+                    <span>{{ 'brand.taxAmount' | translate }}(21%)</span>
+                </li>
+                <li class="col heighlight_amount">
+                    <h5>{{ amountPay }} &euro;</h5>
+                    <span>{{ 'brand.amountPay' | translate }}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="payment_mode">
+            <div class="campaign_details">
+                <label>{{ 'brand.paymentMode' | translate }}: </label>
+                <div class="can-toggle">
+                  <input id="campaign_status" type="checkbox">
+                  <label for="campaign_status">
+                    <input id="paymentStatus" type="checkbox" (change)="selectPaymentMode(paymentStatus)" [checked]="true"  #paymentStatus>
+                    <label for="paymentStatus">
+                      <div class="can-toggle__switch" data-checked="Paypal" data-unchecked="Bank transfer"></div>
+                    </label>
+                  </label>
+                </div>
+            </div>
+        </div>
+        <ul class="bank_info" *ngIf="paymentType === 'Bank Transfer'">
+        <!-- <ul class="bank_info" *ngIf="selectedTab === 'campaignPreview' && campaignPreviewComponent.paymentType === 'Bank Transfer'"> -->
+            <li>
+                <h6>{{'brand.bankName' | translate}}:</h6>
+                <span>Banco Sabadell</span>
+              </li>
+            <li>
+              <h6>{{'brand.accountNumber' | translate}}:</h6>
+              <span>ES09 0081 1020 1100 0157 3965</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<ng-template #modalDataVideo let-modal let-c="close" let-d="dismiss" id="videotask_modal">
+    <div class="modal-header">
+      <div class="w-100 d-flex justify-content-between align-center">
+        <h5 class="heading-green without_title video_title mt-2">video</h5>
+        <div class="with_coins">
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body p-0">
+      <div class="row">
+        <div class="col-md-12 text-start">
+            <div class="video" [ngClass]="{'hide': !videoUrl}">
+                <video id="watch-task-video" controls  style="height: 500px;width: 100%;">
+                    <source [src]="videoUrl" type="video/mp4" />
+                                {{ 'brand.browserNotSupported' | translate }}
+                </video>
+            </div>
+            <div class="video_properties" id="player"></div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
