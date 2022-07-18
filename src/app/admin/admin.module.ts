@@ -17,62 +17,68 @@ import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { CampaignStatisticsComponent } from './components/campaign-statistics/campaign-statistics.component';
 import { InvoicesComponent } from './components/invoices/invoices.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import {ConfirmDialogComponent} from './confirm-dialog.component';
+import { ConfirmDialogComponent } from './confirm-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { DatepickerModule } from 'ng2-datepicker';
 import { GiftCardDetailsComponent } from './components/gift-card-details/gift-card-details.component';
 import { InternalDashboardComponent } from './components/internal-dashboard/internal-dashboard.component';
+import { FormCampaignDataComponent } from '../brand/components/form-campaign-data/form-campaign-data.component';
 const routes: Routes = [
   {
-    path: 'admin/login', 
+    path: 'admin/login',
     component: LoginComponent,
   },
   {
-    path: 'admin/users', 
+    path: 'admin/users',
     component: UsersComponent,
   },
   {
-    path: 'admin/user-details/:id', 
+    path: 'admin/user-details/:id',
     component: UsersDetailsComponent,
   },
   {
-    path: 'admin/brands', 
+    path: 'admin/brands',
     component: BrandsComponent,
   },
   {
-    path: 'admin/brands-details/:id', 
+    path: 'admin/brands-details/:id',
     component: BrandsDetailsComponent,
   },
   {
-    path: 'admin/statistics', 
+    path: 'admin/statistics',
     component: CampaignStatisticsComponent,
   },
   {
-    path: 'admin/campaigns', 
+    path: 'admin/campaigns',
     component: CampaignsComponent,
   },
   {
-    path: 'admin/invoices', 
+    path: 'admin/invoices',
     component: InvoicesComponent,
   },
   {
-    path: 'admin/dashboard', 
+    path: 'admin/dashboard',
     component: DashboardComponent,
   },
   {
-    path: 'admin/reports', 
+    path: 'admin/reports',
     component: ReportsComponent,
   },
   {
-    path: 'admin/giftCardDetails', 
+    path: 'admin/giftCardDetails',
     component: GiftCardDetailsComponent,
   },
   {
-    path: 'admin/internalDashboard', 
+    path: 'admin/internalDashboard',
     component: InternalDashboardComponent,
-  }
+  },
+  {
+    path: 'admin/showCampaignQuestions',
+    component: FormCampaignDataComponent,
+  },
+
 ]
 
 @NgModule({
@@ -102,12 +108,12 @@ const routes: Routes = [
     DatepickerModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
-  }),
-  NgCircleProgressModule.forRoot(),
+    }),
+    NgCircleProgressModule.forRoot(),
     RouterModule.forChild(routes)
   ]
 })

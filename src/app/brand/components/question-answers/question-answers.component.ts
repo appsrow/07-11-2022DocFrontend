@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { BrandService } from '../../services/brand.service';
 
 @Component({
@@ -13,7 +13,8 @@ export class QuestionAnswersComponent implements OnInit {
   answersData: any;
   questionText: string;
   constructor(private route: ActivatedRoute,
-    private brandService: BrandService) { }
+    private brandService: BrandService,
+    private router: Router) { }
 
   async ngOnInit() {
     await this.route.queryParams.subscribe(
@@ -32,15 +33,15 @@ export class QuestionAnswersComponent implements OnInit {
 
     const response: any = await this.brandService.getQuestionAnswers(requestParams);
     if (response.success) {
-      debugger
       this.questionText = response.data.question_test;
       this.answersData = response.data.form_answers;
       console.log('answersData', this.answersData);
 
     }
+  }
 
-
-
+  goToCampaigns() {
+    this.router.navigate(['brand/myCampaign']);
   }
 
 

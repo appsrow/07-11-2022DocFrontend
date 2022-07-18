@@ -5,9 +5,11 @@
       <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
           <div class="form-group">
-            <label class="lbl-input">{{ 'brand.formName' | translate }}<span class="text-danger error-msg">*</span></label>
+            <label class="lbl-input">{{ 'brand.formName' | translate }}<span
+                class="text-danger error-msg">*</span></label>
             <input type="text" formControlName="formName" class="form-control">
-            <div *ngIf="questionsForm.controls['formName'].errors && (questionsForm.controls['formName'].dirty || questionsForm.controls['formName'].touched) || submitted">
+            <div
+              *ngIf="questionsForm.controls['formName'].errors && (questionsForm.controls['formName'].dirty || questionsForm.controls['formName'].touched) || submitted">
               <div *ngIf="questionsForm.controls['formName'].errors?.required" class="text-danger error-msg">
                 {{ 'brand.formNameRequired' | translate }}</div>
             </div>
@@ -18,7 +20,8 @@
             <label class="lbl-input">{{ 'brand.formDescription' | translate }}<span
                 class="text-danger error-msg">*</span></label>
             <textarea class="form-control" formControlName="formDescription" rows="2" maxlength="200"></textarea>
-            <div *ngIf="questionsForm.controls['formDescription'].errors && (questionsForm.controls['formDescription'].dirty || questionsForm.controls['formDescription'].touched) || submitted">
+            <div
+              *ngIf="questionsForm.controls['formDescription'].errors && (questionsForm.controls['formDescription'].dirty || questionsForm.controls['formDescription'].touched) || submitted">
               <div *ngIf="questionsForm.controls['formDescription'].errors?.required" class="text-danger error-msg">
                 {{ 'brand.formDescriptionRequired' | translate }}</div>
             </div>
@@ -52,47 +55,44 @@
               </div>
             </div>
             <div class="btn-group">
-              <button class="btn btn-outline-success" (click)="addformQuestions()">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                    viewBox="0 0 60.364 60.364" style="enable-background:new 0 0 60.364 60.364;" xml:space="preserve" fill="currentColor">
+              <!-- <button class="btn btn-outline-success" (click)="addformQuestions()">
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60.364 60.364"
+                  style="enable-background:new 0 0 60.364 60.364;" xml:space="preserve" fill="currentColor">
                   <g>
-                    <path d="M54.454,23.18l-18.609-0.002L35.844,5.91C35.845,2.646,33.198,0,29.934,0c-3.263,0-5.909,2.646-5.909,5.91v17.269
+                    <path
+                      d="M54.454,23.18l-18.609-0.002L35.844,5.91C35.845,2.646,33.198,0,29.934,0c-3.263,0-5.909,2.646-5.909,5.91v17.269
                       L5.91,23.178C2.646,23.179,0,25.825,0,29.088c0.002,3.264,2.646,5.909,5.91,5.909h18.115v19.457c0,3.267,2.646,5.91,5.91,5.91
-                      c3.264,0,5.909-2.646,5.91-5.908V34.997h18.611c3.262,0,5.908-2.645,5.908-5.907C60.367,25.824,57.718,23.178,54.454,23.18z"/>
+                      c3.264,0,5.909-2.646,5.91-5.908V34.997h18.611c3.262,0,5.908-2.645,5.908-5.907C60.367,25.824,57.718,23.178,54.454,23.18z" />
                   </g>
                 </svg>
-              </button>
-              <button class="btn btn-outline-danger" (click)="onRemoveRow(index)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
-                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+              </button> -->
+              <button class="btn btn-outline-danger" (click)="onRemoveRow(index)" *ngIf="index > 0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z">
+                  </path>
+                  <path fill-rule="evenodd"
+                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z">
+                  </path>
                 </svg>
                 <!-- {{ 'Delete' | translate }} -->
               </button>
             </div>
           </div>
-          <!-- <div class="col-sm-12 col-md-12 col-lg-4 col-xl-1 mb-4" *ngIf="index != 0">
-            <button class="btn btn-outline-danger remove_que" (click)="onRemoveRow(index)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
-                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
-              </svg> -->
-              <!-- {{ 'Delete' | translate }} -->
-            <!-- </button>
-          </div> -->
-          <!-- <div class="col-sm-12 col-md-12 col-lg-4 col-xl-2"> -->
-          <!-- </div> -->
           <div class="op_content" *ngIf="IsOptionShow(row, index)">
             <div class="row">
               <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 mb-3 mb-lg-0">
                 <div class="form-group">
                   <label class="lbl-input">{{ 'brand.option' | translate }} 1<span
                       class="text-danger error-msg">*</span></label>
-                  <input type="text" class="form-control" [formControl]="formcontrol(row,'option1')">
+                  <input type="text" class="form-control required" ng-required="true"
+                    [formControl]=" formcontrol(row,'option1')">
                   <div
                     *ngIf="formcontrol(row,'option1').errors && (formcontrol(row,'option1').dirty || formcontrol(row,'option1').touched) || submitted">
                     <div *ngIf="formcontrol(row,'option1').errors?.required" class="text-danger error-msg">
-                      {{ 'brand.formNameRequired' | translate }}</div>
+                      {{ 'brand.option1Required' | translate }}</div>
                   </div>
                 </div>
               </div>
@@ -100,29 +100,42 @@
                 <div class="form-group">
                   <label class="lbl-input">{{ 'brand.option' | translate }} 2<span
                       class="text-danger error-msg">*</span></label>
-                  <input type="text" class="form-control" [formControl]="formcontrol(row,'option2')">
+                  <input type="text" class="form-control required" [formControl]="formcontrol(row,'option2')">
+                  <div
+                    *ngIf="formcontrol(row,'option2').errors && (formcontrol(row,'option2').dirty || formcontrol(row,'option2').touched) || submitted">
+                    <div *ngIf="formcontrol(row,'option2').errors?.required" class="text-danger error-msg">
+                      {{ 'brand.option2Required' | translate }}</div>
+                  </div>
                 </div>
               </div>
               <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 mb-3 mb-md-0">
                 <div class="form-group">
-                  <label class="lbl-input">{{ 'brand.option' | translate }} 3<span
-                      class="text-danger error-msg">*</span></label>
+                  <label class="lbl-input">{{ 'brand.option' | translate }} 3</label>
                   <input type="text" class="form-control" [formControl]="formcontrol(row,'option3')">
                 </div>
               </div>
               <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 mb-0">
                 <div class="form-group">
-                  <label class="lbl-input">{{ 'brand.option' | translate }} 4<span
-                      class="text-danger error-msg">*</span></label>
+                  <label class="lbl-input">{{ 'brand.option' | translate }} 4</label>
                   <input type="text" class="form-control" [formControl]="formcontrol(row,'option4')">
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
       </ng-container>
-      
+      <button class="btn btn-outline-success" (click)="addformQuestions()">
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px" y="0px" viewBox="0 0 60.364 60.364" style="enable-background:new 0 0 60.364 60.364;"
+          xml:space="preserve" fill="currentColor">
+          <g>
+            <path
+              d="M54.454,23.18l-18.609-0.002L35.844,5.91C35.845,2.646,33.198,0,29.934,0c-3.263,0-5.909,2.646-5.909,5.91v17.269
+              L5.91,23.178C2.646,23.179,0,25.825,0,29.088c0.002,3.264,2.646,5.909,5.91,5.909h18.115v19.457c0,3.267,2.646,5.91,5.91,5.91
+              c3.264,0,5.909-2.646,5.91-5.908V34.997h18.611c3.262,0,5.908-2.645,5.908-5.907C60.367,25.824,57.718,23.178,54.454,23.18z" />
+          </g>
+        </svg> {{ 'brand.addNewQuestion' | translate }}
+      </button>
     </div>
   </form>
 </div>

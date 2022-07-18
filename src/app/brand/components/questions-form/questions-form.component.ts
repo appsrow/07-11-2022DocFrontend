@@ -127,8 +127,8 @@ export class QuestionsFormComponent implements OnInit {
       this.formBuilder.group({
         questionType: [row.questionType, Validators.required],
         questionText: [row.questionText, Validators.required],
-        option1: [row.option1],
-        option2: [row.option2],
+        option1: [row.option1, Validators.required],
+        option2: [row.option2, Validators.required],
         option3: [row.option3],
         option4: [row.option4]
       })
@@ -141,8 +141,8 @@ export class QuestionsFormComponent implements OnInit {
     return this.formBuilder.group({
       questionType: ['', Validators.required],
       questionText: ['', Validators.required],
-      option1: [''],
-      option2: [''],
+      option1: ['', Validators.required],
+      option2: ['', Validators.required],
       option3: [''],
       option4: ['']
     });
@@ -154,14 +154,10 @@ export class QuestionsFormComponent implements OnInit {
   }
 
   formcontrol(row: any, columnname: string) {
-    return row.get(columnname)
-
+    return row.get(columnname);
   }
 
   IsOptionShow(row: any, index: number) {
-    // console.log('ROW', row);
-    // console.log('index', index);
-
     if (row.controls.questionType.value != null || row.controls.questionType.value != undefined) {
       if (row.controls.questionType?.value[0]?.id == 1) { return true }
       return false;

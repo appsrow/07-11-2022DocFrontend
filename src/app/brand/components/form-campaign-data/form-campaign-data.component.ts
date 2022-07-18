@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrandService } from '../../services/brand.service';
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 
 @Component({
   selector: 'app-form-campaign-data',
@@ -11,6 +12,7 @@ export class FormCampaignDataComponent implements OnInit {
 
   campaignId: any;
   questionsData: any;
+  data: any = [];
   constructor(private route: ActivatedRoute,
     private brandService: BrandService,
     private router: Router) { }
@@ -38,6 +40,18 @@ export class FormCampaignDataComponent implements OnInit {
 
   getQuestionAnswers(questionId: string) {
     this.router.navigate(['/brand/questionAnswers'], { queryParams: { questionId: questionId } });
+  }
+
+  async downloadQuestionsReport() {
+    const response: any = await this.brandService.getQuestionsReportData(this.campaignId);
+    if (response.success) {
+      this.data = response.data;
+      console.log('this.data', this.data);
+
+      setTimeout(() => {
+        new ngxCsv(this.data, 'My Report');
+      }, 1000);
+    }
   }
 
 }

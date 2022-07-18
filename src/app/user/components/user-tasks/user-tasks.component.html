@@ -57,12 +57,12 @@
                 src="/assets/images/icon_visit.png" alt="Visit">
               {{ 'user.visit' | translate }}</button>
           </li>
-          <li class="nav-item" role="presentation" (click)="selectedType = 'forms'">
+          <!-- <li class="nav-item" role="presentation" (click)="selectedType = 'forms'">
             <button class="nav-link" [ngClass]="{'active': selectedType == 'forms'}" data-bs-toggle="pill"
               data-bs-target="#forms" type="button" role="tab" aria-selected="false">
               <img src="/assets/images/icon_form.png" alt="Form">
               Forms</button>
-          </li>
+          </li> -->
         </ul>
         <div *ngIf="noTask" class="heading-white text-center no_task_text">
           <h3 class="heading-green">{{ 'user.congratulations' | translate }}</h3>

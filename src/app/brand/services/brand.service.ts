@@ -183,4 +183,8 @@ export class BrandService {
     return this.apiService.post(this.baseUrl + 'brands/getQuestionAnswers', data);
   }
 
+  getQuestionsReportData(campaignId: number): Promise<LeadUsersResponseParameters> {
+    return this.apiService.get(`${this.baseUrl}brands/downloadQuestionsCsv/${campaignId}`);
+  }
+
 }

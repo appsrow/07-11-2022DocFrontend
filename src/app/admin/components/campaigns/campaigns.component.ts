@@ -307,4 +307,8 @@ export class CampaignsComponent implements OnInit {
     };
   }
 
+  goToBrandUsers(campaignId: number) {
+    this.router.navigate(['/admin/showCampaignQuestions'], { queryParams: { campaignId: campaignId } })
+  }
+
 }

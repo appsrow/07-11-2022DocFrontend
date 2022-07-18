@@ -11,5 +11,19 @@
             font-size: 1rem;
             color: #fff;
         }
+        .answers_label_count{
+            background: #070b28;
+            color: #74f695;
+            min-width: 1.5rem;
+            height: 1.5rem;
+            padding: 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.3rem;
+            margin-right: 0.6rem;
+            line-height: normal;
+            font-weight: bold;
+        }
     }
 }

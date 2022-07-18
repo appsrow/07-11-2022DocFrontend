@@ -101,7 +101,11 @@
         "option": "Opción",
         "questionTypeRequired": "El tipo de pregunta es obligatorio",
         "questionRequired": "La pregunta es obligatoria",
-        "getDataFromUsers": "Obtén información de los usuarios"
+        "getDataFromUsers": "Obtén información de los usuarios",
+        "addNewQuestion": "Agregar nueva pregunta",
+        "goToCampaigns": "ir a campañas",
+        "option1Required": "Se requiere la opción 1",
+        "option2Required": "Se requiere la opción 2"
     },
     "brandMyCampaign": {
         "myCampaign": "Mi campaña",

@@ -2,9 +2,13 @@
     <h1 class="section-head my-4">{{questionText}}</h1>
     <!-- <h1>Answers</h1> -->
     <ul class="form_campign_data p-0">
-        <li class="task-progress-main mb-3" *ngFor="let answer of answersData">
+        <li class="task-progress-main mb-3 d-flex flex-row" *ngFor="let answer of answersData; let i= index;">
+            <label class="answers_label answers_label_count">{{i + 1}}</label>
             <label class="answers_label">{{answer.answer}}</label>
         </li>
     </ul>
 </div>
-
+<div class="w-100 text-center mt-3 mb-3">
+    <button type="button" (click)="goToCampaigns()" class="btn btn-green btn-task">{{ 'brand.goToCampaigns'
+        | translate }} </button>
+</div>

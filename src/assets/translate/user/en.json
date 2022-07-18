@@ -41,7 +41,8 @@
         "enterValidFirstName": "Enter a valid first name",
         "deleteAccount": "If you wish to delete the account, please contact our support team at:",
         "Validate": "Validate",
-        "congratulations": "Congratulations!"
+        "congratulations": "Congratulations!",
+        "questionsForm": "Questions form"
     },
     "userRewards": {
         "rewards": "Rewards",

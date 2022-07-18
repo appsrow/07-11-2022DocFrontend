@@ -102,7 +102,11 @@
         "option": "Option",
         "questionTypeRequired": "Question type is required",
         "questionRequired": "Question is required",
-        "getDataFromUsers": "Get data from the users"
+        "getDataFromUsers": "Get data from the users",
+        "addNewQuestion": "Add new question",
+        "goToCampaigns": "Go to campaigns",
+        "option1Required": "Option 1 is required",
+        "option2Required": "Option 2 is required"
     },
     "brandMyCampaign": {
         "myCampaign": "My campaign",

@@ -24,9 +24,10 @@
                         <div class="form-check form-check-inline"
                             *ngFor="let answerOption of question.options; let j=index">
                             <input *ngIf="answerOption" mdbRadio class="form-check-input" type="radio"
-                                formControlName="questions{{question.id}}" id="inlineRadio1" value="{{answerOption}}" />
+                                formControlName="questions{{question.id}}" id="questions{{question.id}}"
+                                value="{{answerOption}}" />
                             <label *ngIf="answerOption" class="form-check-label"
-                                for="inlineRadio1">{{answerOption}}</label>
+                                for="questions{{question.id}}">{{answerOption}}</label>
                         </div>
                     </div>
                     <div class="radio-input" *ngIf="question.question_type_id == 5">

@@ -491,7 +491,6 @@ export class CampaignPreviewComponent implements OnInit {
               'description': this.questionsFormData.formDescription
             };
             const responseData: any = await this.brandService.insertFormData(formData);
-            debugger
             if (!responseData.success) {
               this.utilityService.showErrorToast('toast.failedToInsertFormDetails');
             }

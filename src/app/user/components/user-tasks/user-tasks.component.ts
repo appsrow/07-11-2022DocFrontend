@@ -1008,10 +1008,12 @@ export class UserTasksComponent implements OnInit {
   }
 
   openQuestionsForm(campaignId: number) {
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree(['/user/showQuestions/' + campaignId + ''])
-    );
-    window.open(url, '_blank');
+    this.modalReference.close();
+    this.router.navigate(['/user/showQuestions/' + campaignId]);
+    // const url = this.router.serializeUrl(
+    //   this.router.createUrlTree(['/user/showQuestions/' + campaignId + ''])
+    // );
+    // window.open(url);
   }
 
   async authInsta() {

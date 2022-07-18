@@ -1,14 +1,15 @@
 <div class="container">
     <div class="d-flex justify-content-sm-between flex-sm-row flex-column">
         <h1 class="section-head my-4">Questions report</h1>
-        <button class="download_question_btn btn btn-green my-4 mx-5 mx-sm-0 py-2">Download Questions Report</button>
+        <button class="download_question_btn btn btn-green my-4 mx-5 mx-sm-0 py-2"
+            (click)="downloadQuestionsReport()">Download Questions Report</button>
     </div>
     <div class="form_campign_data">
         <div class="task-progress-main mb-4" *ngFor="let question of questionsData">
             <div class="d-flex justify-content-between align-items-center">
                 <label class="form_question">Q. {{question.question_text}}</label>
-                <a href="javascript:void(0);" *ngIf="!question.options.length" type="button" class="lead_btn px-1"
-                    data-bs-toggle="modal" data-bs-target="#answersModal" title="Lead details"
+                <a href="javascript:void(0);" *ngIf="!question.options_with_percentage.length" type="button"
+                    class="lead_btn px-1" data-bs-toggle="modal" data-bs-target="#answersModal" title="Lead details"
                     (click)="getQuestionAnswers(question.id)">
                     <svg width="25" height="25" viewBox="0 0 20 20" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
@@ -26,10 +27,11 @@
             <!-- <label class="form_question">Q Lorem ipsum dolor sit, amet consectetur adipisicing elit.distinctio perspiciatis doloremque? </label> -->
             <div class="campign_data_option" *ngIf="question.options_with_percentage">
                 <div class="q_option d-flex flex-column" *ngFor="let option of question.options_with_percentage">
-                    <circle-progress [percent]="option['percentage']" [radius]="50" [space]="-12"
-                        [outerStrokeWidth]="12" [outerStrokeColor]="'#74FAAA'" [innerStrokeColor]="'#69728d'"
-                        [innerStrokeWidth]="12" [titleColor]="'#ffffff'" [titleFontSize]="'16'" [showSubtitle]="false"
-                        [animationDuration]="1000" [showBackground]="false" [startFromZero]="false" [showUnits]="false">
+                    <circle-progress *ngIf="option['option_value']" [percent]="option['percentage']" [radius]="50"
+                        [space]="-12" [outerStrokeWidth]="12" [outerStrokeColor]="'#74FAAA'"
+                        [innerStrokeColor]="'#69728d'" [innerStrokeWidth]="12" [titleColor]="'#ffffff'"
+                        [titleFontSize]="'16'" [showSubtitle]="false" [animationDuration]="1000"
+                        [showBackground]="false" [startFromZero]="false" [showUnits]="false">
                     </circle-progress>
                     <label class="opation_lable">{{option['option_value']}}</label>
                 </div>

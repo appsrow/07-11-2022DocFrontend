@@ -41,7 +41,8 @@
         "enterValidFirstName": "Introduce un nombre válido",
         "deleteAccount": "Si desea eliminar la cuenta, comuníquese con nuestro equipo de soporte en:",
         "Validate": "Validar",
-        "congratulations": "¡Enhorabuena!"
+        "congratulations": "¡Enhorabuena!",
+        "questionsForm": "Questions form"
     },
     "userRewards": {
         "rewards": "Recompensas",
